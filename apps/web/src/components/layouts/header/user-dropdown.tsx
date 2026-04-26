@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { User, Building, LifeBuoy, LogOut, Monitor, Key } from "lucide-react";
 import { UserHeader } from "@/@types/auth";
+import { useRouter } from "next/navigation";
+import { serverUrl } from "@/constants/urls";
 
 interface UserDropdownProps {
   user?: UserHeader;
@@ -19,6 +21,7 @@ interface UserDropdownProps {
 }
 
 export function UserDropdown({ user, isLoading }: UserDropdownProps) {
+  const router = useRouter();
   if (isLoading) {
     return (
       <div className="flex items-center gap-3 ml-2 pl-4 border-l border-slate-100">
@@ -106,7 +109,10 @@ export function UserDropdown({ user, isLoading }: UserDropdownProps) {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50">
+        <DropdownMenuItem
+          onSelect={() => router.push(`${serverUrl}/auth/logout`)}
+          className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
+        >
           <LogOut className="mr-2 h-4 w-4" />
           <span>Keluar</span>
         </DropdownMenuItem>

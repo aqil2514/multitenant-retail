@@ -1,5 +1,3 @@
-import { Header } from "@/components/layouts/header";
-import { ProtectedSidebar } from "@/components/layouts/protected-sidebar";
 import { getAuth } from "@/lib/get-auth";
 import {
   dehydrate,
@@ -8,7 +6,8 @@ import {
 } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import React from "react";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { getUserStores } from "@/lib/get-user-stores";
+import { headers } from "next/headers";
 
 export default async function ProtectedLayout({
   children,
@@ -16,6 +15,8 @@ export default async function ProtectedLayout({
   children: React.ReactNode;
 }) {
   const queryClient = new QueryClient();
+  const header = await headers();
+  const pathname = header.get("x-pathname");
 
   try {
     const userData = await queryClient.fetchQuery({
@@ -23,22 +24,21 @@ export default async function ProtectedLayout({
       queryFn: getAuth,
     });
 
-    if (  userData) {
+    if (!userData) {
       redirect("/login");
     }
   } catch {
     redirect("/login");
   }
 
+  if (pathname !== "/onboarding") {
+    const userStore = await getUserStores();
+    if (!userStore || userStore.length === 0) redirect("/onboarding");
+  }
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <SidebarProvider className="bg-zinc-50/50">
-        <ProtectedSidebar />
-        <SidebarInset>
-          <Header />
-          {children}
-        </SidebarInset>
-      </SidebarProvider>
+      {children}
     </HydrationBoundary>
   );
 }
