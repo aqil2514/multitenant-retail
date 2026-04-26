@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  database:
+    container_name: multi-retail-db
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: aqil_user
+      POSTGRES_PASSWORD: password_rahasia
+      POSTGRES_DB: multi_retail_db
+    ports:
+      - "54322:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
