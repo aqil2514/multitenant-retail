@@ -17,6 +17,7 @@ export default async function ProtectedLayout({
   const queryClient = new QueryClient();
   const header = await headers();
   const pathname = header.get("x-pathname");
+  console.log(pathname)
 
   try {
     const userData = await queryClient.fetchQuery({

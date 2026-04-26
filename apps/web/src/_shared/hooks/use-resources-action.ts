@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useQueryState } from "@/hooks/use-query-state";
-import { useFetch } from "@/hooks/use-fetch";
+import { useQueryState } from "@/_shared/hooks/use-query-state";
+import { useFetch } from "@/_shared/hooks/use-fetch";
 import { api } from "@/lib/api";
 import { toast } from "react-toastify";
 import { getErrorMessage } from "@/lib/toast/error";

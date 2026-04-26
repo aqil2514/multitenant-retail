@@ -47,7 +47,7 @@ export function BaseForm<
         if (process.env.NODE_ENV === "development") {
           console.error("Validation Errors:", errors);
         }
-        toast.error("Validasi gagal. Periksa kembali input dan coba lagi.");
+        toast.error("Ada data yang tidak valid. Periksa kembali input dan coba lagi.");
       })}
       className={className}
     >

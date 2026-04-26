@@ -13,6 +13,7 @@ import { serverUrl } from "@/constants/urls";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export function LoginAction() {
   const router = useRouter();
@@ -24,8 +25,14 @@ export function LoginAction() {
           position: "top-center",
           autoClose: 3000,
         });
-        router.push("/dashboard");
-        router.refresh();
+
+        axios.get("/api/stores").then(({ data: stores }) => {
+          if (!stores || stores.length === 0) {
+            router.push("/onboarding");
+          } else {
+            router.push(`/${stores[0].id}/dashboard`);
+          }
+        });
       }
     };
 
@@ -58,7 +65,9 @@ export function LoginAction() {
       <Card className="border-none shadow-none md:shadow-sm md:border">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl font-bold">Selamat Datang</CardTitle>
-          <CardDescription>Masuk ke akun Multitenant Retail Anda</CardDescription>
+          <CardDescription>
+            Masuk ke akun Multitenant Retail Anda
+          </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <Button
@@ -72,7 +81,8 @@ export function LoginAction() {
         </CardContent>
       </Card>
       <p className="mt-6 text-center text-xs text-muted-foreground leading-relaxed">
-        Dengan melanjutkan, Anda menyetujui Syarat Layanan dan Kebijakan Privasi kami.
+        Dengan melanjutkan, Anda menyetujui Syarat Layanan dan Kebijakan Privasi
+        kami.
       </p>
     </div>
   );

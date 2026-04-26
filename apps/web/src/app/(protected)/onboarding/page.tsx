@@ -1,3 +1,4 @@
+import { OnBoardingTemplate } from "@/features/onboarding/onboarding.template";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -5,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function OnboardingPage(){
-    return <div>OK</div>
+    return <OnBoardingTemplate />
 }
