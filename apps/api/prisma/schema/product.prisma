@@ -26,11 +26,22 @@ model Product {
 }
 
 model ProductCategory {
-    id       String    @unique @default(uuid()) @db.Uuid
-    name     String
-    storeId  String    @db.Uuid
-    store    Store     @relation(fields: [storeId], references: [id])
+    id          String  @id @unique @default(uuid()) @db.Uuid
+    name        String
+    description String?
+
+    storeId String @db.Uuid
+    store   Store  @relation(fields: [storeId], references: [id])
+
+    parentId String?           @db.Uuid
+    parent   ProductCategory?  @relation("CategoryToSub", fields: [parentId], references: [id])
+    children ProductCategory[] @relation("CategoryToSub")
+
     products Product[]
+
+    createdAt DateTime  @default(now()) @db.Timestamptz()
+    updatedAt DateTime?  @updatedAt @db.Timestamptz()
+    deletedAt DateTime? @db.Timestamptz()
 
     @@map("product_categories")
 }

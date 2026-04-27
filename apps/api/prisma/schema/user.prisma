@@ -11,8 +11,23 @@ model User {
   createdAt DateTime  @default(now()) @db.Timestamptz()
   updatedAt DateTime  @updatedAt @db.Timestamptz()
   deletedAt DateTime? @db.Timestamptz()
-  stores    Store[]
+
+  stores     Store[]
+  storeUsers StoreUser[]
 
   @@map("users")
 }
 
+model StoreUser {
+  id   String @id @default(uuid()) @db.Uuid
+  role String @default("crew")
+
+  userId  String @db.Uuid
+  storeId String @db.Uuid
+
+  user  User  @relation(fields: [userId], references: [id])
+  store Store @relation(fields: [storeId], references: [id])
+
+  @@unique([userId, storeId])
+  @@map("store_users")
+}

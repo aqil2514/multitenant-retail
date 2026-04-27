@@ -10,7 +10,7 @@ const prisma = new PrismaClient({
   }),
 });
 
-const parentId = 'bbe760d0-d4e9-45e7-a8f7-cc8345cead5e';
+const parentId = 'aacd8abf-a748-4e74-a065-f4075c922484';
 
 // npx tsx scripts/delete-data.ts
 async function main() {

@@ -1,6 +1,12 @@
 "use client";
 
+import MainContainer from "@/_shared/containers/main-container";
 import { ProductCategoryProvider } from "./pc.context";
+import { PageHeader } from "@/_shared/molecules/page-header";
+import { ProductsCategoryTable } from "./tables";
+import { ProductsCategoryController } from "./controller";
+import { ProductsCategoryAdd } from "./dialogs/pc.add";
+import { ProductsCategoryEdit } from "./dialogs/pc.edit";
 interface Props {
   storeSlug: string;
 }
@@ -14,5 +20,19 @@ export function ProductCategoryTemplate({ storeSlug }: Props) {
 }
 
 const ProductCategoryContent = () => {
-  return <div>OK</div>;
+  return (
+    <>
+      <MainContainer>
+        <PageHeader
+          title="Kategori Produk"
+          description="Atur Kategori Produk Anda"
+        />
+        <ProductsCategoryController />
+        <ProductsCategoryTable />
+      </MainContainer>
+
+      <ProductsCategoryAdd />
+      <ProductsCategoryEdit />
+    </>
+  );
 };

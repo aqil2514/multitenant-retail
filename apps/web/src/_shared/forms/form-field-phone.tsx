@@ -152,7 +152,7 @@ export function FormFieldPhone<
         name={name}
         control={form.control}
         render={({ field, fieldState }) => {
-          const { code, dial, local } = splitE164(
+          const { code, local } = splitE164(
             field.value ?? "",
             COUNTRY_LIST,
           );

@@ -38,7 +38,7 @@ export class OnBoardingService {
 
   async createNewStoreService(userId: string, payload: OnBoardingDto) {
     const { slug, id } = await this.createNewStoreDb(userId, payload);
-    this.eventEmitter.emit('onboarding.created', id);
+    this.eventEmitter.emit('onboarding.created', { storeId: id, userId });
 
     return slug;
   }

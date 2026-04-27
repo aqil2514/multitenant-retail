@@ -64,3 +64,8 @@ export type Store = Prisma.StoreModel
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model StoreUser
+ * 
+ */
+export type StoreUser = Prisma.StoreUserModel

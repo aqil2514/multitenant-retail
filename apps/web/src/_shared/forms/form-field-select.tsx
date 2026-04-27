@@ -62,7 +62,7 @@ export function FormFieldSelect<
 
             <Select
               // Gunakan undefined jika value kosong agar placeholder muncul
-              value={field.value ? String(field.value) : undefined}
+              value={field.value === "" ? undefined : String(field.value)}
               onValueChange={field.onChange}
               disabled={isSubmitting || isLoading}
             >

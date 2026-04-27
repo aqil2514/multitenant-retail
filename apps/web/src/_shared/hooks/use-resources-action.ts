@@ -110,7 +110,7 @@ export function useResourceAction<T>({
     refetch,
   } = useFetch<T>(
     [`${resourceKey}-${id}`],
-    `${endpoint}/${id}`,
+    id ? `${endpoint}/${id}` : endpoint,
     !!id && isOpen,
   );
 

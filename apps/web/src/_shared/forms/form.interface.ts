@@ -11,7 +11,7 @@ export interface BasicFormFieldProps<
   className?: string;
 }
 
-export interface BaseFormComponentProps<T> {
-  defaultValues?: T;
-  onSubmit: (values: T) => Promise<void> | void;
+export interface BaseFormComponentProps<TInput, TOutput = TInput> {
+  defaultValues?: TInput;
+  onSubmit: (values: TOutput) => Promise<void> | void;
 }

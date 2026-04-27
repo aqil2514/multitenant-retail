@@ -218,6 +218,7 @@ export type StoreWhereInput = {
   products?: Prisma.ProductListRelationFilter
   productCategories?: Prisma.ProductCategoryListRelationFilter
   stockLogs?: Prisma.StockLogListRelationFilter
+  storeUsers?: Prisma.StoreUserListRelationFilter
 }
 
 export type StoreOrderByWithRelationInput = {
@@ -234,6 +235,7 @@ export type StoreOrderByWithRelationInput = {
   products?: Prisma.ProductOrderByRelationAggregateInput
   productCategories?: Prisma.ProductCategoryOrderByRelationAggregateInput
   stockLogs?: Prisma.StockLogOrderByRelationAggregateInput
+  storeUsers?: Prisma.StoreUserOrderByRelationAggregateInput
 }
 
 export type StoreWhereUniqueInput = Prisma.AtLeast<{
@@ -253,6 +255,7 @@ export type StoreWhereUniqueInput = Prisma.AtLeast<{
   products?: Prisma.ProductListRelationFilter
   productCategories?: Prisma.ProductCategoryListRelationFilter
   stockLogs?: Prisma.StockLogListRelationFilter
+  storeUsers?: Prisma.StoreUserListRelationFilter
 }, "id" | "slug">
 
 export type StoreOrderByWithAggregationInput = {
@@ -298,6 +301,7 @@ export type StoreCreateInput = {
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
   productCategories?: Prisma.ProductCategoryCreateNestedManyWithoutStoreInput
   stockLogs?: Prisma.StockLogCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateInput = {
@@ -313,6 +317,7 @@ export type StoreUncheckedCreateInput = {
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   productCategories?: Prisma.ProductCategoryUncheckedCreateNestedManyWithoutStoreInput
   stockLogs?: Prisma.StockLogUncheckedCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUpdateInput = {
@@ -328,6 +333,7 @@ export type StoreUpdateInput = {
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
   productCategories?: Prisma.ProductCategoryUpdateManyWithoutStoreNestedInput
   stockLogs?: Prisma.StockLogUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateInput = {
@@ -343,6 +349,7 @@ export type StoreUncheckedUpdateInput = {
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   productCategories?: Prisma.ProductCategoryUncheckedUpdateManyWithoutStoreNestedInput
   stockLogs?: Prisma.StockLogUncheckedUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreCreateManyInput = {
@@ -515,6 +522,20 @@ export type StoreUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.StoreScalarWhereInput | Prisma.StoreScalarWhereInput[]
 }
 
+export type StoreCreateNestedOneWithoutStoreUsersInput = {
+  create?: Prisma.XOR<Prisma.StoreCreateWithoutStoreUsersInput, Prisma.StoreUncheckedCreateWithoutStoreUsersInput>
+  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutStoreUsersInput
+  connect?: Prisma.StoreWhereUniqueInput
+}
+
+export type StoreUpdateOneRequiredWithoutStoreUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.StoreCreateWithoutStoreUsersInput, Prisma.StoreUncheckedCreateWithoutStoreUsersInput>
+  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutStoreUsersInput
+  upsert?: Prisma.StoreUpsertWithoutStoreUsersInput
+  connect?: Prisma.StoreWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StoreUpdateToOneWithWhereWithoutStoreUsersInput, Prisma.StoreUpdateWithoutStoreUsersInput>, Prisma.StoreUncheckedUpdateWithoutStoreUsersInput>
+}
+
 export type StoreCreateWithoutProductsInput = {
   id?: string
   name: string
@@ -527,6 +548,7 @@ export type StoreCreateWithoutProductsInput = {
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   productCategories?: Prisma.ProductCategoryCreateNestedManyWithoutStoreInput
   stockLogs?: Prisma.StockLogCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateWithoutProductsInput = {
@@ -541,6 +563,7 @@ export type StoreUncheckedCreateWithoutProductsInput = {
   deletedAt?: Date | string | null
   productCategories?: Prisma.ProductCategoryUncheckedCreateNestedManyWithoutStoreInput
   stockLogs?: Prisma.StockLogUncheckedCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreCreateOrConnectWithoutProductsInput = {
@@ -571,6 +594,7 @@ export type StoreUpdateWithoutProductsInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   productCategories?: Prisma.ProductCategoryUpdateManyWithoutStoreNestedInput
   stockLogs?: Prisma.StockLogUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateWithoutProductsInput = {
@@ -585,6 +609,7 @@ export type StoreUncheckedUpdateWithoutProductsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   productCategories?: Prisma.ProductCategoryUncheckedUpdateManyWithoutStoreNestedInput
   stockLogs?: Prisma.StockLogUncheckedUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreCreateWithoutProductCategoriesInput = {
@@ -599,6 +624,7 @@ export type StoreCreateWithoutProductCategoriesInput = {
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
   stockLogs?: Prisma.StockLogCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateWithoutProductCategoriesInput = {
@@ -613,6 +639,7 @@ export type StoreUncheckedCreateWithoutProductCategoriesInput = {
   deletedAt?: Date | string | null
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   stockLogs?: Prisma.StockLogUncheckedCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreCreateOrConnectWithoutProductCategoriesInput = {
@@ -643,6 +670,7 @@ export type StoreUpdateWithoutProductCategoriesInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
   stockLogs?: Prisma.StockLogUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateWithoutProductCategoriesInput = {
@@ -657,6 +685,7 @@ export type StoreUncheckedUpdateWithoutProductCategoriesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   stockLogs?: Prisma.StockLogUncheckedUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreCreateWithoutStockLogsInput = {
@@ -671,6 +700,7 @@ export type StoreCreateWithoutStockLogsInput = {
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
   productCategories?: Prisma.ProductCategoryCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateWithoutStockLogsInput = {
@@ -685,6 +715,7 @@ export type StoreUncheckedCreateWithoutStockLogsInput = {
   deletedAt?: Date | string | null
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   productCategories?: Prisma.ProductCategoryUncheckedCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreCreateOrConnectWithoutStockLogsInput = {
@@ -715,6 +746,7 @@ export type StoreUpdateWithoutStockLogsInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
   productCategories?: Prisma.ProductCategoryUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateWithoutStockLogsInput = {
@@ -729,6 +761,7 @@ export type StoreUncheckedUpdateWithoutStockLogsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   productCategories?: Prisma.ProductCategoryUncheckedUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreCreateWithoutOwnerInput = {
@@ -743,6 +776,7 @@ export type StoreCreateWithoutOwnerInput = {
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
   productCategories?: Prisma.ProductCategoryCreateNestedManyWithoutStoreInput
   stockLogs?: Prisma.StockLogCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateWithoutOwnerInput = {
@@ -757,6 +791,7 @@ export type StoreUncheckedCreateWithoutOwnerInput = {
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   productCategories?: Prisma.ProductCategoryUncheckedCreateNestedManyWithoutStoreInput
   stockLogs?: Prisma.StockLogUncheckedCreateNestedManyWithoutStoreInput
+  storeUsers?: Prisma.StoreUserUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreCreateOrConnectWithoutOwnerInput = {
@@ -800,6 +835,82 @@ export type StoreScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"Store"> | Date | string | null
 }
 
+export type StoreCreateWithoutStoreUsersInput = {
+  id?: string
+  name: string
+  slug: string
+  address?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  owner: Prisma.UserCreateNestedOneWithoutStoresInput
+  products?: Prisma.ProductCreateNestedManyWithoutStoreInput
+  productCategories?: Prisma.ProductCategoryCreateNestedManyWithoutStoreInput
+  stockLogs?: Prisma.StockLogCreateNestedManyWithoutStoreInput
+}
+
+export type StoreUncheckedCreateWithoutStoreUsersInput = {
+  id?: string
+  name: string
+  slug: string
+  address?: string | null
+  phone?: string | null
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
+  productCategories?: Prisma.ProductCategoryUncheckedCreateNestedManyWithoutStoreInput
+  stockLogs?: Prisma.StockLogUncheckedCreateNestedManyWithoutStoreInput
+}
+
+export type StoreCreateOrConnectWithoutStoreUsersInput = {
+  where: Prisma.StoreWhereUniqueInput
+  create: Prisma.XOR<Prisma.StoreCreateWithoutStoreUsersInput, Prisma.StoreUncheckedCreateWithoutStoreUsersInput>
+}
+
+export type StoreUpsertWithoutStoreUsersInput = {
+  update: Prisma.XOR<Prisma.StoreUpdateWithoutStoreUsersInput, Prisma.StoreUncheckedUpdateWithoutStoreUsersInput>
+  create: Prisma.XOR<Prisma.StoreCreateWithoutStoreUsersInput, Prisma.StoreUncheckedCreateWithoutStoreUsersInput>
+  where?: Prisma.StoreWhereInput
+}
+
+export type StoreUpdateToOneWithWhereWithoutStoreUsersInput = {
+  where?: Prisma.StoreWhereInput
+  data: Prisma.XOR<Prisma.StoreUpdateWithoutStoreUsersInput, Prisma.StoreUncheckedUpdateWithoutStoreUsersInput>
+}
+
+export type StoreUpdateWithoutStoreUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
+  products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
+  productCategories?: Prisma.ProductCategoryUpdateManyWithoutStoreNestedInput
+  stockLogs?: Prisma.StockLogUpdateManyWithoutStoreNestedInput
+}
+
+export type StoreUncheckedUpdateWithoutStoreUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
+  productCategories?: Prisma.ProductCategoryUncheckedUpdateManyWithoutStoreNestedInput
+  stockLogs?: Prisma.StockLogUncheckedUpdateManyWithoutStoreNestedInput
+}
+
 export type StoreCreateManyOwnerInput = {
   id?: string
   name: string
@@ -823,6 +934,7 @@ export type StoreUpdateWithoutOwnerInput = {
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
   productCategories?: Prisma.ProductCategoryUpdateManyWithoutStoreNestedInput
   stockLogs?: Prisma.StockLogUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateWithoutOwnerInput = {
@@ -837,6 +949,7 @@ export type StoreUncheckedUpdateWithoutOwnerInput = {
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   productCategories?: Prisma.ProductCategoryUncheckedUpdateManyWithoutStoreNestedInput
   stockLogs?: Prisma.StockLogUncheckedUpdateManyWithoutStoreNestedInput
+  storeUsers?: Prisma.StoreUserUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateManyWithoutOwnerInput = {
@@ -859,12 +972,14 @@ export type StoreCountOutputType = {
   products: number
   productCategories: number
   stockLogs: number
+  storeUsers: number
 }
 
 export type StoreCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   products?: boolean | StoreCountOutputTypeCountProductsArgs
   productCategories?: boolean | StoreCountOutputTypeCountProductCategoriesArgs
   stockLogs?: boolean | StoreCountOutputTypeCountStockLogsArgs
+  storeUsers?: boolean | StoreCountOutputTypeCountStoreUsersArgs
 }
 
 /**
@@ -898,6 +1013,13 @@ export type StoreCountOutputTypeCountStockLogsArgs<ExtArgs extends runtime.Types
   where?: Prisma.StockLogWhereInput
 }
 
+/**
+ * StoreCountOutputType without action
+ */
+export type StoreCountOutputTypeCountStoreUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StoreUserWhereInput
+}
+
 
 export type StoreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -913,6 +1035,7 @@ export type StoreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   products?: boolean | Prisma.Store$productsArgs<ExtArgs>
   productCategories?: boolean | Prisma.Store$productCategoriesArgs<ExtArgs>
   stockLogs?: boolean | Prisma.Store$stockLogsArgs<ExtArgs>
+  storeUsers?: boolean | Prisma.Store$storeUsersArgs<ExtArgs>
   _count?: boolean | Prisma.StoreCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["store"]>
 
@@ -960,6 +1083,7 @@ export type StoreInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   products?: boolean | Prisma.Store$productsArgs<ExtArgs>
   productCategories?: boolean | Prisma.Store$productCategoriesArgs<ExtArgs>
   stockLogs?: boolean | Prisma.Store$stockLogsArgs<ExtArgs>
+  storeUsers?: boolean | Prisma.Store$storeUsersArgs<ExtArgs>
   _count?: boolean | Prisma.StoreCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StoreIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -976,6 +1100,7 @@ export type $StorePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     products: Prisma.$ProductPayload<ExtArgs>[]
     productCategories: Prisma.$ProductCategoryPayload<ExtArgs>[]
     stockLogs: Prisma.$StockLogPayload<ExtArgs>[]
+    storeUsers: Prisma.$StoreUserPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1385,6 +1510,7 @@ export interface Prisma__StoreClient<T, Null = never, ExtArgs extends runtime.Ty
   products<T extends Prisma.Store$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   productCategories<T extends Prisma.Store$productCategoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$productCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stockLogs<T extends Prisma.Store$stockLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$stockLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  storeUsers<T extends Prisma.Store$storeUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$storeUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoreUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1893,6 +2019,30 @@ export type Store$stockLogsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.StockLogScalarFieldEnum | Prisma.StockLogScalarFieldEnum[]
+}
+
+/**
+ * Store.storeUsers
+ */
+export type Store$storeUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StoreUser
+   */
+  select?: Prisma.StoreUserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StoreUser
+   */
+  omit?: Prisma.StoreUserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoreUserInclude<ExtArgs> | null
+  where?: Prisma.StoreUserWhereInput
+  orderBy?: Prisma.StoreUserOrderByWithRelationInput | Prisma.StoreUserOrderByWithRelationInput[]
+  cursor?: Prisma.StoreUserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StoreUserScalarFieldEnum | Prisma.StoreUserScalarFieldEnum[]
 }
 
 /**

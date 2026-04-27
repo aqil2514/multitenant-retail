@@ -5,8 +5,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { UserJwtPayload } from 'src/@types/auth';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 
 @Injectable()
@@ -24,14 +22,20 @@ export class StoreGuard implements CanActivate {
       },
       select: {
         id: true,
-        ownerId: true,
+        storeUsers: true,
       },
     });
 
     if (!store) throw new NotFoundException('Toko tidak ditemukan');
-    if (store.ownerId !== userId) throw new ForbiddenException('Aksi dibatasi');
+
+    const selectedUser = store?.storeUsers.find(
+      (user) => user.userId === userId,
+    );
+
+    if (!selectedUser) throw new ForbiddenException('Aksi dibatasi');
 
     req.storeId = store.id;
+    req.storeRole = selectedUser.role;
     return true;
   }
 }

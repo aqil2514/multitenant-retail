@@ -17,4 +17,5 @@ model Store {
     stockLogs         StockLog[]
 
     @@map("stores")
+    storeUsers StoreUser[]
 }

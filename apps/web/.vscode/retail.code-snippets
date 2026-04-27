@@ -6,8 +6,8 @@
       "",
       "export function ${1:Name}Template() {",
       "  return <div>${1:Name}</div>;",
-      "}"
-    ]
+      "}",
+    ],
   },
   "Feature Context": {
     "prefix": "fcontext",
@@ -18,7 +18,33 @@
       "  createResourceContext<${2:Type}[], { storeSlug: string }>(",
       "    ({ storeSlug }) => [`\\${storeSlug}-${3:key}`],",
       "    ({ storeSlug }) => `\\${storeSlug}/${3:key}`,",
-      "  );"
-    ]
-  }
+      "  );",
+    ],
+  },
+  "Resource Table Columns Hook": {
+    "prefix": "use-columns",
+    "body": [
+      "import { ${1:ResourceBase} } from '../../interfaces/${2:resource}.interface';",
+      "import { createActionColumn } from ''@/_shared/tables/action-column';",
+      "import { Edit, Trash } from 'lucide-react';",
+      "import { useQueryState } from '@/_shared/hooks/use-query-state';",
+      "",
+      "export function use${3:Resource}Columns() {",
+      "  const { update } = useQueryState();",
+      "  const tTable = useTranslations('${4:feature}.table');",
+      "  const tActions = useTranslations('${4:feature}.actions');",
+      "",
+      "  const columns = createActionColumn<${1:ResourceBase}>({",
+      "    columns: [",
+      "    ],",
+      "    dropdownLabel: ({ ${5:name} }) => `${7:Label} \\$\\{${5:name}\\}`,",
+      "    position: 'start',",
+      "    actionAlignment: 'left',",
+      "  });",
+      "",
+      "  return columns;",
+      "}",
+    ],
+    "description": "Hook for resource table columns with action menu",
+  },
 }
