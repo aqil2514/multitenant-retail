@@ -1,0 +1,24 @@
+{
+  "Feature Template": {
+    "prefix": "ftemplate",
+    "body": [
+      "\"use client\";",
+      "",
+      "export function ${1:Name}Template() {",
+      "  return <div>${1:Name}</div>;",
+      "}"
+    ]
+  },
+  "Feature Context": {
+    "prefix": "fcontext",
+    "body": [
+      "import { createResourceContext } from \"@/context/create-resource-context\";",
+      "",
+      "export const { Provider: ${1:Name}Provider, useData: use${1:Name} } =",
+      "  createResourceContext<${2:Type}[], { storeSlug: string }>(",
+      "    ({ storeSlug }) => [`\\${storeSlug}-${3:key}`],",
+      "    ({ storeSlug }) => `\\${storeSlug}/${3:key}`,",
+      "  );"
+    ]
+  }
+}
