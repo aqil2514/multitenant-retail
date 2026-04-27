@@ -22,7 +22,7 @@ export function OnboardingFormField() {
     },
     resourceKey: "onboarding-store",
     onSuccess: (data) => {
-      router.replace(`/${data.storeId}/dashboard`);
+      router.replace(`/${data.slug}/dashboard`);
     },
   });
   return (

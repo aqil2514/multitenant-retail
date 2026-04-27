@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/collapsible";
 import { SIDEBAR_MENU_ITEMS } from "./menu-items";
 import { ChevronRight } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 
 const SIDEBAR_LABELS: Record<string, string> = {
@@ -40,7 +40,8 @@ function getSidebarLabel(key: string) {
 }
 
 export function ProtectedSidebar() {
-  const pathname = usePathname(); // Ambil path saat ini
+  const pathname = usePathname();
+  const param = useParams();
 
   return (
     <Sidebar variant="sidebar" collapsible="icon" className="bg-zinc-950">
@@ -63,11 +64,12 @@ export function ProtectedSidebar() {
               const hasChildren = item.children && item.children.length > 0;
 
               // Cek apakah path saat ini sama dengan href menu utama
-              const isParentActive = pathname === item.href;
+              const isParentActive =
+                pathname === `/${param.storeSlug}${item.href}`;
 
               // Cek apakah ada anak dari menu ini yang sedang aktif
               const isChildActive = item.children?.some(
-                (child) => pathname === child.href,
+                (child) => pathname === `/${param.storeSlug}${child.href}`,
               );
 
               if (!hasChildren) {
@@ -79,7 +81,7 @@ export function ProtectedSidebar() {
                       isActive={isParentActive} // Shadcn Sidebar mendukung prop isActive
                     >
                       <Link
-                        href={item.href}
+                        href={`/${param.storeSlug}${item.href}`}
                         className="flex items-center gap-3 py-5"
                       >
                         <item.icon
@@ -127,14 +129,15 @@ export function ProtectedSidebar() {
                     <CollapsibleContent>
                       <SidebarMenuSub>
                         {item.children?.map((child) => {
-                          const isSubActive = pathname === child.href;
+                          const isSubActive =
+                            pathname === `/${param.storeSlug}${child.href}`;
                           return (
                             <SidebarMenuSubItem key={child.id}>
                               <SidebarMenuSubButton
                                 asChild
                                 isActive={isSubActive}
                               >
-                                <Link href={child.href}>
+                                <Link href={`/${param.storeSlug}${child.href}`}>
                                   <span
                                     className={
                                       isSubActive

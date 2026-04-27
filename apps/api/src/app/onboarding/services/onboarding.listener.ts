@@ -10,7 +10,7 @@ export class OnboardingListener {
 
   private async createProductCategoryInit(storeId: string) {
     this.logger.log(`Membuat produk kategori untuk ${storeId}...`);
-    await this.prisma.productCategory.createMany({
+    const result = await this.prisma.productCategory.createMany({
       data: [
         {
           name: 'Makanan',
@@ -26,10 +26,10 @@ export class OnboardingListener {
         },
       ],
     });
-    this.logger.log(`Berhasil...`);
+    this.logger.log(`Berhasil membuat ${result.count} kategori`);
   }
 
-  @OnEvent('onboarding.created')
+  @OnEvent('onboarding.created', { async: true })
   async handleCreateStore(storeId: string) {
     this.logger.log(`Toko dengan id ${storeId} berhasil dibuat`);
     await this.createProductCategoryInit(storeId);

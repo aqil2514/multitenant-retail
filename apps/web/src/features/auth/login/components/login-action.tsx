@@ -30,7 +30,7 @@ export function LoginAction() {
           if (!stores || stores.length === 0) {
             router.push("/onboarding");
           } else {
-            router.push(`/${stores[0].id}/dashboard`);
+            router.push(`/${stores[0].slug}/dashboard`);
           }
         });
       }

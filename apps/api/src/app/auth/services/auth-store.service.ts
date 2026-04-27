@@ -13,6 +13,7 @@ export class AuthStoreService {
       select: {
         id: true,
         name: true,
+        slug: true,
       },
     });
   }

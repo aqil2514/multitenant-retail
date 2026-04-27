@@ -6,6 +6,7 @@ import { PrismaModule } from 'src/services/prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { OnBoardingModule } from './onboarding/onboarding.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ProductModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -15,6 +16,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     EventEmitterModule.forRoot(),
 
     PrismaModule,
+
+    ProductModule,
 
     AuthModule,
     OnBoardingModule,

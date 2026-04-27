@@ -55,12 +55,12 @@ export type ProductCategory = Prisma.ProductCategoryModel
  */
 export type StockLog = Prisma.StockLogModel
 /**
- * Model User
- * 
- */
-export type User = Prisma.UserModel
-/**
  * Model Store
  * 
  */
 export type Store = Prisma.StoreModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel

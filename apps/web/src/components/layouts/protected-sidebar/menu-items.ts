@@ -1,12 +1,11 @@
 import {
   LayoutDashboard,
-  Users,
   Settings,
   LucideIcon,
   UserPlus,
   UserCheck,
-  Tags,
   UserCog,
+  Box,
 } from "lucide-react";
 
 export interface SidebarMenuItem {
@@ -20,33 +19,27 @@ export interface SidebarMenuItem {
 export const SIDEBAR_MENU_ITEMS: SidebarMenuItem[] = [
   {
     id: "dashboard",
-    labelKey: "dashboard",
+    labelKey: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
   },
   {
-    id: "customers",
-    labelKey: "customers",
-    href: "/customers",
-    icon: Users,
+    id: "products",
+    labelKey: "Produk",
+    href: "/products",
+    icon: Box,
     children: [
       {
-        id: "customer-list",
-        labelKey: "customer_list",
-        href: "/customers/list",
+        id: "product-list",
+        labelKey: "List Produk",
+        href: "/products/list",
         icon: UserPlus,
       },
       {
-        id: "customer-status",
-        labelKey: "customer_status",
-        href: "/customers/status",
+        id: "product-category",
+        labelKey: "Kategori Produk",
+        href: "/products/category",
         icon: UserCheck,
-      },
-      {
-        id: "customer-categories",
-        labelKey: "customer_categories",
-        href: "/customers/categories",
-        icon: Tags,
       },
     ],
   },

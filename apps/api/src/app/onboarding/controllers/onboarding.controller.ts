@@ -22,8 +22,8 @@ export class OnBoardingController {
     @User() user: UserJwtPayload,
     @Body() body: OnBoardingDto,
   ) {
-    const storeId = await this.service.createNewStoreService(user.sub, body);
+    const slug = await this.service.createNewStoreService(user.sub, body);
 
-    return { storeId };
+    return { slug };
   }
 }

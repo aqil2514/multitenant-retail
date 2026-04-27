@@ -16,22 +16,3 @@ model User {
   @@map("users")
 }
 
-model Store {
-  id      String  @id @default(uuid()) @db.Uuid
-  name    String
-  address String?
-  phone   String?
-
-  ownerId String @db.Uuid
-  owner   User   @relation(fields: [ownerId], references: [id])
-
-  createdAt DateTime  @default(now()) @db.Timestamptz()
-  updatedAt DateTime  @updatedAt @db.Timestamptz()
-  deletedAt DateTime? @db.Timestamptz()
-
-  products Product[]
-  productCategories ProductCategory[]
-  stockLogs StockLog[]
-
-  @@map("stores")
-}

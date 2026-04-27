@@ -10,8 +10,9 @@ const prisma = new PrismaClient({
   }),
 });
 
-const parentId = '476c9559-727f-4939-827a-fa5dcb22a1ed';
+const parentId = 'bbe760d0-d4e9-45e7-a8f7-cc8345cead5e';
 
+// npx tsx scripts/delete-data.ts
 async function main() {
   await prisma.productCategory.deleteMany({
     where: { storeId: parentId },

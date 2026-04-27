@@ -8,14 +8,13 @@ export async function getUserStores() {
   if (!token) return null;
 
   try {
-    const { data } = await api.get<{ id: string; name: string }[]>(
-      "/auth/store",
-      {
-        headers: {
-          Cookie: `access_token=${token}`,
-        },
+    const { data } = await api.get<
+      { id: string; name: string; slug: string }[]
+    >("/auth/store", {
+      headers: {
+        Cookie: `access_token=${token}`,
       },
-    );
+    });
 
     return data;
   } catch (error) {
