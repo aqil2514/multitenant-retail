@@ -1,4 +1,4 @@
-import { DataTable } from "@/_shared/tables/data-table";
+import { DataTable } from "@/_shared/tables/data-table/data-table";
 import { useProductsCategoryColumns } from "./pc.column";
 import { useProductCategory } from "../pc.context";
 

@@ -3,17 +3,16 @@ import { getProductCategoryAsOptions } from 'src/helpers/db/product-category/bas
 import { getProductUnitsAsOptions } from 'src/helpers/db/product-units/base-helper';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { ProductListDto } from './pl.dto';
+import { getProductListForTable } from 'src/helpers/db/product-list/get-helper';
+import { PaginationQueryDto } from 'src/common/dto/pagination.dto';
 
 @Injectable()
 export class ProductListService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getProductList(storeId: string) {
-    return await this.prisma.product.findMany({
-      where: {
-        storeId,
-      },
-    });
+  async getProductList(storeId: string, pagination: PaginationQueryDto) {
+    const { limit, page } = pagination;
+    return await getProductListForTable(this.prisma, storeId, page, limit);
   }
 
   async getProductListResources(storeId: string) {
@@ -30,17 +29,13 @@ export class ProductListService {
     image: Express.Multer.File,
     payload: ProductListDto,
   ) {
+    const { unit, ...rest } = payload;
     await this.prisma.product.create({
       data: {
-        name: payload.name,
-        categoryId: payload.categoryId,
-        unitId: payload.unit,
+        ...rest,
+        unitId: unit,
         storeId,
         image: `/uploads/${image.filename}`,
-        minStock: payload.minStock,
-        description: payload.description,
-        sku: payload.sku,
-        stock: payload.stock,
       },
     });
   }

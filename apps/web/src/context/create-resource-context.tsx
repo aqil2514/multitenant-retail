@@ -8,6 +8,7 @@ import {
   QueryObserverResult,
 } from "@tanstack/react-query";
 import { api } from "@/lib/api";
+import { useSearchParams } from "next/navigation";
 
 interface ResourceContextType<T> {
   data: T | undefined;
@@ -20,21 +21,25 @@ interface ResourceContextType<T> {
 }
 
 // create-resource-context.ts
-export function createResourceContext<T, P extends Record<string, unknown> = Record<string, never>>(
-  getQueryKey: (params: P) => QueryKey,
-  getUrl: (params: P) => string,
-) {
+export function createResourceContext<
+  T,
+  P extends Record<string, unknown> = Record<string, never>,
+>(getQueryKey: (params: P) => QueryKey, getUrl: (params: P) => string) {
   const Context = createContext<ResourceContextType<T> | undefined>(undefined);
 
   function Provider({ children, ...params }: { children: ReactNode } & P) {
+    const searchParams = useSearchParams();
+    const queryParams = searchParams.toString();
+
     const queryClient = useQueryClient();
-    const queryKey = getQueryKey(params as unknown as P);
-    const url = getUrl(params as unknown as P);
+    const queryKey = [...getQueryKey(params as unknown as P), queryParams];
+    const baseUrl = getUrl(params as unknown as P);
+    const fullUrl = queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
 
     const query = useQuery<T, Error>({
       queryKey,
       queryFn: async () => {
-        const response = await api.get(url);
+        const response = await api.get(fullUrl);
         return response.data;
       },
       staleTime: 1000 * 60 * 5,

@@ -5,6 +5,7 @@ import { ProductListProvider } from "./pl.context";
 import { PageHeader } from "@/_shared/molecules/page-header";
 import { ProductsListController } from "./controller";
 import { ProductListsAddDialog } from "./dialogs/pl.add";
+import { ProductListTable } from "./tables";
 interface Props {
   storeSlug: string;
 }
@@ -27,6 +28,7 @@ const ProductListContent = () => {
         />
 
         <ProductsListController />
+        <ProductListTable  />
       </MainContainer>
 
       <ProductListsAddDialog />

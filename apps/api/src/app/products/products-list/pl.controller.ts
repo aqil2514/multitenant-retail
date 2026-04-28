@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -13,14 +14,18 @@ import { StoreGuard } from 'src/guards/store.guard';
 import { ProductListService } from './pl.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductListDto } from './pl.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination.dto';
 
 @UseGuards(JwtAuthGuard, StoreGuard)
 @Controller()
 export class ProductListController {
   constructor(private readonly service: ProductListService) {}
   @Get('')
-  async getProductList(@StoreId() storeId: string) {
-    const data = await this.service.getProductList(storeId);
+  async getProductList(
+    @StoreId() storeId: string,
+    @Query() pagination: PaginationQueryDto,
+  ) {
+    const data = await this.service.getProductList(storeId, pagination);
 
     return data;
   }
