@@ -29,8 +29,8 @@ export function ProductsCategoryEdit() {
 
     return {
       name: data.name,
-      description: data.description,
-      parentId: data.parentId,
+      description: data?.description || "",
+      parentId: data?.parentId || "no-parent",
     };
   }, [data]);
 

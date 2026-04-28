@@ -17,5 +17,5 @@ export type ProductCategorySchemaOutput = z.output<
 export const defaultProductCategory: ProductCategorySchemaInput = {
   name: "",
   description: undefined,
-  parentId: "",
+  parentId: "no-parent",
 };

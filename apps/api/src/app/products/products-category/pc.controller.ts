@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { StoreGuard } from 'src/guards/store.guard';
 import { ProductCategoryService } from './pc.service';
@@ -34,5 +43,21 @@ export class ProductCategoryController {
     return await this.service.getProductCategoryById(StoreId, id);
   }
 
-  // TODO : EDIT & HAPUS DATA
+  @Patch(':id')
+  async updateProductCategoryById(
+    @StoreId() storeId: string,
+    @Param('id') id: string,
+    @Body() body: ProductsCategoryDto,
+  ) {
+    return await this.service.updateProductCategoryById(storeId, id, body);
+  }
+
+  @Delete(':id')
+  async deleteProductCategoryById(
+    @StoreId() storeId: string,
+    @Param('id') id: string,
+  ) {
+    await this.service.deleteProductCategoryById(storeId, id);
+    return { success: true };
+  }
 }

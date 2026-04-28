@@ -7,6 +7,7 @@ import { ProductsCategoryTable } from "./tables";
 import { ProductsCategoryController } from "./controller";
 import { ProductsCategoryAdd } from "./dialogs/pc.add";
 import { ProductsCategoryEdit } from "./dialogs/pc.edit";
+import { ProductsCategoryDelete } from "./dialogs/pc.delete";
 interface Props {
   storeSlug: string;
 }
@@ -33,6 +34,7 @@ const ProductCategoryContent = () => {
 
       <ProductsCategoryAdd />
       <ProductsCategoryEdit />
+      <ProductsCategoryDelete />
     </>
   );
 };

@@ -5,15 +5,8 @@ import {
   ProductCategorySchemaOutput,
   productsCategorySchema,
 } from "./pc.schema";
-import {
-  BaseForm,
-  FormFieldSelect,
-  FormFieldText,
-  FormFieldTextarea,
-} from "@/_shared/forms";
-import { useProductCategory } from "../pc.context";
-import { useMemo } from "react";
-import { LabelValue } from "@/@types/general";
+import { BaseForm, FormFieldText, FormFieldTextarea } from "@/_shared/forms";
+import { ParentSelectField } from "./parent-select";
 
 export function ProductsCategoryForm({
   onSubmit,
@@ -22,18 +15,6 @@ export function ProductsCategoryForm({
   ProductCategorySchemaInput,
   ProductCategorySchemaOutput
 >) {
-  const { data } = useProductCategory();
-
-  const options = useMemo<LabelValue<string>[]>(
-    () =>
-      data
-        ? data.map((d) => ({
-            label: d.name,
-            value: d.id,
-          }))
-        : [],
-    [data],
-  );
   return (
     <BaseForm
       defaultValues={defaultValues ?? defaultProductCategory}
@@ -54,13 +35,7 @@ export function ProductsCategoryForm({
             label="Deskripsi Kategori"
             placeholder="Misal: Minuman dingin rasa kalapa"
           />
-          <FormFieldSelect
-            form={form}
-            label="Kategori Induk"
-            name="parentId"
-            options={options}
-            placeholder="Pilih kategori induk"
-          />
+          <ParentSelectField form={form} />
         </div>
       )}
     </BaseForm>
