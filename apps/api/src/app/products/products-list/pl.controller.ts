@@ -1,8 +1,18 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { StoreId } from 'src/decorator/storeId.decorator';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { StoreGuard } from 'src/guards/store.guard';
 import { ProductListService } from './pl.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ProductListDto } from './pl.dto';
 
 @UseGuards(JwtAuthGuard, StoreGuard)
 @Controller()
@@ -13,5 +23,21 @@ export class ProductListController {
     const data = await this.service.getProductList(storeId);
 
     return data;
+  }
+
+  @Get('rss')
+  async getProductListResources(@StoreId() storeId: string) {
+    return await this.service.getProductListResources(storeId);
+  }
+
+  @Post()
+  @UseInterceptors(FileInterceptor('image'))
+  async createNewProduct(
+    @StoreId() storeId: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: ProductListDto,
+  ) {
+    await this.service.createNewProductList(storeId, file, body);
+    return { success: true };
   }
 }

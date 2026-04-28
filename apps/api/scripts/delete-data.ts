@@ -10,17 +10,26 @@ const prisma = new PrismaClient({
   }),
 });
 
-const parentId = 'aacd8abf-a748-4e74-a065-f4075c922484';
-
 // npx tsx scripts/delete-data.ts
 async function main() {
-  await prisma.productCategory.deleteMany({
-    where: { storeId: parentId },
+  const stores = await prisma.store.findMany({
+    select: { id: true, name: true },
   });
 
-  await prisma.store.delete({
-    where: { id: parentId },
-  });
+  console.log('Stores:', stores);
+
+  if (stores.length === 0) {
+    console.log('Tidak ada store');
+    return;
+  }
+
+  const storeId = stores[0].id; // ambil store pertama, atau sesuaikan
+
+  await prisma.product.deleteMany({ where: { storeId } });
+  await prisma.productCategory.deleteMany({ where: { storeId } });
+  await prisma.productUnit.deleteMany({ where: { storeId } });
+  await prisma.storeUser.deleteMany({ where: { storeId } });
+  await prisma.store.delete({ where: { id: storeId } });
 
   console.log('Done');
 }

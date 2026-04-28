@@ -7,12 +7,14 @@ import { AuthModule } from './auth/auth.module';
 import { OnBoardingModule } from './onboarding/onboarding.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ProductModule } from './products/products.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    UploadModule,
     EventEmitterModule.forRoot(),
 
     PrismaModule,

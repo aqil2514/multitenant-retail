@@ -10,10 +10,12 @@ model Product {
 
     stock    Int    @default(0)
     minStock Int    @default(0)
-    unit     String @default("pcs")
 
     categoryId String?          @db.Uuid
     category   ProductCategory? @relation(fields: [categoryId], references: [id])
+
+    unitId String      @db.Uuid
+    unit   ProductUnit @relation(fields: [unitId], references: [id])
 
     createdAt DateTime   @default(now()) @db.Timestamptz()
     updatedAt DateTime   @updatedAt @db.Timestamptz()
@@ -40,10 +42,28 @@ model ProductCategory {
     products Product[]
 
     createdAt DateTime  @default(now()) @db.Timestamptz()
-    updatedAt DateTime?  @updatedAt @db.Timestamptz()
+    updatedAt DateTime? @updatedAt @db.Timestamptz()
     deletedAt DateTime? @db.Timestamptz()
 
     @@map("product_categories")
+}
+
+model ProductUnit {
+    id      String @id @default(uuid()) @db.Uuid
+    storeId String @db.Uuid
+    store   Store  @relation(fields: [storeId], references: [id])
+
+    name  String // "Kilogram", "Lusin", dll
+    value String // "kg", "lusin", dll — dipakai di kolom unit product
+
+    createdAt DateTime @default(now()) @db.Timestamptz()
+    updatedAt DateTime @updatedAt @db.Timestamptz()
+
+    products Product[]
+
+    @@unique([storeId, value])
+    @@index([storeId])
+    @@map("product_units")
 }
 
 model StockLog {

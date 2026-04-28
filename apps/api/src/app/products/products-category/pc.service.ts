@@ -4,7 +4,7 @@ import { ProductsCategoryDto } from './pc.dto';
 import {
   deleteCategory,
   updateProductCategoryToNull,
-} from './pc-delete.helper';
+} from '../../../helpers/db/product-category/pc-delete.helper';
 
 @Injectable()
 export class ProductCategoryService {

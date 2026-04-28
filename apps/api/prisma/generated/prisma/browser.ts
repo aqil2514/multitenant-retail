@@ -28,6 +28,11 @@ export type Product = Prisma.ProductModel
  */
 export type ProductCategory = Prisma.ProductCategoryModel
 /**
+ * Model ProductUnit
+ * 
+ */
+export type ProductUnit = Prisma.ProductUnitModel
+/**
  * Model StockLog
  * 
  */
