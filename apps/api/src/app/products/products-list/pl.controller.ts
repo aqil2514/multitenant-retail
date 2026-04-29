@@ -19,6 +19,8 @@ import { ProductListService } from './pl.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductListDto } from './pl.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination.dto';
+import { User } from 'src/decorator/user.decorator';
+import type { UserJwtPayload } from 'src/@types/auth';
 
 @UseGuards(JwtAuthGuard, StoreGuard)
 @Controller()
@@ -45,8 +47,9 @@ export class ProductListController {
     @StoreId() storeId: string,
     @UploadedFile() file: Express.Multer.File,
     @Body() body: ProductListDto,
+    @User() user: UserJwtPayload,
   ) {
-    await this.service.createNewProductList(storeId, file, body);
+    await this.service.createNewProductList(user.sub, storeId, file, body);
     return { success: true };
   }
 
@@ -86,10 +89,11 @@ export class ProductListController {
     @StoreId() storeId: string,
     @Param('id') productId: string,
     @Param('mode') mode: string,
+    @User() user: UserJwtPayload,
   ) {
     if (mode !== 'delete') throw new BadRequestException('Mode tidak valid');
 
-    await this.service.softDeleteProduct(storeId, productId);
+    await this.service.softDeleteProduct(user.sub, storeId, productId);
 
     return { success: true };
   }

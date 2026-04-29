@@ -25,7 +25,6 @@ export class OnboardingListener {
       createStoreUserInit(storeId, userId, this.logger, this.prisma),
     ]);
 
-    // DEV AJAH. NANTI HAPUS DI PROD
     await createProductDevInit(storeId, this.logger, this.prisma);
   }
 }

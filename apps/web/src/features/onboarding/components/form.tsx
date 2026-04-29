@@ -29,10 +29,6 @@ export function OnboardingFormField() {
     <BaseForm
       defaultValues={defaultOnBoarding}
       schema={onBoardingSchema}
-      // onSubmit={(values) => {
-      //   console.log(values)
-      //   // performAction(values);
-      // }}
       onSubmit={performAction}
     >
       {(form) => (

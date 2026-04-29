@@ -6,6 +6,8 @@ import {
   UserCheck,
   UserCog,
   Box,
+  Layers,
+  History,
 } from "lucide-react";
 
 export interface SidebarMenuItem {
@@ -33,13 +35,27 @@ export const SIDEBAR_MENU_ITEMS: SidebarMenuItem[] = [
         id: "product-list",
         labelKey: "List Produk",
         href: "/products/list",
-        icon: UserPlus,
+        icon: UserPlus, // Catatan: Mungkin lebih cocok icon Package atau List
       },
       {
         id: "product-category",
         labelKey: "Kategori Produk",
         href: "/products/category",
-        icon: UserCheck,
+        icon: UserCheck, // Catatan: Mungkin lebih cocok icon Tags
+      },
+    ],
+  },
+  {
+    id: "general",
+    labelKey: "General",
+    href: "/general",
+    icon: Layers, // Menggunakan icon Layers sebagai penanda grup general
+    children: [
+      {
+        id: "audit-logs",
+        labelKey: "Audit Log",
+        href: "/general/audit-logs",
+        icon: History, // Icon jam berputar, sangat cocok untuk history/audit
       },
     ],
   },

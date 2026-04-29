@@ -4,7 +4,10 @@
     "body": [
       "\"use client\";",
       "",
-      "export function ${1:Name}Template() {",
+      "interface Props {",
+      "storeSlug: string;",
+      "}",
+      "export function ${1:Name}Template({ storeSlug }: Props) {",
       "  return <div>${1:Name}</div>;",
       "}",
     ],

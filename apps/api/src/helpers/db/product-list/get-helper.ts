@@ -1,6 +1,6 @@
 import { ResponseMeta } from 'src/@types/server';
+import { getResponsePagination } from 'src/helpers/meta-response/pagination';
 import { PrismaService } from 'src/services/prisma/prisma.service';
-import { getResponsePagination } from 'src/utils/query';
 
 export async function getProductListForTable(
   prisma: PrismaService,

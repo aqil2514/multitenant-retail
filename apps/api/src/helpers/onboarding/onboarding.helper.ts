@@ -1,5 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { PrismaService } from 'src/services/prisma/prisma.service';
+import { createLog } from '../db/activity-log/create-log';
+import { SYSTEM_USER_ID } from 'src/constants/common';
 
 export async function createProductCategoryInit(
   storeId: string,
@@ -23,6 +25,20 @@ export async function createProductCategoryInit(
       },
     ],
   });
+  if (result.count > 0) {
+    await createLog(
+      prisma,
+      'INITIALIZE_CATEGORY',
+      'ProductCategory',
+      'BULK_INIT',
+      storeId,
+      SYSTEM_USER_ID,
+      {
+        pesan: `Inisialisasi otomatis ${result.count} kategori produk standar.`,
+      },
+    );
+  }
+
   logger.log(`Berhasil membuat ${result.count} kategori`);
 }
 
@@ -55,6 +71,20 @@ export async function createProductUnitInit(
       { storeId, name: 'Sentimeter', value: 'cm' },
     ],
   });
+
+  if (result.count > 0) {
+    await createLog(
+      prisma,
+      'INITIALIZE_UNIT',
+      'ProductUnit',
+      'BULK_INIT',
+      storeId,
+      SYSTEM_USER_ID,
+      {
+        pesan: `Inisialisasi otomatis ${result.count} satuan unit produk (pcs, kg, dll).`,
+      },
+    );
+  }
   logger.log(`Berhasil membuat ${result.count} unit`);
 }
 
@@ -73,6 +103,16 @@ export async function createStoreUserInit(
       userId,
     },
   });
+
+  await createLog(
+    prisma,
+    'ASSIGN_OWNER',
+    'StoreUser',
+    userId,
+    storeId,
+    SYSTEM_USER_ID,
+    { pesan: `Menetapkan pengguna sebagai pemilik (owner) toko.` },
+  );
 
   logger.log(
     `User untuk toko ${storeId} berhasil dibuat dengan ${userId} sebagai ownernya`,

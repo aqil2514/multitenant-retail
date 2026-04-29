@@ -18,6 +18,7 @@ export async function softDeleteProductHelper(
 
 export async function updateStockLog(
   prisma: Prisma.TransactionClient,
+  userId: string,
   productId: string,
   storeId: string,
 ) {
@@ -28,6 +29,8 @@ export async function updateStockLog(
       notes: 'Produk dipindahkan ke arsip',
       productId,
       storeId,
+      resultStock: 0,
+      userId,
     },
   });
 }

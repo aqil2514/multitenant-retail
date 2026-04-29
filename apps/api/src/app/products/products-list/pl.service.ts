@@ -34,6 +34,7 @@ export class ProductListService {
   }
 
   async createNewProductList(
+    createdById: string,
     storeId: string,
     image: Express.Multer.File,
     payload: ProductListDto,
@@ -45,6 +46,7 @@ export class ProductListService {
         unitId: unit,
         storeId,
         image: `http://localhost:3001/uploads/${image.filename}`,
+        createdById,
       },
     });
   }
@@ -72,10 +74,10 @@ export class ProductListService {
     await editProductList(this.prisma, storeId, productId, body, file);
   }
 
-  async softDeleteProduct(storeId: string, productId: string) {
+  async softDeleteProduct(userId: string, storeId: string, productId: string) {
     await this.prisma.$transaction(async (tx) => {
       await softDeleteProductHelper(tx, storeId, productId);
-      await updateStockLog(tx, productId, storeId);
+      await updateStockLog(tx, userId, productId, storeId);
     });
   }
 }

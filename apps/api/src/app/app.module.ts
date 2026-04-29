@@ -8,6 +8,7 @@ import { OnBoardingModule } from './onboarding/onboarding.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ProductModule } from './products/products.module';
 import { UploadModule } from './upload/upload.module';
+import { GeneralModule } from './general/general.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UploadModule } from './upload/upload.module';
 
     PrismaModule,
 
+    GeneralModule,
     ProductModule,
 
     AuthModule,

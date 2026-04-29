@@ -1,5 +1,7 @@
 import { Logger } from '@nestjs/common';
+import { SYSTEM_USER_ID } from 'src/constants/common';
 import { PrismaService } from 'src/services/prisma/prisma.service';
+import { createLog } from '../db/activity-log/create-log';
 
 export async function createProductDevInit(
   storeId: string,
@@ -39,6 +41,7 @@ export async function createProductDevInit(
         minStock: 10,
         unitId: getUnitId('pcs'),
         categoryId: getCategoryId('Makanan'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -49,6 +52,7 @@ export async function createProductDevInit(
         minStock: 20,
         unitId: getUnitId('botol'),
         categoryId: getCategoryId('Minuman'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -59,6 +63,7 @@ export async function createProductDevInit(
         minStock: 5,
         unitId: getUnitId('sak'),
         categoryId: getCategoryId('Umum'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -69,6 +74,7 @@ export async function createProductDevInit(
         minStock: 6,
         unitId: getUnitId('karton'),
         categoryId: getCategoryId('Minuman'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -79,6 +85,7 @@ export async function createProductDevInit(
         minStock: 10,
         unitId: getUnitId('kg'),
         categoryId: getCategoryId('Makanan'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -89,6 +96,7 @@ export async function createProductDevInit(
         minStock: 10,
         unitId: getUnitId('kg'),
         categoryId: getCategoryId('Umum'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -99,6 +107,7 @@ export async function createProductDevInit(
         minStock: 10, // Low Stock
         unitId: getUnitId('pcs'),
         categoryId: getCategoryId('Umum'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -109,6 +118,7 @@ export async function createProductDevInit(
         minStock: 12,
         unitId: getUnitId('kaleng'),
         categoryId: getCategoryId('Minuman'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -119,6 +129,7 @@ export async function createProductDevInit(
         minStock: 5,
         unitId: getUnitId('box'),
         categoryId: getCategoryId('Minuman'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -129,6 +140,7 @@ export async function createProductDevInit(
         minStock: 10, // Low Stock
         unitId: getUnitId('pack'),
         categoryId: getCategoryId('Minuman'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -139,6 +151,7 @@ export async function createProductDevInit(
         minStock: 5,
         unitId: getUnitId('kg'),
         categoryId: getCategoryId('Umum'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -149,6 +162,7 @@ export async function createProductDevInit(
         minStock: 10,
         unitId: getUnitId('batang'),
         categoryId: getCategoryId('Umum'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -159,6 +173,7 @@ export async function createProductDevInit(
         minStock: 15,
         unitId: getUnitId('pcs'),
         categoryId: getCategoryId('Makanan'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -169,6 +184,7 @@ export async function createProductDevInit(
         minStock: 10, // Low Stock
         unitId: getUnitId('pack'),
         categoryId: getCategoryId('Makanan'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -179,6 +195,7 @@ export async function createProductDevInit(
         minStock: 5,
         unitId: getUnitId('botol'),
         categoryId: getCategoryId('Makanan'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -189,6 +206,7 @@ export async function createProductDevInit(
         minStock: 10,
         unitId: getUnitId('pcs'),
         categoryId: getCategoryId('Umum'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -199,6 +217,7 @@ export async function createProductDevInit(
         minStock: 3,
         unitId: getUnitId('kaleng'),
         categoryId: getCategoryId('Makanan'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -209,6 +228,7 @@ export async function createProductDevInit(
         minStock: 5,
         unitId: getUnitId('pcs'),
         categoryId: getCategoryId('Makanan'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -219,6 +239,7 @@ export async function createProductDevInit(
         minStock: 10,
         unitId: getUnitId('pcs'),
         categoryId: getCategoryId('Umum'),
+        createdById: SYSTEM_USER_ID,
       },
       {
         storeId,
@@ -229,10 +250,26 @@ export async function createProductDevInit(
         minStock: 5,
         unitId: getUnitId('botol'),
         categoryId: getCategoryId('Umum'),
+        createdById: SYSTEM_USER_ID,
       },
     ],
     skipDuplicates: true,
   });
+
+  if (result.count > 0) {
+    await createLog(
+      prisma,
+      'CREATE_PRODUCT_INIT', // Action
+      'Product', // Entity
+      'BULK_CREATE', // EntityId (karena banyak, kita beri label bulk)
+      storeId,
+      SYSTEM_USER_ID,
+      {
+        jumlah: result.count,
+        pesan: 'Template awal ketika pembuatan toko selesai',
+      },
+    );
+  }
 
   logger.log(`[Dev] Berhasil membuat ${result.count} data produk dummy.`);
 }
