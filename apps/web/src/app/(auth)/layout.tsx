@@ -1,4 +1,5 @@
 import { getAuth } from "@/lib/get-auth";
+import { getUserStores } from "@/lib/get-user-stores";
 import {
   dehydrate,
   HydrationBoundary,
@@ -21,7 +22,9 @@ export default async function AuthLayout({
     });
 
     if (userData) {
-      redirect("/dashboard");
+      const userStore = await getUserStores();
+      if (!userStore || userStore.length === 0) redirect("/onboarding");
+      redirect(`/${userStore[0].slug}/dashboard`);
     }
   } catch (error) {
     console.error(error);

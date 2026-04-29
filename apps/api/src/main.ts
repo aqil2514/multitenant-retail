@@ -13,7 +13,7 @@ async function bootstrap() {
     },
   });
   const port = process.env.PORT;
-  
+
   app.useStaticAssets(join(process.cwd(), 'uploads'), {
     prefix: '/uploads/',
   });

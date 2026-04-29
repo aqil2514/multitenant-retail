@@ -29,6 +29,9 @@ export async function getProductListForTable(
       unit: { select: { name: true } },
       updatedAt: true,
     },
+    where: {
+      deletedAt: null,
+    },
     orderBy: { updatedAt: 'desc' },
   });
 
@@ -46,4 +49,69 @@ export async function getProductListForTable(
     data,
     meta,
   };
+}
+
+export async function getProductListForDelete(
+  prisma: PrismaService,
+  storeId: string,
+  productId: string,
+) {
+  const dbData = await prisma.product.findFirst({
+    where: {
+      id: productId,
+      storeId,
+    },
+    select: {
+      name: true,
+      sku: true,
+      stock: true,
+      category: {
+        select: {
+          name: true,
+        },
+      },
+      unit: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
+  const data = {
+    ...dbData,
+    category: dbData?.category?.name || null,
+    unit: dbData?.unit?.name || null,
+  };
+  return data;
+}
+
+export async function getProductListForEdit(
+  prisma: PrismaService,
+  storeId: string,
+  productId: string,
+) {
+  const dbData = await prisma.product.findFirst({
+    where: {
+      storeId,
+      id: productId,
+    },
+    select: {
+      name: true,
+      categoryId: true,
+      description: true,
+      image: true,
+      minStock: true,
+      sku: true,
+      stock: true,
+      unitId: true,
+    },
+  });
+
+  const data = {
+    ...dbData,
+    unit: dbData?.unitId,
+  };
+
+  return data;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable @next/next/no-img-element */
 import {
   Field,
@@ -6,7 +7,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, FieldValues } from "react-hook-form";
 import { BasicFormFieldProps } from "./form.interface";
 
@@ -21,13 +22,21 @@ const ACCEPTED_IMAGE_TYPES = [
 ];
 
 export const imageFieldSchema = z
-  .instanceof(File, { message: "Gambar wajib diupload" })
-  .refine((file) => file.size <= MAX_FILE_SIZE, {
-    message: "Ukuran gambar maksimal 5MB",
-  })
-  .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
-    message: "Format gambar harus PNG, JPG, atau WEBP",
-  });
+  .union([z.instanceof(File, { message: "Gambar wajib diupload" }), z.string()])
+  .refine(
+    (file) => {
+      if (file instanceof File) return file.size <= MAX_FILE_SIZE;
+      return true; // Jika string (URL), abaikan pengecekan ukuran
+    },
+    { message: "Ukuran gambar maksimal 5MB" },
+  )
+  .refine(
+    (file) => {
+      if (file instanceof File) return ACCEPTED_IMAGE_TYPES.includes(file.type);
+      return true; // Jika string (URL), abaikan pengecekan tipe
+    },
+    { message: "Format gambar harus PNG, JPG, atau WEBP" },
+  );
 
 export const imageFieldSchemaNullish = imageFieldSchema.nullish();
 
@@ -45,6 +54,14 @@ export function FormFieldImage<
   const [fileName, setFileName] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
+  // Sync initial value (untuk Edit mode)
+  const initialValue = form.getValues(name);
+  useEffect(() => {
+    if (typeof initialValue === "string") {
+      setPreview(initialValue); // Tampilkan URL gambar lama sebagai preview
+    }
+  }, [initialValue]);
+
   return (
     <FieldGroup>
       <Controller
@@ -54,8 +71,14 @@ export function FormFieldImage<
           function handleFile(file: File | null | undefined) {
             if (!file || !file.type.startsWith("image/")) return;
             field.onChange(file);
-            setPreview(URL.createObjectURL(file));
+
+            // Buat preview dari File baru
+            const objectUrl = URL.createObjectURL(file);
+            setPreview(objectUrl);
             setFileName(`${file.name} (${(file.size / 1024).toFixed(1)} KB)`);
+
+            // Cleanup memory saat unmount atau ganti file
+            return () => URL.revokeObjectURL(objectUrl);
           }
 
           function handleDrop(e: React.DragEvent) {
@@ -79,7 +102,7 @@ export function FormFieldImage<
                 }
               }
             } catch {
-              // clipboard tidak tersedia atau tidak ada gambar
+              // clipboard tidak tersedia
             }
           }
 
@@ -103,7 +126,7 @@ export function FormFieldImage<
                 onDrop={handleDrop}
                 className={cn(
                   "flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-6 text-center transition-all duration-200",
-                  "cursor-pointer select-none",
+                  "cursor-pointer select-none min-h-40",
                   isDragging
                     ? "border-amber-500 bg-amber-50"
                     : "border-slate-200 bg-slate-50 hover:border-slate-300",
@@ -112,26 +135,30 @@ export function FormFieldImage<
                 )}
               >
                 {preview ? (
-                  <>
+                  <div className="relative group w-full flex flex-col items-center gap-2">
                     <img
                       src={preview}
                       alt="Preview"
-                      className="max-h-40 max-w-full rounded-lg object-contain"
+                      className="max-h-40 max-w-full rounded-lg object-contain shadow-sm"
                     />
-                    {fileName && (
-                      <p className="text-xs text-slate-500">{fileName}</p>
-                    )}
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        clearImage();
-                      }}
-                      className="text-xs text-red-500 hover:underline"
-                    >
-                      Hapus gambar
-                    </button>
-                  </>
+                    <div className="flex flex-col gap-1">
+                      {fileName && (
+                        <p className="text-[10px] text-slate-500 truncate max-w-50">
+                          {fileName}
+                        </p>
+                      )}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          clearImage();
+                        }}
+                        className="text-xs text-red-500 font-medium hover:text-red-600 transition-colors"
+                      >
+                        Hapus & Ganti Gambar
+                      </button>
+                    </div>
+                  </div>
                 ) : (
                   <>
                     <p className="text-sm font-medium text-slate-700">
@@ -140,16 +167,16 @@ export function FormFieldImage<
                     <p className="text-xs text-slate-400">
                       PNG, JPG, WEBP hingga 5MB
                     </p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 mt-2">
                       <button
                         type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           inputRef.current?.click();
                         }}
-                        className="rounded-lg border border-slate-200 bg-white px-3 py-1 text-xs text-slate-700 hover:border-slate-300"
+                        className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50"
                       >
-                        Upload file
+                        Pilih File
                       </button>
                       <button
                         type="button"
@@ -157,9 +184,9 @@ export function FormFieldImage<
                           e.stopPropagation();
                           handlePaste();
                         }}
-                        className="rounded-lg border border-slate-200 bg-white px-3 py-1 text-xs text-slate-700 hover:border-slate-300"
+                        className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50"
                       >
-                        Tempel dari clipboard
+                        Paste
                       </button>
                     </div>
                   </>

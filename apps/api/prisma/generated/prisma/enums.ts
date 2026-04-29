@@ -14,7 +14,8 @@ export const StockLogType = {
   PURCHASE: 'PURCHASE',
   ADJUSTMENT: 'ADJUSTMENT',
   WASTE: 'WASTE',
-  RETURN: 'RETURN'
+  RETURN: 'RETURN',
+  ARCHIVED: 'ARCHIVED'
 } as const
 
 export type StockLogType = (typeof StockLogType)[keyof typeof StockLogType]

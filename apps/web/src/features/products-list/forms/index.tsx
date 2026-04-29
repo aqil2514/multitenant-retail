@@ -26,7 +26,7 @@ export function ProductListForm({
     >
       {(form) => (
         <div className="space-y-4">
-          <FormFieldImage form={form} label="Gambar Produl" name="image" />
+          <FormFieldImage form={form} label="Gambar Produk" name="image" />
           <FormFieldText form={form} name="name" label="Nama Produk" />
           <FormFieldText
             form={form}

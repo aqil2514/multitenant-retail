@@ -1,7 +1,11 @@
 import {
+  BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
+  Patch,
   Post,
   Query,
   UploadedFile,
@@ -43,6 +47,50 @@ export class ProductListController {
     @Body() body: ProductListDto,
   ) {
     await this.service.createNewProductList(storeId, file, body);
+    return { success: true };
+  }
+
+  @Get(':mode/:id')
+  async getProductListById(
+    @StoreId() storeId: string,
+    @Param('id') productId: string,
+    @Param('mode') mode: string,
+  ) {
+    const data = await this.service.getProductListMode(
+      storeId,
+      productId,
+      mode,
+    );
+
+    return data;
+  }
+
+  @Patch(':mode/:id')
+  @UseInterceptors(FileInterceptor('image'))
+  async updateProductList(
+    @StoreId() storeId: string,
+    @Param('id') productId: string,
+    @Param('mode') mode: string,
+    @Body() body: ProductListDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (mode !== 'edit') throw new BadRequestException('Mode tidak valid');
+
+    await this.service.editProductListMode(storeId, productId, body, file);
+
+    return { success: true };
+  }
+
+  @Delete(':mode/:id')
+  async softDeleteProductList(
+    @StoreId() storeId: string,
+    @Param('id') productId: string,
+    @Param('mode') mode: string,
+  ) {
+    if (mode !== 'delete') throw new BadRequestException('Mode tidak valid');
+
+    await this.service.softDeleteProduct(storeId, productId);
+
     return { success: true };
   }
 }

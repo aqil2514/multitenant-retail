@@ -23,3 +23,11 @@ export interface ProductListFetchRes {
 }
 
 export type ProductListTable = ResponseDataWithMeta<ProductListFetchRes[]>;
+
+export interface ProductListDelete {
+  category: string | null;
+  unit: string | null;
+  name?: string | undefined;
+  sku?: string | null | undefined;
+  stock?: number | undefined;
+}

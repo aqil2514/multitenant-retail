@@ -62,12 +62,12 @@ export function useProductListColumn() {
       {
         label: "Edit Produk",
         icon: Edit,
-        onClick: () => update({ id: row.id, action: "edit" }),
+        onClick: () => update({ id: row.id, dialog: "edit" }),
       },
       {
         label: "Hapus",
         icon: Trash,
-        onClick: () => update({ id: row.id, action: "delete" }),
+        onClick: () => update({ id: row.id, dialog: "delete" }),
         variant: "danger",
       },
     ],

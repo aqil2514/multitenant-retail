@@ -8,8 +8,8 @@ model Product {
     description String?
     image       String?
 
-    stock    Int    @default(0)
-    minStock Int    @default(0)
+    stock    Int @default(0)
+    minStock Int @default(0)
 
     categoryId String?          @db.Uuid
     category   ProductCategory? @relation(fields: [categoryId], references: [id])
@@ -95,4 +95,5 @@ enum StockLogType {
     ADJUSTMENT // Penyesuaian manual (misal: pas opname stok ternyata beda)
     WASTE // Barang rusak, hilang, atau expired
     RETURN // Barang dikembalikan oleh pembeli
+    ARCHIVED // Barang dihapus
 }

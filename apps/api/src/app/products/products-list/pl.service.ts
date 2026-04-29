@@ -3,8 +3,17 @@ import { getProductCategoryAsOptions } from 'src/helpers/db/product-category/bas
 import { getProductUnitsAsOptions } from 'src/helpers/db/product-units/base-helper';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { ProductListDto } from './pl.dto';
-import { getProductListForTable } from 'src/helpers/db/product-list/get-helper';
+import {
+  getProductListForDelete,
+  getProductListForEdit,
+  getProductListForTable,
+} from 'src/helpers/db/product-list/get-helper';
 import { PaginationQueryDto } from 'src/common/dto/pagination.dto';
+import { editProductList } from 'src/helpers/db/product-list/edit-helper';
+import {
+  softDeleteProductHelper,
+  updateStockLog,
+} from 'src/helpers/db/product-list/soft-delete.helper';
 
 @Injectable()
 export class ProductListService {
@@ -35,8 +44,38 @@ export class ProductListService {
         ...rest,
         unitId: unit,
         storeId,
-        image: `/uploads/${image.filename}`,
+        image: `http://localhost:3001/uploads/${image.filename}`,
       },
+    });
+  }
+
+  async getProductListMode(storeId: string, productId: string, mode: string) {
+    let data: any;
+
+    if (mode === 'delete') {
+      data = await getProductListForDelete(this.prisma, storeId, productId);
+    } else if (mode === 'edit') {
+      data = await getProductListForEdit(this.prisma, storeId, productId);
+    }
+
+    if (!data) return null;
+
+    return data;
+  }
+
+  async editProductListMode(
+    storeId: string,
+    productId: string,
+    body: ProductListDto,
+    file: Express.Multer.File,
+  ) {
+    await editProductList(this.prisma, storeId, productId, body, file);
+  }
+
+  async softDeleteProduct(storeId: string, productId: string) {
+    await this.prisma.$transaction(async (tx) => {
+      await softDeleteProductHelper(tx, storeId, productId);
+      await updateStockLog(tx, productId, storeId);
     });
   }
 }
