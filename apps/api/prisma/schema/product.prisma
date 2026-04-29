@@ -22,6 +22,12 @@ model Product {
     deletedAt DateTime?  @db.Timestamptz()
     stockLogs StockLog[]
 
+    createdById String @db.Uuid
+    createdBy   User   @relation("ProductCreatedBy", fields: [createdById], references: [id])
+
+    updatedById String? @db.Uuid
+    updatedBy   User?   @relation("ProductUpdatedBy", fields: [updatedById], references: [id])
+
     @@unique([storeId, sku])
     @@index([storeId])
     @@map("products")
@@ -74,16 +80,18 @@ model StockLog {
     storeId String @db.Uuid
     store   Store  @relation(fields: [storeId], references: [id])
 
+    userId String @db.Uuid
+    user   User   @relation(fields: [userId], references: [id])
+
     // Perubahan stok (bisa positif atau negatif)
-    quantity Int
+    quantity    Int
+    resultStock Int // Stok akhir SETELAH perubahan (Saldo)
 
     // Alasan perubahan
-    type StockLogType
-
+    type      StockLogType
     // Catatan tambahan (misal: "Barang jatuh pecah", atau "Bonus dari supplier")
-    notes String?
-
-    createdAt DateTime @default(now()) @db.Timestamptz()
+    notes     String?
+    createdAt DateTime     @default(now()) @db.Timestamptz()
 
     @@index([productId])
     @@map("stock_logs")

@@ -28,17 +28,21 @@ export type AggregateStockLog = {
 
 export type StockLogAvgAggregateOutputType = {
   quantity: number | null
+  resultStock: number | null
 }
 
 export type StockLogSumAggregateOutputType = {
   quantity: number | null
+  resultStock: number | null
 }
 
 export type StockLogMinAggregateOutputType = {
   id: string | null
   productId: string | null
   storeId: string | null
+  userId: string | null
   quantity: number | null
+  resultStock: number | null
   type: $Enums.StockLogType | null
   notes: string | null
   createdAt: Date | null
@@ -48,7 +52,9 @@ export type StockLogMaxAggregateOutputType = {
   id: string | null
   productId: string | null
   storeId: string | null
+  userId: string | null
   quantity: number | null
+  resultStock: number | null
   type: $Enums.StockLogType | null
   notes: string | null
   createdAt: Date | null
@@ -58,7 +64,9 @@ export type StockLogCountAggregateOutputType = {
   id: number
   productId: number
   storeId: number
+  userId: number
   quantity: number
+  resultStock: number
   type: number
   notes: number
   createdAt: number
@@ -68,17 +76,21 @@ export type StockLogCountAggregateOutputType = {
 
 export type StockLogAvgAggregateInputType = {
   quantity?: true
+  resultStock?: true
 }
 
 export type StockLogSumAggregateInputType = {
   quantity?: true
+  resultStock?: true
 }
 
 export type StockLogMinAggregateInputType = {
   id?: true
   productId?: true
   storeId?: true
+  userId?: true
   quantity?: true
+  resultStock?: true
   type?: true
   notes?: true
   createdAt?: true
@@ -88,7 +100,9 @@ export type StockLogMaxAggregateInputType = {
   id?: true
   productId?: true
   storeId?: true
+  userId?: true
   quantity?: true
+  resultStock?: true
   type?: true
   notes?: true
   createdAt?: true
@@ -98,7 +112,9 @@ export type StockLogCountAggregateInputType = {
   id?: true
   productId?: true
   storeId?: true
+  userId?: true
   quantity?: true
+  resultStock?: true
   type?: true
   notes?: true
   createdAt?: true
@@ -195,7 +211,9 @@ export type StockLogGroupByOutputType = {
   id: string
   productId: string
   storeId: string
+  userId: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes: string | null
   createdAt: Date
@@ -228,24 +246,30 @@ export type StockLogWhereInput = {
   id?: Prisma.UuidFilter<"StockLog"> | string
   productId?: Prisma.UuidFilter<"StockLog"> | string
   storeId?: Prisma.UuidFilter<"StockLog"> | string
+  userId?: Prisma.UuidFilter<"StockLog"> | string
   quantity?: Prisma.IntFilter<"StockLog"> | number
+  resultStock?: Prisma.IntFilter<"StockLog"> | number
   type?: Prisma.EnumStockLogTypeFilter<"StockLog"> | $Enums.StockLogType
   notes?: Prisma.StringNullableFilter<"StockLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"StockLog"> | Date | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   store?: Prisma.XOR<Prisma.StoreScalarRelationFilter, Prisma.StoreWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type StockLogOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  resultStock?: Prisma.SortOrder
   type?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
   store?: Prisma.StoreOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type StockLogWhereUniqueInput = Prisma.AtLeast<{
@@ -255,19 +279,24 @@ export type StockLogWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.StockLogWhereInput | Prisma.StockLogWhereInput[]
   productId?: Prisma.UuidFilter<"StockLog"> | string
   storeId?: Prisma.UuidFilter<"StockLog"> | string
+  userId?: Prisma.UuidFilter<"StockLog"> | string
   quantity?: Prisma.IntFilter<"StockLog"> | number
+  resultStock?: Prisma.IntFilter<"StockLog"> | number
   type?: Prisma.EnumStockLogTypeFilter<"StockLog"> | $Enums.StockLogType
   notes?: Prisma.StringNullableFilter<"StockLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"StockLog"> | Date | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   store?: Prisma.XOR<Prisma.StoreScalarRelationFilter, Prisma.StoreWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type StockLogOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  resultStock?: Prisma.SortOrder
   type?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -285,7 +314,9 @@ export type StockLogScalarWhereWithAggregatesInput = {
   id?: Prisma.UuidWithAggregatesFilter<"StockLog"> | string
   productId?: Prisma.UuidWithAggregatesFilter<"StockLog"> | string
   storeId?: Prisma.UuidWithAggregatesFilter<"StockLog"> | string
+  userId?: Prisma.UuidWithAggregatesFilter<"StockLog"> | string
   quantity?: Prisma.IntWithAggregatesFilter<"StockLog"> | number
+  resultStock?: Prisma.IntWithAggregatesFilter<"StockLog"> | number
   type?: Prisma.EnumStockLogTypeWithAggregatesFilter<"StockLog"> | $Enums.StockLogType
   notes?: Prisma.StringNullableWithAggregatesFilter<"StockLog"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StockLog"> | Date | string
@@ -294,18 +325,22 @@ export type StockLogScalarWhereWithAggregatesInput = {
 export type StockLogCreateInput = {
   id?: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes?: string | null
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutStockLogsInput
   store: Prisma.StoreCreateNestedOneWithoutStockLogsInput
+  user: Prisma.UserCreateNestedOneWithoutStockLogsInput
 }
 
 export type StockLogUncheckedCreateInput = {
   id?: string
   productId: string
   storeId: string
+  userId: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes?: string | null
   createdAt?: Date | string
@@ -314,18 +349,22 @@ export type StockLogUncheckedCreateInput = {
 export type StockLogUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutStockLogsNestedInput
   store?: Prisma.StoreUpdateOneRequiredWithoutStockLogsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutStockLogsNestedInput
 }
 
 export type StockLogUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   storeId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -335,7 +374,9 @@ export type StockLogCreateManyInput = {
   id?: string
   productId: string
   storeId: string
+  userId: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes?: string | null
   createdAt?: Date | string
@@ -344,6 +385,7 @@ export type StockLogCreateManyInput = {
 export type StockLogUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -353,7 +395,9 @@ export type StockLogUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   storeId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -373,7 +417,9 @@ export type StockLogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  resultStock?: Prisma.SortOrder
   type?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -381,13 +427,16 @@ export type StockLogCountOrderByAggregateInput = {
 
 export type StockLogAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  resultStock?: Prisma.SortOrder
 }
 
 export type StockLogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  resultStock?: Prisma.SortOrder
   type?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -397,7 +446,9 @@ export type StockLogMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   storeId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  resultStock?: Prisma.SortOrder
   type?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -405,6 +456,7 @@ export type StockLogMinOrderByAggregateInput = {
 
 export type StockLogSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  resultStock?: Prisma.SortOrder
 }
 
 export type StockLogCreateNestedManyWithoutProductInput = {
@@ -495,19 +547,65 @@ export type StockLogUncheckedUpdateManyWithoutStoreNestedInput = {
   deleteMany?: Prisma.StockLogScalarWhereInput | Prisma.StockLogScalarWhereInput[]
 }
 
+export type StockLogCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.StockLogCreateWithoutUserInput, Prisma.StockLogUncheckedCreateWithoutUserInput> | Prisma.StockLogCreateWithoutUserInput[] | Prisma.StockLogUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.StockLogCreateOrConnectWithoutUserInput | Prisma.StockLogCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.StockLogCreateManyUserInputEnvelope
+  connect?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+}
+
+export type StockLogUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.StockLogCreateWithoutUserInput, Prisma.StockLogUncheckedCreateWithoutUserInput> | Prisma.StockLogCreateWithoutUserInput[] | Prisma.StockLogUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.StockLogCreateOrConnectWithoutUserInput | Prisma.StockLogCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.StockLogCreateManyUserInputEnvelope
+  connect?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+}
+
+export type StockLogUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.StockLogCreateWithoutUserInput, Prisma.StockLogUncheckedCreateWithoutUserInput> | Prisma.StockLogCreateWithoutUserInput[] | Prisma.StockLogUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.StockLogCreateOrConnectWithoutUserInput | Prisma.StockLogCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.StockLogUpsertWithWhereUniqueWithoutUserInput | Prisma.StockLogUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.StockLogCreateManyUserInputEnvelope
+  set?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+  disconnect?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+  delete?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+  connect?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+  update?: Prisma.StockLogUpdateWithWhereUniqueWithoutUserInput | Prisma.StockLogUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.StockLogUpdateManyWithWhereWithoutUserInput | Prisma.StockLogUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.StockLogScalarWhereInput | Prisma.StockLogScalarWhereInput[]
+}
+
+export type StockLogUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.StockLogCreateWithoutUserInput, Prisma.StockLogUncheckedCreateWithoutUserInput> | Prisma.StockLogCreateWithoutUserInput[] | Prisma.StockLogUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.StockLogCreateOrConnectWithoutUserInput | Prisma.StockLogCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.StockLogUpsertWithWhereUniqueWithoutUserInput | Prisma.StockLogUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.StockLogCreateManyUserInputEnvelope
+  set?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+  disconnect?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+  delete?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+  connect?: Prisma.StockLogWhereUniqueInput | Prisma.StockLogWhereUniqueInput[]
+  update?: Prisma.StockLogUpdateWithWhereUniqueWithoutUserInput | Prisma.StockLogUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.StockLogUpdateManyWithWhereWithoutUserInput | Prisma.StockLogUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.StockLogScalarWhereInput | Prisma.StockLogScalarWhereInput[]
+}
+
 export type StockLogCreateWithoutProductInput = {
   id?: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes?: string | null
   createdAt?: Date | string
   store: Prisma.StoreCreateNestedOneWithoutStockLogsInput
+  user: Prisma.UserCreateNestedOneWithoutStockLogsInput
 }
 
 export type StockLogUncheckedCreateWithoutProductInput = {
   id?: string
   storeId: string
+  userId: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes?: string | null
   createdAt?: Date | string
@@ -546,7 +644,9 @@ export type StockLogScalarWhereInput = {
   id?: Prisma.UuidFilter<"StockLog"> | string
   productId?: Prisma.UuidFilter<"StockLog"> | string
   storeId?: Prisma.UuidFilter<"StockLog"> | string
+  userId?: Prisma.UuidFilter<"StockLog"> | string
   quantity?: Prisma.IntFilter<"StockLog"> | number
+  resultStock?: Prisma.IntFilter<"StockLog"> | number
   type?: Prisma.EnumStockLogTypeFilter<"StockLog"> | $Enums.StockLogType
   notes?: Prisma.StringNullableFilter<"StockLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"StockLog"> | Date | string
@@ -555,16 +655,20 @@ export type StockLogScalarWhereInput = {
 export type StockLogCreateWithoutStoreInput = {
   id?: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes?: string | null
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutStockLogsInput
+  user: Prisma.UserCreateNestedOneWithoutStockLogsInput
 }
 
 export type StockLogUncheckedCreateWithoutStoreInput = {
   id?: string
   productId: string
+  userId: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes?: string | null
   createdAt?: Date | string
@@ -596,10 +700,60 @@ export type StockLogUpdateManyWithWhereWithoutStoreInput = {
   data: Prisma.XOR<Prisma.StockLogUpdateManyMutationInput, Prisma.StockLogUncheckedUpdateManyWithoutStoreInput>
 }
 
+export type StockLogCreateWithoutUserInput = {
+  id?: string
+  quantity: number
+  resultStock: number
+  type: $Enums.StockLogType
+  notes?: string | null
+  createdAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutStockLogsInput
+  store: Prisma.StoreCreateNestedOneWithoutStockLogsInput
+}
+
+export type StockLogUncheckedCreateWithoutUserInput = {
+  id?: string
+  productId: string
+  storeId: string
+  quantity: number
+  resultStock: number
+  type: $Enums.StockLogType
+  notes?: string | null
+  createdAt?: Date | string
+}
+
+export type StockLogCreateOrConnectWithoutUserInput = {
+  where: Prisma.StockLogWhereUniqueInput
+  create: Prisma.XOR<Prisma.StockLogCreateWithoutUserInput, Prisma.StockLogUncheckedCreateWithoutUserInput>
+}
+
+export type StockLogCreateManyUserInputEnvelope = {
+  data: Prisma.StockLogCreateManyUserInput | Prisma.StockLogCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type StockLogUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.StockLogWhereUniqueInput
+  update: Prisma.XOR<Prisma.StockLogUpdateWithoutUserInput, Prisma.StockLogUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.StockLogCreateWithoutUserInput, Prisma.StockLogUncheckedCreateWithoutUserInput>
+}
+
+export type StockLogUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.StockLogWhereUniqueInput
+  data: Prisma.XOR<Prisma.StockLogUpdateWithoutUserInput, Prisma.StockLogUncheckedUpdateWithoutUserInput>
+}
+
+export type StockLogUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.StockLogScalarWhereInput
+  data: Prisma.XOR<Prisma.StockLogUpdateManyMutationInput, Prisma.StockLogUncheckedUpdateManyWithoutUserInput>
+}
+
 export type StockLogCreateManyProductInput = {
   id?: string
   storeId: string
+  userId: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes?: string | null
   createdAt?: Date | string
@@ -608,16 +762,20 @@ export type StockLogCreateManyProductInput = {
 export type StockLogUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   store?: Prisma.StoreUpdateOneRequiredWithoutStockLogsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutStockLogsNestedInput
 }
 
 export type StockLogUncheckedUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   storeId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -626,7 +784,9 @@ export type StockLogUncheckedUpdateWithoutProductInput = {
 export type StockLogUncheckedUpdateManyWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   storeId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -635,7 +795,9 @@ export type StockLogUncheckedUpdateManyWithoutProductInput = {
 export type StockLogCreateManyStoreInput = {
   id?: string
   productId: string
+  userId: string
   quantity: number
+  resultStock: number
   type: $Enums.StockLogType
   notes?: string | null
   createdAt?: Date | string
@@ -644,16 +806,20 @@ export type StockLogCreateManyStoreInput = {
 export type StockLogUpdateWithoutStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutStockLogsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutStockLogsNestedInput
 }
 
 export type StockLogUncheckedUpdateWithoutStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -662,7 +828,53 @@ export type StockLogUncheckedUpdateWithoutStoreInput = {
 export type StockLogUncheckedUpdateManyWithoutStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type StockLogCreateManyUserInput = {
+  id?: string
+  productId: string
+  storeId: string
+  quantity: number
+  resultStock: number
+  type: $Enums.StockLogType
+  notes?: string | null
+  createdAt?: Date | string
+}
+
+export type StockLogUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutStockLogsNestedInput
+  store?: Prisma.StoreUpdateOneRequiredWithoutStockLogsNestedInput
+}
+
+export type StockLogUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  storeId?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type StockLogUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  storeId?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  resultStock?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumStockLogTypeFieldUpdateOperationsInput | $Enums.StockLogType
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -674,60 +886,74 @@ export type StockLogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   productId?: boolean
   storeId?: boolean
+  userId?: boolean
   quantity?: boolean
+  resultStock?: boolean
   type?: boolean
   notes?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stockLog"]>
 
 export type StockLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productId?: boolean
   storeId?: boolean
+  userId?: boolean
   quantity?: boolean
+  resultStock?: boolean
   type?: boolean
   notes?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stockLog"]>
 
 export type StockLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productId?: boolean
   storeId?: boolean
+  userId?: boolean
   quantity?: boolean
+  resultStock?: boolean
   type?: boolean
   notes?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stockLog"]>
 
 export type StockLogSelectScalar = {
   id?: boolean
   productId?: boolean
   storeId?: boolean
+  userId?: boolean
   quantity?: boolean
+  resultStock?: boolean
   type?: boolean
   notes?: boolean
   createdAt?: boolean
 }
 
-export type StockLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "storeId" | "quantity" | "type" | "notes" | "createdAt", ExtArgs["result"]["stockLog"]>
+export type StockLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "storeId" | "userId" | "quantity" | "resultStock" | "type" | "notes" | "createdAt", ExtArgs["result"]["stockLog"]>
 export type StockLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type StockLogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type StockLogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $StockLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -735,12 +961,15 @@ export type $StockLogPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     product: Prisma.$ProductPayload<ExtArgs>
     store: Prisma.$StorePayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     productId: string
     storeId: string
+    userId: string
     quantity: number
+    resultStock: number
     type: $Enums.StockLogType
     notes: string | null
     createdAt: Date
@@ -1140,6 +1369,7 @@ export interface Prisma__StockLogClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   store<T extends Prisma.StoreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StoreDefaultArgs<ExtArgs>>): Prisma.Prisma__StoreClient<runtime.Types.Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1172,7 +1402,9 @@ export interface StockLogFieldRefs {
   readonly id: Prisma.FieldRef<"StockLog", 'String'>
   readonly productId: Prisma.FieldRef<"StockLog", 'String'>
   readonly storeId: Prisma.FieldRef<"StockLog", 'String'>
+  readonly userId: Prisma.FieldRef<"StockLog", 'String'>
   readonly quantity: Prisma.FieldRef<"StockLog", 'Int'>
+  readonly resultStock: Prisma.FieldRef<"StockLog", 'Int'>
   readonly type: Prisma.FieldRef<"StockLog", 'StockLogType'>
   readonly notes: Prisma.FieldRef<"StockLog", 'String'>
   readonly createdAt: Prisma.FieldRef<"StockLog", 'DateTime'>

@@ -19,4 +19,5 @@ model Store {
     @@map("stores")
     storeUsers StoreUser[]
     productUnits ProductUnit[]
+    activityLogs ActivityLog[]
 }

@@ -16,6 +16,10 @@ model User {
   storeUsers StoreUser[]
 
   @@map("users")
+  stockLogs StockLog[]
+  createdProducts Product[] @relation("ProductCreatedBy")
+  updatedProducts Product[] @relation("ProductUpdatedBy")
+  activityLogs ActivityLog[]
 }
 
 model StoreUser {
