@@ -95,3 +95,38 @@ export async function createLogoutSessionExpired(
     details,
   );
 }
+
+export async function deleteSessionByJti(prisma: PrismaService, jti: string) {
+  await prisma.session.delete({
+    where: {
+      jti,
+    },
+  });
+}
+
+export async function getSessionByJti(
+  prisma: PrismaService,
+  jti: string,
+  userId: string,
+) {
+  return await prisma.session.findFirst({
+    where: {
+      jti,
+      userId,
+    },
+    include: {
+      user: true,
+    },
+  });
+}
+
+export async function updateSessionByJti(prisma: PrismaService, jti: string) {
+  await prisma.session.update({
+    where: {
+      jti,
+    },
+    data: {
+      lastUsedAt: new Date(),
+    },
+  });
+}

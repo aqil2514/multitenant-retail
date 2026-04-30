@@ -30,6 +30,6 @@ async function bootstrap() {
   );
 
   await app.listen(process.env.PORT ?? 3001);
-  console.log(`Server berjalan di http://localhost:${port}`);
+  console.info(`Server berjalan di http://localhost:${port}`);
 }
 void bootstrap();

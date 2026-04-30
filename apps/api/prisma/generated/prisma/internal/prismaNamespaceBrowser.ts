@@ -58,7 +58,8 @@ export const ModelName = {
   StockLog: 'StockLog',
   Store: 'Store',
   User: 'User',
-  StoreUser: 'StoreUser'
+  StoreUser: 'StoreUser',
+  Session: 'Session'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -192,6 +193,20 @@ export const StoreUserScalarFieldEnum = {
 } as const
 
 export type StoreUserScalarFieldEnum = (typeof StoreUserScalarFieldEnum)[keyof typeof StoreUserScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jti: 'jti',
+  device: 'device',
+  ipAddress: 'ipAddress',
+  lastUsedAt: 'lastUsedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
 export const SortOrder = {

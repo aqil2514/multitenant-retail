@@ -228,6 +228,7 @@ export type UserWhereInput = {
   createdProducts?: Prisma.ProductListRelationFilter
   updatedProducts?: Prisma.ProductListRelationFilter
   activityLogs?: Prisma.ActivityLogListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -247,6 +248,7 @@ export type UserOrderByWithRelationInput = {
   createdProducts?: Prisma.ProductOrderByRelationAggregateInput
   updatedProducts?: Prisma.ProductOrderByRelationAggregateInput
   activityLogs?: Prisma.ActivityLogOrderByRelationAggregateInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -269,6 +271,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdProducts?: Prisma.ProductListRelationFilter
   updatedProducts?: Prisma.ProductListRelationFilter
   activityLogs?: Prisma.ActivityLogListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
 }, "id" | "email" | "providerId">
 
 export type UserOrderByWithAggregationInput = {
@@ -320,6 +323,7 @@ export type UserCreateInput = {
   createdProducts?: Prisma.ProductCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -339,6 +343,7 @@ export type UserUncheckedCreateInput = {
   createdProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -358,6 +363,7 @@ export type UserUpdateInput = {
   createdProducts?: Prisma.ProductUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -377,6 +383,7 @@ export type UserUncheckedUpdateInput = {
   createdProducts?: Prisma.ProductUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUncheckedUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -553,6 +560,20 @@ export type UserUpdateOneRequiredWithoutStoreUsersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStoreUsersInput, Prisma.UserUpdateWithoutStoreUsersInput>, Prisma.UserUncheckedUpdateWithoutStoreUsersInput>
 }
 
+export type UserCreateNestedOneWithoutSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  upsert?: Prisma.UserUpsertWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
 export type UserCreateWithoutActivityLogsInput = {
   id?: string
   name?: string | null
@@ -569,6 +590,7 @@ export type UserCreateWithoutActivityLogsInput = {
   stockLogs?: Prisma.StockLogCreateNestedManyWithoutUserInput
   createdProducts?: Prisma.ProductCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductCreateNestedManyWithoutUpdatedByInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityLogsInput = {
@@ -587,6 +609,7 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   stockLogs?: Prisma.StockLogUncheckedCreateNestedManyWithoutUserInput
   createdProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutUpdatedByInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityLogsInput = {
@@ -621,6 +644,7 @@ export type UserUpdateWithoutActivityLogsInput = {
   stockLogs?: Prisma.StockLogUpdateManyWithoutUserNestedInput
   createdProducts?: Prisma.ProductUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUpdateManyWithoutUpdatedByNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityLogsInput = {
@@ -639,6 +663,7 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   stockLogs?: Prisma.StockLogUncheckedUpdateManyWithoutUserNestedInput
   createdProducts?: Prisma.ProductUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUncheckedUpdateManyWithoutUpdatedByNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedProductsInput = {
@@ -657,6 +682,7 @@ export type UserCreateWithoutCreatedProductsInput = {
   stockLogs?: Prisma.StockLogCreateNestedManyWithoutUserInput
   updatedProducts?: Prisma.ProductCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedProductsInput = {
@@ -675,6 +701,7 @@ export type UserUncheckedCreateWithoutCreatedProductsInput = {
   stockLogs?: Prisma.StockLogUncheckedCreateNestedManyWithoutUserInput
   updatedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedProductsInput = {
@@ -698,6 +725,7 @@ export type UserCreateWithoutUpdatedProductsInput = {
   stockLogs?: Prisma.StockLogCreateNestedManyWithoutUserInput
   createdProducts?: Prisma.ProductCreateNestedManyWithoutCreatedByInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedProductsInput = {
@@ -716,6 +744,7 @@ export type UserUncheckedCreateWithoutUpdatedProductsInput = {
   stockLogs?: Prisma.StockLogUncheckedCreateNestedManyWithoutUserInput
   createdProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutCreatedByInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedProductsInput = {
@@ -750,6 +779,7 @@ export type UserUpdateWithoutCreatedProductsInput = {
   stockLogs?: Prisma.StockLogUpdateManyWithoutUserNestedInput
   updatedProducts?: Prisma.ProductUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedProductsInput = {
@@ -768,6 +798,7 @@ export type UserUncheckedUpdateWithoutCreatedProductsInput = {
   stockLogs?: Prisma.StockLogUncheckedUpdateManyWithoutUserNestedInput
   updatedProducts?: Prisma.ProductUncheckedUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutUpdatedProductsInput = {
@@ -797,6 +828,7 @@ export type UserUpdateWithoutUpdatedProductsInput = {
   stockLogs?: Prisma.StockLogUpdateManyWithoutUserNestedInput
   createdProducts?: Prisma.ProductUpdateManyWithoutCreatedByNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedProductsInput = {
@@ -815,6 +847,7 @@ export type UserUncheckedUpdateWithoutUpdatedProductsInput = {
   stockLogs?: Prisma.StockLogUncheckedUpdateManyWithoutUserNestedInput
   createdProducts?: Prisma.ProductUncheckedUpdateManyWithoutCreatedByNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStockLogsInput = {
@@ -833,6 +866,7 @@ export type UserCreateWithoutStockLogsInput = {
   createdProducts?: Prisma.ProductCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStockLogsInput = {
@@ -851,6 +885,7 @@ export type UserUncheckedCreateWithoutStockLogsInput = {
   createdProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStockLogsInput = {
@@ -885,6 +920,7 @@ export type UserUpdateWithoutStockLogsInput = {
   createdProducts?: Prisma.ProductUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStockLogsInput = {
@@ -903,6 +939,7 @@ export type UserUncheckedUpdateWithoutStockLogsInput = {
   createdProducts?: Prisma.ProductUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUncheckedUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStoresInput = {
@@ -921,6 +958,7 @@ export type UserCreateWithoutStoresInput = {
   createdProducts?: Prisma.ProductCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStoresInput = {
@@ -939,6 +977,7 @@ export type UserUncheckedCreateWithoutStoresInput = {
   createdProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStoresInput = {
@@ -973,6 +1012,7 @@ export type UserUpdateWithoutStoresInput = {
   createdProducts?: Prisma.ProductUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoresInput = {
@@ -991,6 +1031,7 @@ export type UserUncheckedUpdateWithoutStoresInput = {
   createdProducts?: Prisma.ProductUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUncheckedUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStoreUsersInput = {
@@ -1009,6 +1050,7 @@ export type UserCreateWithoutStoreUsersInput = {
   createdProducts?: Prisma.ProductCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStoreUsersInput = {
@@ -1027,6 +1069,7 @@ export type UserUncheckedCreateWithoutStoreUsersInput = {
   createdProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutCreatedByInput
   updatedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutUpdatedByInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStoreUsersInput = {
@@ -1061,6 +1104,7 @@ export type UserUpdateWithoutStoreUsersInput = {
   createdProducts?: Prisma.ProductUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoreUsersInput = {
@@ -1079,6 +1123,99 @@ export type UserUncheckedUpdateWithoutStoreUsersInput = {
   createdProducts?: Prisma.ProductUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedProducts?: Prisma.ProductUncheckedUpdateManyWithoutUpdatedByNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSessionsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  picture?: string | null
+  role?: string
+  provider?: string | null
+  providerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
+  storeUsers?: Prisma.StoreUserCreateNestedManyWithoutUserInput
+  stockLogs?: Prisma.StockLogCreateNestedManyWithoutUserInput
+  createdProducts?: Prisma.ProductCreateNestedManyWithoutCreatedByInput
+  updatedProducts?: Prisma.ProductCreateNestedManyWithoutUpdatedByInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSessionsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  picture?: string | null
+  role?: string
+  provider?: string | null
+  providerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
+  storeUsers?: Prisma.StoreUserUncheckedCreateNestedManyWithoutUserInput
+  stockLogs?: Prisma.StockLogUncheckedCreateNestedManyWithoutUserInput
+  createdProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutUpdatedByInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+}
+
+export type UserUpsertWithoutSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
+export type UserUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
+  storeUsers?: Prisma.StoreUserUpdateManyWithoutUserNestedInput
+  stockLogs?: Prisma.StockLogUpdateManyWithoutUserNestedInput
+  createdProducts?: Prisma.ProductUpdateManyWithoutCreatedByNestedInput
+  updatedProducts?: Prisma.ProductUpdateManyWithoutUpdatedByNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
+  storeUsers?: Prisma.StoreUserUncheckedUpdateManyWithoutUserNestedInput
+  stockLogs?: Prisma.StockLogUncheckedUpdateManyWithoutUserNestedInput
+  createdProducts?: Prisma.ProductUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedProducts?: Prisma.ProductUncheckedUpdateManyWithoutUpdatedByNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1093,6 +1230,7 @@ export type UserCountOutputType = {
   createdProducts: number
   updatedProducts: number
   activityLogs: number
+  sessions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1102,6 +1240,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   createdProducts?: boolean | UserCountOutputTypeCountCreatedProductsArgs
   updatedProducts?: boolean | UserCountOutputTypeCountUpdatedProductsArgs
   activityLogs?: boolean | UserCountOutputTypeCountActivityLogsArgs
+  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
 }
 
 /**
@@ -1156,6 +1295,13 @@ export type UserCountOutputTypeCountActivityLogsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.ActivityLogWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1174,6 +1320,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdProducts?: boolean | Prisma.User$createdProductsArgs<ExtArgs>
   updatedProducts?: boolean | Prisma.User$updatedProductsArgs<ExtArgs>
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1224,6 +1371,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdProducts?: boolean | Prisma.User$createdProductsArgs<ExtArgs>
   updatedProducts?: boolean | Prisma.User$updatedProductsArgs<ExtArgs>
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1238,6 +1386,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdProducts: Prisma.$ProductPayload<ExtArgs>[]
     updatedProducts: Prisma.$ProductPayload<ExtArgs>[]
     activityLogs: Prisma.$ActivityLogPayload<ExtArgs>[]
+    sessions: Prisma.$SessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1650,6 +1799,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   createdProducts<T extends Prisma.User$createdProductsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdProductsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   updatedProducts<T extends Prisma.User$updatedProductsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedProductsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activityLogs<T extends Prisma.User$activityLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2223,6 +2373,30 @@ export type User$activityLogsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ActivityLogScalarFieldEnum | Prisma.ActivityLogScalarFieldEnum[]
+}
+
+/**
+ * User.sessions
+ */
+export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
 }
 
 /**

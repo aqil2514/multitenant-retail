@@ -16,10 +16,10 @@ async function main() {
     select: { id: true, name: true },
   });
 
-  console.log('Stores:', stores);
+  console.info('Stores:', stores);
 
   if (stores.length === 0) {
-    console.log('Tidak ada store');
+    console.info('Tidak ada store');
     return;
   }
 
@@ -31,7 +31,7 @@ async function main() {
   await prisma.storeUser.deleteMany({ where: { storeId } });
   await prisma.store.delete({ where: { id: storeId } });
 
-  console.log('Done');
+  console.info('Done');
 }
 
 main()

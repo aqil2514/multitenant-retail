@@ -34,7 +34,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         const decoded: UserJwtPayload = this.jwtService.decode(token);
 
         createLogoutSessionExpired(this.prisma, decoded).catch(console.error);
-        response.clearCookie('access_token');
       }
     }
     if (err || !user) {
