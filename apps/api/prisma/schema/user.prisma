@@ -20,6 +20,7 @@ model User {
   createdProducts Product[] @relation("ProductCreatedBy")
   updatedProducts Product[] @relation("ProductUpdatedBy")
   activityLogs ActivityLog[]
+  sessions Session[]
 }
 
 model StoreUser {
@@ -34,4 +35,21 @@ model StoreUser {
 
   @@unique([userId, storeId])
   @@map("store_users")
+}
+
+model Session {
+  id          String    @id @default(uuid()) @db.Uuid
+  userId      String    @db.Uuid
+  jti         String    @unique
+  device      String?
+  ipAddress   String?
+  lastUsedAt  DateTime  @default(now()) @db.Timestamptz()
+  expiresAt   DateTime  @db.Timestamptz()
+  createdAt   DateTime  @default(now()) @db.Timestamptz()
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([jti])
+  @@map("sessions")
 }

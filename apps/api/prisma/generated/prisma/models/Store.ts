@@ -401,6 +401,11 @@ export type StoreUncheckedUpdateManyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
+export type StoreNullableScalarRelationFilter = {
+  is?: Prisma.StoreWhereInput | null
+  isNot?: Prisma.StoreWhereInput | null
+}
+
 export type StoreScalarRelationFilter = {
   is?: Prisma.StoreWhereInput
   isNot?: Prisma.StoreWhereInput
@@ -458,10 +463,12 @@ export type StoreCreateNestedOneWithoutActivityLogsInput = {
   connect?: Prisma.StoreWhereUniqueInput
 }
 
-export type StoreUpdateOneRequiredWithoutActivityLogsNestedInput = {
+export type StoreUpdateOneWithoutActivityLogsNestedInput = {
   create?: Prisma.XOR<Prisma.StoreCreateWithoutActivityLogsInput, Prisma.StoreUncheckedCreateWithoutActivityLogsInput>
   connectOrCreate?: Prisma.StoreCreateOrConnectWithoutActivityLogsInput
   upsert?: Prisma.StoreUpsertWithoutActivityLogsInput
+  disconnect?: Prisma.StoreWhereInput | boolean
+  delete?: Prisma.StoreWhereInput | boolean
   connect?: Prisma.StoreWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StoreUpdateToOneWithWhereWithoutActivityLogsInput, Prisma.StoreUpdateWithoutActivityLogsInput>, Prisma.StoreUncheckedUpdateWithoutActivityLogsInput>
 }

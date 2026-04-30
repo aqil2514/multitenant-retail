@@ -1,5 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, User } from 'prisma/generated/prisma/client';
+import { GoogleProfile } from 'src/@types/auth';
+import {
+  createLoginGoogleLog,
+  createNewUser,
+  createNewUserLog,
+  getUserByGoogleId,
+} from 'src/helpers/auth/google.helper';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 
 @Injectable()
@@ -24,8 +31,20 @@ export class AuthProfileService {
     return this.prisma.user.findUnique({ where: { email } });
   }
 
-  async getUserByProviderId(providerId: string): Promise<User | null> {
-    return this.prisma.user.findUnique({ where: { providerId } });
+  async getGoogleUser(providerId: string) {
+    const user = await getUserByGoogleId(this.prisma, providerId);
+    if (!user) return null;
+
+    await createLoginGoogleLog(this.prisma, user);
+    return user;
+  }
+
+  async handleCreateUser(profile: GoogleProfile) {
+    const user = await createNewUser(this.prisma, profile);
+
+    await createNewUserLog(this.prisma, user);
+
+    return user;
   }
 
   async createNewUser(payload: Prisma.UserCreateInput): Promise<User> {

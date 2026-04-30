@@ -29,7 +29,6 @@ export async function createProductDevInit(
   const getCategoryId = (name: string) =>
     categories.find((c) => c.name === name)?.id;
 
-  // 2. Buat Data Produk
   const result = await prisma.product.createMany({
     data: [
       {
@@ -259,7 +258,7 @@ export async function createProductDevInit(
   if (result.count > 0) {
     await createLog(
       prisma,
-      'CREATE_PRODUCT_INIT', // Action
+      'Setup awal template produk', // Action
       'Product', // Entity
       'BULK_CREATE', // EntityId (karena banyak, kita beri label bulk)
       storeId,

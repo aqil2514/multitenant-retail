@@ -1,18 +1,18 @@
 model ActivityLog {
-    id        String   @id @default(uuid()) @db.Uuid
-    storeId   String   @db.Uuid
-    store     Store    @relation(fields: [storeId], references: [id])
-    
-    userId    String   @db.Uuid
-    user      User     @relation(fields: [userId], references: [id])
+    id      String  @id @default(uuid()) @db.Uuid
+    storeId String? @db.Uuid
+    store   Store?   @relation(fields: [storeId], references: [id])
 
-    action    String   // "CREATE_PRODUCT", "UPDATE_CATEGORY", "LOGIN"
-    entity    String   // "Product", "Category", etc.
-    entityId  String?  // ID objek yang dimanipulasi
-    
+    userId String @db.Uuid
+    user   User   @relation(fields: [userId], references: [id])
+
+    action   String // "CREATE_PRODUCT", "UPDATE_CATEGORY", "LOGIN"
+    entity   String // "Product", "Category", etc.
+    entityId String? // ID objek yang dimanipulasi
+
     // Simpan perubahan dalam bentuk JSON (Sangat fleksibel)
     // Contoh: { "old": { "name": "Beras A" }, "new": { "name": "Beras B" } }
-    details   Json?    
+    details Json?
 
     createdAt DateTime @default(now()) @db.Timestamptz()
 

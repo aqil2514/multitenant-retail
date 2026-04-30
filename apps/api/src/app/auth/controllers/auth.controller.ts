@@ -1,4 +1,12 @@
-import { Controller, Get, Req, Request, Res, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  Req,
+  Request,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { GoogleOauthGuard } from 'src/guards/google-oauth.guard';
 import { AuthService } from '../services/auth.service';
 import type { CookieOptions, Response } from 'express';
@@ -6,7 +14,6 @@ import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import type { UserJwtPayload } from 'src/@types/auth';
 import { User as UserDb } from 'prisma/generated/prisma/client';
 import { User } from 'src/decorator/user.decorator';
-import { WEB_URL } from 'src/constants/url';
 import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
@@ -47,8 +54,14 @@ export class AuthController {
   `);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/logout')
-  signOut(@Res() res: Response) {
+  async signOut(
+    @Res() res: Response,
+    @User() user: UserJwtPayload,
+    @Query('from') from: string,
+  ) {
+    await this.service.logoutService(user, from === 'onboarding');
     const webUrl = this.configService.get<string>('WEB_URL');
     res.clearCookie('access_token', this.cookiesConfig);
     const url = `${webUrl}/login?logout=success`;

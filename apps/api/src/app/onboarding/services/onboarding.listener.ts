@@ -4,6 +4,7 @@ import {
   createProductCategoryInit,
   createProductUnitInit,
   createStoreUserInit,
+  UpdateNullLog,
 } from 'src/helpers/onboarding/onboarding.helper';
 import { createProductDevInit } from 'src/helpers/test-dev/onboarding.dev';
 import { PrismaService } from 'src/services/prisma/prisma.service';
@@ -26,5 +27,6 @@ export class OnboardingListener {
     ]);
 
     await createProductDevInit(storeId, this.logger, this.prisma);
+    await UpdateNullLog(this.prisma, storeId, userId, this.logger);
   }
 }

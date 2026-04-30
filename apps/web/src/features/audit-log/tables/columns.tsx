@@ -7,6 +7,7 @@ import { format } from "date-fns"; // Atau gunakan Intl.DateTimeFormat
 import { id } from "date-fns/locale";
 import { Badge } from "@/components/ui/badge"; // Asumsi menggunakan shadcn/ui
 import { SYSTEM_USER_ID } from "@/constants/common";
+import { modulLables } from "./label";
 
 const baseColumn: ColumnDef<AuditLogTable>[] = [
   {
@@ -47,22 +48,13 @@ const baseColumn: ColumnDef<AuditLogTable>[] = [
     },
   },
   {
-    id:"activity",
+    id: "activity",
     accessorKey: "action",
     header: "Aktivitas",
     cell: ({ row }) => {
-      // Mapping action ke label yang lebih bersahabat
-      const actionLabels: Record<string, string> = {
-        CREATE_PRODUCT: "Tambah Produk",
-        UPDATE_PRODUCT: "Edit Produk",
-        DELETE_PRODUCT: "Hapus Produk",
-        CREATE_PRODUCT_INIT: "Inisialisasi Produk",
-        LOGIN: "Masuk Sistem",
-      };
-
       return (
         <Badge variant="outline">
-          {actionLabels[row.original.action] || row.original.action}
+          {row.original.action}
         </Badge>
       );
     },
@@ -70,6 +62,7 @@ const baseColumn: ColumnDef<AuditLogTable>[] = [
   {
     accessorKey: "entity",
     header: "Modul",
+    cell: ({ row }) => modulLables[row.original.entity],
   },
 ];
 

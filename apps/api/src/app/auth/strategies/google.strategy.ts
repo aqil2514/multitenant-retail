@@ -23,29 +23,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: GoogleProfile,
     done: VerifiedCallback,
   ) {
-    const { id, name, emails, photos } = profile;
-    const user = await this.service.getUserByProviderId(profile.sub);
+    const user = await this.service.getGoogleUser(profile.sub);
     if (user) {
       return done(null, user);
     }
 
-    const googlePayload: UserProfile = {
-      provider: 'google',
-      providerId: id,
-      email: emails[0].value,
-      name: `${name.givenName} ${name.familyName}`,
-      picture: photos[0].value,
-    };
-
-    const dbPayload: Prisma.UserCreateInput = {
-      email: googlePayload.email,
-      name: googlePayload.name,
-      picture: googlePayload.picture,
-      provider: googlePayload.provider,
-      providerId: profile.sub,
-    };
-
-    const newUser = await this.service.createNewUser(dbPayload);
+    const newUser = await this.service.handleCreateUser(profile);
 
     done(null, newUser);
   }

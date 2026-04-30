@@ -28,7 +28,7 @@ export async function createProductCategoryInit(
   if (result.count > 0) {
     await createLog(
       prisma,
-      'INITIALIZE_CATEGORY',
+      'Setup awal kategori produk',
       'ProductCategory',
       'BULK_INIT',
       storeId,
@@ -75,7 +75,7 @@ export async function createProductUnitInit(
   if (result.count > 0) {
     await createLog(
       prisma,
-      'INITIALIZE_UNIT',
+      'Setup awal unit produk',
       'ProductUnit',
       'BULK_INIT',
       storeId,
@@ -106,7 +106,7 @@ export async function createStoreUserInit(
 
   await createLog(
     prisma,
-    'ASSIGN_OWNER',
+    'Pemilihan Owner',
     'StoreUser',
     userId,
     storeId,
@@ -117,4 +117,24 @@ export async function createStoreUserInit(
   logger.log(
     `User untuk toko ${storeId} berhasil dibuat dengan ${userId} sebagai ownernya`,
   );
+}
+
+export async function UpdateNullLog(
+  prisma: PrismaService,
+  storeId: string,
+  userId: string,
+  logger: Logger,
+) {
+  logger.log('Mencatat aktivitas ke dalam Log Aktivitas...');
+  await prisma.activityLog.updateMany({
+    data: {
+      storeId,
+    },
+    where: {
+      userId,
+      storeId: null,
+    },
+  });
+
+  logger.log('Mencatat aktivitas ke dalam Log Aktivitas - SELESAI');
 }

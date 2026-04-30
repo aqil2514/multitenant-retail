@@ -5,7 +5,7 @@ export async function createLog(
   action: string, // "CREATE_PRODUCT", "UPDATE_CATEGORY", "LOGIN"
   entity: string, // "Product", "Category", etc.
   entityId: string, // ID objek yang dimanipulasi
-  storeId: string,
+  storeId: string | null,
   userId: string,
   details?: any,
 ) {
