@@ -7,9 +7,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useState } from "react";
-import { useStoreSettings } from "../ss.context";
+import { useStoreSettings } from "../../ss.context";
 import { Edit, X, Package2 } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { SectionProductUnitSkeleton } from "./skeleton";
+import { DataBadge } from "@/_shared/data-display/data-badge";
 
 export function SectionProductUnit() {
   const [isEditing, setIsEditing] = useState(false);
@@ -45,7 +46,7 @@ export function SectionProductUnit() {
         ) : (
           <div className="flex flex-wrap gap-3">
             {data?.productUnits.map((unit) => (
-              <UnitBadge key={unit.id} unit={unit} />
+              <DataBadge key={unit.id} value={unit.value} label={unit.name} />
             ))}
             {data?.productUnits.length === 0 && (
               <p className="text-sm text-muted-foreground italic">
@@ -58,34 +59,3 @@ export function SectionProductUnit() {
     </Card>
   );
 }
-
-/**
- * Komponen Kecil untuk menampilkan item unit
- */
-const UnitBadge: React.FC<{ unit: { name: string; value: string } }> = ({
-  unit,
-}) => {
-  return (
-    <div className="flex flex-col border rounded-lg px-4 py-2 bg-secondary/20 min-w-25">
-      <span className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
-        {unit.value}
-      </span>
-      <span className="text-sm font-semibold">{unit.name}</span>
-    </div>
-  );
-};
-
-// TODO : Lanjut logicnya
-
-/**
- * Skeleton Loading State
- */
-const SectionProductUnitSkeleton = () => {
-  return (
-    <div className="flex flex-wrap gap-3 animate-pulse">
-      {[1, 2, 3].map((i) => (
-        <Skeleton key={i} className="h-13 w-27.5 rounded-lg" />
-      ))}
-    </div>
-  );
-};
