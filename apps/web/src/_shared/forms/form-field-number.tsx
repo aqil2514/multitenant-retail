@@ -34,6 +34,7 @@ export function FormFieldNumber<
   prefix,
   suffix,
   className,
+  disabled
 }: FormFieldNumberProps<T, TTransformedValues>) {
   const isSubmitting = form.formState.isSubmitting;
 
@@ -55,7 +56,7 @@ export function FormFieldNumber<
               <Input
                 id={field.name}
                 type="number"
-                disabled={isSubmitting}
+                disabled={isSubmitting || disabled}
                 aria-invalid={fieldState.invalid}
                 placeholder={placeholder}
                 min={min}

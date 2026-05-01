@@ -26,6 +26,7 @@ export function FormFieldTextarea<
   placeholder,
   rows = 3,
   className,
+  disabled,
 }: FormFieldTextareaProps<T, TTransformedValues>) {
   const isSubmitting = form.formState.isSubmitting;
   const defaultPlaceholder = placeholder ?? "Masukkan teks...";
@@ -41,7 +42,7 @@ export function FormFieldTextarea<
             <Textarea
               {...field}
               id={field.name}
-              disabled={isSubmitting}
+              disabled={isSubmitting || disabled}
               aria-invalid={fieldState.invalid}
               placeholder={defaultPlaceholder}
               rows={rows}

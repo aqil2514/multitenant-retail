@@ -20,6 +20,7 @@ export interface BaseFormProps<
   children: (form: UseFormReturn<TInput, unknown, TOutput>) => ReactNode;
   submitLabel?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export function BaseForm<
@@ -31,6 +32,7 @@ export function BaseForm<
   onSubmit,
   children,
   submitLabel,
+  disabled,
   className = "space-y-4",
 }: BaseFormProps<TInput, TOutput>) {
   const form = useForm<TInput, unknown, TOutput>({
@@ -47,7 +49,9 @@ export function BaseForm<
         if (process.env.NODE_ENV === "development") {
           console.error("Validation Errors:", errors);
         }
-        toast.error("Ada data yang tidak valid. Periksa kembali input dan coba lagi.");
+        toast.error(
+          "Ada data yang tidak valid. Periksa kembali input dan coba lagi.",
+        );
       })}
       className={className}
     >
@@ -55,7 +59,7 @@ export function BaseForm<
 
       <Button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || disabled}
         className="w-full sm:w-auto"
       >
         {isSubmitting ? "Mengirim..." : defaultSubmitLabel}

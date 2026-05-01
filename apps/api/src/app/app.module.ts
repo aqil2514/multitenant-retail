@@ -9,6 +9,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ProductModule } from './products/products.module';
 import { UploadModule } from './upload/upload.module';
 import { GeneralModule } from './general/general.module';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { GeneralModule } from './general/general.module';
 
     GeneralModule,
     ProductModule,
+    SettingsModule,
 
     AuthModule,
     OnBoardingModule,

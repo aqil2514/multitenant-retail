@@ -27,6 +27,7 @@ export function FormFieldText<
   placeholder,
   datalist,
   className,
+  disabled
 }: FormFieldTextProps<T, TTransformedValues>) {
   const isSubmitting = form.formState.isSubmitting;
   const defaultPlaceholder = placeholder ?? "Masukkan teks...";
@@ -45,7 +46,7 @@ export function FormFieldText<
               <Input
                 {...field}
                 id={field.name}
-                disabled={isSubmitting}
+                disabled={isSubmitting || disabled}
                 aria-invalid={fieldState.invalid}
                 placeholder={defaultPlaceholder}
                 list={datalistId}

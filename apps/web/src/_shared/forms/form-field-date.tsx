@@ -43,6 +43,7 @@ export function FormFieldDate<
   fromYear = 1900,
   toYear = new Date().getFullYear() + 5,
   className,
+  disabled
 }: FormFieldDateProps<T, TTransformedValues>) {
   const isSubmitting = form.formState.isSubmitting;
 
@@ -71,7 +72,7 @@ export function FormFieldDate<
                     id={field.name}
                     type="button"
                     variant="outline"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || disabled}
                     aria-invalid={fieldState.invalid}
                     className={cn(
                       "w-full justify-start text-left font-normal",

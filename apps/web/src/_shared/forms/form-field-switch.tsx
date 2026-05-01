@@ -25,6 +25,7 @@ export function FormFieldSwitch<
   label,
   description,
   className,
+  disabled
 }: FormFieldSwitchProps<T, TTransformedValues>) {
   const isSubmitting = form.formState.isSubmitting;
 
@@ -60,7 +61,7 @@ export function FormFieldSwitch<
                 id={field.name}
                 checked={!!field.value}
                 onCheckedChange={field.onChange}
-                disabled={isSubmitting}
+                disabled={isSubmitting || disabled}
                 className="data-[state=checked]:bg-amber-500"
               />
             </div>

@@ -26,6 +26,7 @@ export function FormFieldTags<
   label,
   placeholder,
   className,
+  disabled
 }: FormFieldTagsProps<T, TTransformedValues>) {
   const [inputValue, setInputValue] = useState("");
   const isSubmitting = form.formState.isSubmitting;
@@ -101,7 +102,7 @@ export function FormFieldTags<
                 <Input
                   id={field.name}
                   value={inputValue}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || disabled}
                   placeholder={tags.length === 0 ? defaultPlaceholder : ""}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}

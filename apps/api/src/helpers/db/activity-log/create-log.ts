@@ -3,6 +3,7 @@ import { PrismaService } from 'src/services/prisma/prisma.service';
 
 export enum LogEntityList {
   STORE_USER = 'StoreUser',
+  STORE_IDENTITY = 'StoreIdentity',
   PRODUCT_CATEGORY = 'ProductCategory',
   PRODUCT_UNIT = 'ProductUnit',
   PRODUCT = 'Product',

@@ -67,6 +67,7 @@ export function FormFieldPassword<
   placeholder = "••••••••",
   showStrength = false,
   className,
+  disabled
 }: FormFieldPasswordProps<T, TTransformedValues>) {
   const [visible, setVisible] = useState(false);
   const isSubmitting = form.formState.isSubmitting;
@@ -89,7 +90,7 @@ export function FormFieldPassword<
                   {...field}
                   id={field.name}
                   type={visible ? "text" : "password"}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || disabled}
                   aria-invalid={fieldState.invalid}
                   placeholder={placeholder}
                   className={cn(
@@ -103,7 +104,7 @@ export function FormFieldPassword<
                 />
                 <button
                   type="button"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || disabled}
                   onClick={() => setVisible((v) => !v)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 disabled:opacity-50 transition-colors"
                   aria-label={visible ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}

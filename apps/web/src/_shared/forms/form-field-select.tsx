@@ -41,6 +41,7 @@ export function FormFieldSelect<
   isLoading,
   addNewLabel,
   addNewOption,
+  disabled
 }: FormFieldSelectProps<T, TTransformedValues>) {
   const isSubmitting = form.formState.isSubmitting;
 
@@ -64,7 +65,7 @@ export function FormFieldSelect<
               // Gunakan undefined jika value kosong agar placeholder muncul
               value={field.value === "" ? undefined : String(field.value)}
               onValueChange={field.onChange}
-              disabled={isSubmitting || isLoading}
+              disabled={isSubmitting || isLoading || disabled}
             >
               <SelectTrigger
                 id={field.name}

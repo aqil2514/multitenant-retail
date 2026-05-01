@@ -9,6 +9,7 @@ export interface BasicFormFieldProps<
   label: string;
   placeholder?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export interface BaseFormComponentProps<TInput, TOutput = TInput> {

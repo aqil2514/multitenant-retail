@@ -130,6 +130,7 @@ export function FormFieldPhone<
   label,
   placeholder = "8123456789",
   className,
+  disabled
 }: FormFieldPhoneProps<T, TTransformedValues>) {
   const isSubmitting = form.formState.isSubmitting;
   const [open, setOpen] = useState(false);
@@ -200,7 +201,7 @@ export function FormFieldPhone<
                     <Button
                       type="button"
                       variant="outline"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || disabled}
                       aria-label="Pilih kode negara"
                       className={cn(
                         "shrink-0 gap-1.5 px-3 font-normal",
@@ -263,7 +264,7 @@ export function FormFieldPhone<
                   type="tel"
                   inputMode="numeric"
                   maxLength={15}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || disabled}
                   aria-invalid={fieldState.invalid}
                   placeholder={placeholder}
                   value={local}

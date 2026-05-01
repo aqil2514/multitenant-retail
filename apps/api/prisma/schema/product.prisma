@@ -70,6 +70,7 @@ model ProductUnit {
 
     createdAt DateTime @default(now()) @db.Timestamptz()
     updatedAt DateTime @updatedAt @db.Timestamptz()
+    deleteAt  DateTime? @db.Timestamptz()
 
     products Product[]
 
