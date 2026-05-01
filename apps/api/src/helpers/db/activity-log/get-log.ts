@@ -17,6 +17,7 @@ export async function getActivityLogForTable(
   const getData = prisma.activityLog.findMany({
     skip,
     take: limit,
+    where: whereCondition,
     select: {
       id: true,
       action: true,

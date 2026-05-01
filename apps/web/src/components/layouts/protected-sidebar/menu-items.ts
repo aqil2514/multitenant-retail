@@ -66,9 +66,9 @@ export const SIDEBAR_MENU_ITEMS: SidebarMenuItem[] = [
     icon: Settings,
     children: [
       {
-        id: "profile",
-        labelKey: "profile",
-        href: "/settings/profile",
+        id: "store",
+        labelKey: "Toko",
+        href: "/settings/store",
         icon: UserCog,
       },
     ],
