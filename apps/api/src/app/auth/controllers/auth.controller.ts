@@ -71,6 +71,7 @@ export class AuthController {
     const url = `${webUrl}/login?logout=success`;
 
     res.clearCookie('access_token', accessTokenCookieConfig);
+    res.clearCookie('refresh_token', refreshTokenCookieConfig);
 
     return res.redirect(url);
   }

@@ -1,7 +1,7 @@
 import { UserJwtPayload } from 'src/@types/auth';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { getUserStore } from '../db/user-store/get-helper';
-import { createLog } from '../db/activity-log/create-log';
+import { createLog, LogEntityList } from '../db/activity-log/create-log';
 import { getUserById } from '../db/user/get-helper';
 import { formatToTime } from 'src/utils/format-to-time';
 
@@ -55,15 +55,15 @@ export async function createLogoutLog(
         })} (Waktu Indonesia Barat)`,
       };
 
-  await createLog(
+  await createLog({
     prisma,
-    'Logout',
-    'Authentication',
-    'LOGOUT',
+    action: 'Logout',
+    entity: LogEntityList.AUTHENTICATION,
+    entityId: 'LOGOUT',
     storeId,
-    user.sub,
+    userId: user.sub,
     details,
-  );
+  });
 }
 
 export async function createLogoutSessionExpired(
@@ -85,15 +85,15 @@ export async function createLogoutSessionExpired(
     })} (Waktu Indonesia Barat)`,
   };
 
-  await createLog(
+  await createLog({
     prisma,
-    'Logout (Sesi Habis)',
-    'Authentication',
-    'SESSION_EXPIRED',
+    action: 'Logout (Sesi Habis)',
+    entity: LogEntityList.AUTHENTICATION,
+    entityId: 'SESSION_EXPIRED',
     storeId,
-    user.sub,
+    userId: user.sub,
     details,
-  );
+  });
 }
 
 export async function deleteSessionByJti(prisma: PrismaService, jti: string) {

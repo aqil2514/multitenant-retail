@@ -51,6 +51,12 @@ model ProductCategory {
     updatedAt DateTime? @updatedAt @db.Timestamptz()
     deletedAt DateTime? @db.Timestamptz()
 
+    createdById String @db.Uuid
+    createdBy   User   @relation("ProductCreatedBy", fields: [createdById], references: [id])
+
+    updatedById String? @db.Uuid
+    updatedBy   User?   @relation("ProductUpdatedBy", fields: [updatedById], references: [id])
+
     @@map("product_categories")
 }
 

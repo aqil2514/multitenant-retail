@@ -21,3 +21,47 @@ export async function getProductCategoryAsOptions(
 
   return options;
 }
+
+export async function getProductCategoryAsTable(
+  prisma: PrismaService,
+  storeId: string,
+) {
+  return await prisma.productCategory.findMany({
+    where: {
+      storeId,
+    },
+    select: {
+      name: true,
+      description: true,
+      id: true,
+      createdAt: true,
+      children: true,
+      parentId: true,
+      createdBy: {
+        select: {
+          id: true,
+          email: true,
+        },
+      },
+      updatedBy: {
+        select: {
+          id: true,
+          email: true,
+        },
+      },
+    },
+  });
+}
+
+export async function getCategoryById(
+  prisma: PrismaService,
+  storeId: string,
+  categoryId: string,
+) {
+  return await prisma.productCategory.findFirstOrThrow({
+    where: {
+      id: categoryId,
+      storeId,
+    },
+  });
+}

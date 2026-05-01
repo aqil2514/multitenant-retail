@@ -13,6 +13,8 @@ import { StoreGuard } from 'src/guards/store.guard';
 import { ProductCategoryService } from './pc.service';
 import { StoreId } from 'src/decorator/storeId.decorator';
 import { ProductsCategoryDto } from './pc.dto';
+import { User } from 'src/decorator/user.decorator';
+import type { UserJwtPayload } from 'src/@types/auth';
 
 @UseGuards(JwtAuthGuard, StoreGuard)
 @Controller()
@@ -30,8 +32,9 @@ export class ProductCategoryController {
   async createProductCategory(
     @StoreId() storeId: string,
     @Body() body: ProductsCategoryDto,
+    @User() user: UserJwtPayload,
   ) {
-    await this.service.createNewProductCategory(storeId, body);
+    await this.service.createProductCategoryService(storeId, body, user.sub);
     return { success: true };
   }
 
@@ -48,16 +51,23 @@ export class ProductCategoryController {
     @StoreId() storeId: string,
     @Param('id') id: string,
     @Body() body: ProductsCategoryDto,
+    @User() user: UserJwtPayload,
   ) {
-    return await this.service.updateProductCategoryById(storeId, id, body);
+    return await this.service.updateProductCategoryById(
+      storeId,
+      id,
+      body,
+      user.sub,
+    );
   }
 
   @Delete(':id')
   async deleteProductCategoryById(
     @StoreId() storeId: string,
     @Param('id') id: string,
+    @User() user: UserJwtPayload,
   ) {
-    await this.service.deleteProductCategoryById(storeId, id);
+    await this.service.deleteProductCategoryById(storeId, id, user.sub);
     return { success: true };
   }
 }

@@ -19,8 +19,12 @@ model User {
   stockLogs StockLog[]
   createdProducts Product[] @relation("ProductCreatedBy")
   updatedProducts Product[] @relation("ProductUpdatedBy")
+  
   activityLogs ActivityLog[]
   sessions Session[]
+
+  createdProductCategories ProductCategory[] @relation("ProductCreatedBy")
+  updatedProductCategories ProductCategory[] @relation("ProductUpdatedBy")
 }
 
 model StoreUser {

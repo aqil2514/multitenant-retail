@@ -1,4 +1,11 @@
-export const modulLables: Record<string, string> = {
+type EntityLabel =
+  | "StoreUser"
+  | "ProductCategory"
+  | "ProductUnit"
+  | "Product"
+  | "Authentication";
+
+export const modulLables: Record<EntityLabel, string> = {
   StoreUser: "Pegawai Toko",
   ProductCategory: "Kategori Produk",
   ProductUnit: "Unit Produk",

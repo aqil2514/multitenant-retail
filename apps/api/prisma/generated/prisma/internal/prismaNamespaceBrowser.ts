@@ -121,7 +121,9 @@ export const ProductCategoryScalarFieldEnum = {
   parentId: 'parentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
 } as const
 
 export type ProductCategoryScalarFieldEnum = (typeof ProductCategoryScalarFieldEnum)[keyof typeof ProductCategoryScalarFieldEnum]

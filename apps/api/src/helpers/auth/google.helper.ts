@@ -1,5 +1,5 @@
 import { PrismaService } from 'src/services/prisma/prisma.service';
-import { createLog } from '../db/activity-log/create-log';
+import { createLog, LogEntityList } from '../db/activity-log/create-log';
 import { User } from 'prisma/generated/prisma/client';
 import { getUserStore } from '../db/user-store/get-helper';
 import { GoogleProfile, UserProfile } from 'src/@types/auth';
@@ -23,15 +23,15 @@ export async function createLoginGoogleLog(prisma: PrismaService, user: User) {
       timeZone: 'Asia/Jakarta',
     })} (Waktu Indonesia Barat)`,
   };
-  await createLog(
+  await createLog({
     prisma,
-    'Login',
-    'Authentication',
-    'Login_By_Google',
+    action: 'Login',
+    entity: LogEntityList.AUTHENTICATION,
+    entityId: 'Login_By_Google',
     storeId,
-    user.id,
+    userId: user.id,
     details,
-  );
+  });
 }
 
 // New User
@@ -76,20 +76,19 @@ export async function createNewUserLog(prisma: PrismaService, user: User) {
     Email: user.email,
     'Nama Lengkap': user.name,
     'Metode Pendaftaran': 'Google',
-    'Status Onboarding': 'Belum Selesai',
     'ID Provider': user.providerId,
     'Waktu Terdaftar': `${new Date().toLocaleString('id-ID', {
       timeZone: 'Asia/Jakarta',
     })} (Waktu Indonesia Barat)`,
   };
 
-  await createLog(
+  await createLog({
     prisma,
-    'Pendaftaran',
-    'Authentication',
-    'REGISTER',
+    action: 'Pendaftaran',
+    entity: LogEntityList.AUTHENTICATION,
+    entityId: 'REGISTER',
     storeId,
-    user.id,
+    userId: user.id,
     details,
-  );
+  });
 }

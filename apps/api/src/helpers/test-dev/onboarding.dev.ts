@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { SYSTEM_USER_ID } from 'src/constants/common';
 import { PrismaService } from 'src/services/prisma/prisma.service';
-import { createLog } from '../db/activity-log/create-log';
+import { createLog, LogEntityList } from '../db/activity-log/create-log';
 
 export async function createProductDevInit(
   storeId: string,
@@ -256,18 +256,18 @@ export async function createProductDevInit(
   });
 
   if (result.count > 0) {
-    await createLog(
+    await createLog({
       prisma,
-      'Setup awal template produk', // Action
-      'Product', // Entity
-      'BULK_CREATE', // EntityId (karena banyak, kita beri label bulk)
+      action: 'Setup awal template produk',
+      entity: LogEntityList.PRODUCT,
+      entityId: 'BULK_CREATE',
       storeId,
-      SYSTEM_USER_ID,
-      {
+      userId: SYSTEM_USER_ID,
+      details: {
         jumlah: result.count,
         pesan: 'Template awal ketika pembuatan toko selesai',
       },
-    );
+    });
   }
 
   logger.log(`[Dev] Berhasil membuat ${result.count} data produk dummy.`);

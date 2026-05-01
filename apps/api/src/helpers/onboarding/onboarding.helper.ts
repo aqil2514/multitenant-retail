@@ -1,12 +1,13 @@
 import { Logger } from '@nestjs/common';
 import { PrismaService } from 'src/services/prisma/prisma.service';
-import { createLog } from '../db/activity-log/create-log';
+import { createLog, LogEntityList } from '../db/activity-log/create-log';
 import { SYSTEM_USER_ID } from 'src/constants/common';
 
 export async function createProductCategoryInit(
   storeId: string,
   logger: Logger,
   prisma: PrismaService,
+  userId: string,
 ) {
   logger.log(`Membuat produk kategori untuk ${storeId}...`);
   const result = await prisma.productCategory.createMany({
@@ -14,29 +15,32 @@ export async function createProductCategoryInit(
       {
         name: 'Makanan',
         storeId,
+        createdById: userId,
       },
       {
         name: 'Minuman',
         storeId,
+        createdById: userId,
       },
       {
         name: 'Umum',
         storeId,
+        createdById: userId,
       },
     ],
   });
   if (result.count > 0) {
-    await createLog(
+    await createLog({
       prisma,
-      'Setup awal kategori produk',
-      'ProductCategory',
-      'BULK_INIT',
+      action: 'Setup awal kategori produk',
+      entity: LogEntityList.PRODUCT_CATEGORY,
+      entityId: 'BULK_INIT',
       storeId,
-      SYSTEM_USER_ID,
-      {
+      userId: SYSTEM_USER_ID,
+      details: {
         pesan: `Inisialisasi otomatis ${result.count} kategori produk standar.`,
       },
-    );
+    });
   }
 
   logger.log(`Berhasil membuat ${result.count} kategori`);
@@ -73,17 +77,17 @@ export async function createProductUnitInit(
   });
 
   if (result.count > 0) {
-    await createLog(
+    await createLog({
       prisma,
-      'Setup awal unit produk',
-      'ProductUnit',
-      'BULK_INIT',
+      action: 'Setup awal unit produk',
+      entity: LogEntityList.PRODUCT_UNIT,
+      entityId: 'BULK_INIT',
       storeId,
-      SYSTEM_USER_ID,
-      {
+      userId: SYSTEM_USER_ID,
+      details: {
         pesan: `Inisialisasi otomatis ${result.count} satuan unit produk (pcs, kg, dll).`,
       },
-    );
+    });
   }
   logger.log(`Berhasil membuat ${result.count} unit`);
 }
@@ -104,15 +108,15 @@ export async function createStoreUserInit(
     },
   });
 
-  await createLog(
+  await createLog({
     prisma,
-    'Pemilihan Owner',
-    'StoreUser',
-    userId,
+    action: 'Pemilihan Owner',
+    entity: LogEntityList.STORE_USER,
+    entityId: userId,
     storeId,
-    SYSTEM_USER_ID,
-    { pesan: `Menetapkan pengguna sebagai pemilik (owner) toko.` },
-  );
+    userId: SYSTEM_USER_ID,
+    details: { pesan: `Menetapkan pengguna sebagai pemilik (owner) toko.` },
+  });
 
   logger.log(
     `User untuk toko ${storeId} berhasil dibuat dengan ${userId} sebagai ownernya`,

@@ -21,7 +21,7 @@ export class OnboardingListener {
     this.logger.log(`Toko dengan id ${storeId} berhasil dibuat`);
 
     await Promise.all([
-      createProductCategoryInit(storeId, this.logger, this.prisma),
+      createProductCategoryInit(storeId, this.logger, this.prisma, userId),
       createProductUnitInit(storeId, this.logger, this.prisma),
       createStoreUserInit(storeId, userId, this.logger, this.prisma),
     ]);
