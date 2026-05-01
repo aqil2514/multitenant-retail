@@ -4,16 +4,25 @@ import { getProductUnitsAsOptions } from 'src/helpers/db/product-units/base-help
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { ProductListDto } from './pl.dto';
 import {
+  getProductListById,
   getProductListForDelete,
   getProductListForEdit,
   getProductListForTable,
 } from 'src/helpers/db/product-list/get-helper';
 import { PaginationQueryDto } from 'src/common/dto/pagination.dto';
-import { editProductList } from 'src/helpers/db/product-list/edit-helper';
+import {
+  editProductList,
+  writeEditProductList,
+} from 'src/helpers/db/product-list/edit-service';
 import {
   softDeleteProductHelper,
   updateStockLog,
-} from 'src/helpers/db/product-list/soft-delete.helper';
+  writeDeleteProductLog,
+} from 'src/helpers/db/product-list/soft-delete-service';
+import {
+  createNewProductList,
+  writeCreateProductList,
+} from 'src/helpers/db/product-list/create-service';
 
 @Injectable()
 export class ProductListService {
@@ -33,22 +42,21 @@ export class ProductListService {
     return { productUnits, productCategories };
   }
 
-  async createNewProductList(
+  async createProductListService(
     createdById: string,
     storeId: string,
     image: Express.Multer.File,
     payload: ProductListDto,
   ) {
-    const { unit, ...rest } = payload;
-    await this.prisma.product.create({
-      data: {
-        ...rest,
-        unitId: unit,
-        storeId,
-        image: `http://localhost:3001/uploads/${image.filename}`,
-        createdById,
-      },
-    });
+    const product = await createNewProductList(
+      this.prisma,
+      createdById,
+      storeId,
+      image,
+      payload,
+    );
+
+    await writeCreateProductList(this.prisma, createdById, storeId, product);
   }
 
   async getProductListMode(storeId: string, productId: string, mode: string) {
@@ -65,19 +73,48 @@ export class ProductListService {
     return data;
   }
 
-  async editProductListMode(
+  async editProductService(
     storeId: string,
     productId: string,
     body: ProductListDto,
     file: Express.Multer.File,
+    userId: string,
   ) {
-    await editProductList(this.prisma, storeId, productId, body, file);
+    const oldProduct = await getProductListById(
+      this.prisma,
+      storeId,
+      productId,
+    );
+    const newProduct = await editProductList(
+      this.prisma,
+      storeId,
+      productId,
+      body,
+      file,
+      userId,
+    );
+
+    await writeEditProductList(
+      this.prisma,
+      storeId,
+      productId,
+      userId,
+      oldProduct,
+      newProduct,
+    );
   }
 
   async softDeleteProduct(userId: string, storeId: string, productId: string) {
+    const oldProduct = await getProductListById(
+      this.prisma,
+      storeId,
+      productId,
+    );
     await this.prisma.$transaction(async (tx) => {
-      await softDeleteProductHelper(tx, storeId, productId);
+      await softDeleteProductHelper(tx, storeId, productId, userId);
       await updateStockLog(tx, userId, productId, storeId);
+
+      await writeDeleteProductLog(tx, storeId, productId, userId, oldProduct);
     });
   }
 }

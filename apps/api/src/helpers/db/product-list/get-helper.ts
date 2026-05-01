@@ -115,3 +115,20 @@ export async function getProductListForEdit(
 
   return data;
 }
+
+export async function getProductListById(
+  prisma: PrismaService,
+  storeId: string,
+  productId: string,
+) {
+  return await prisma.product.findFirstOrThrow({
+    where: {
+      storeId,
+      id: productId,
+    },
+    include: {
+      category: true,
+      unit: true,
+    },
+  });
+}

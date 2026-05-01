@@ -49,7 +49,7 @@ export class ProductListController {
     @Body() body: ProductListDto,
     @User() user: UserJwtPayload,
   ) {
-    await this.service.createNewProductList(user.sub, storeId, file, body);
+    await this.service.createProductListService(user.sub, storeId, file, body);
     return { success: true };
   }
 
@@ -76,10 +76,17 @@ export class ProductListController {
     @Param('mode') mode: string,
     @Body() body: ProductListDto,
     @UploadedFile() file: Express.Multer.File,
+    @User() user: UserJwtPayload,
   ) {
     if (mode !== 'edit') throw new BadRequestException('Mode tidak valid');
 
-    await this.service.editProductListMode(storeId, productId, body, file);
+    await this.service.editProductService(
+      storeId,
+      productId,
+      body,
+      file,
+      user.sub,
+    );
 
     return { success: true };
   }
