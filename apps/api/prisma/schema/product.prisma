@@ -1,5 +1,10 @@
+enum ProductType {
+    PHYSICAL
+    DIGITAL
+}
+
 model Product {
-    id      String @unique @default(uuid()) @db.Uuid
+    id      String @id @default(uuid()) @db.Uuid
     storeId String @db.Uuid
     store   Store  @relation(fields: [storeId], references: [id])
 
@@ -7,6 +12,10 @@ model Product {
     sku         String? // Barcode dari toko tersebut
     description String?
     image       String?
+    type        ProductType @default(PHYSICAL)
+
+    baseCostPrice    Decimal? @db.Decimal(12, 2)
+    baseSellingPrice Decimal @default(0)  @db.Decimal(12, 2)
 
     stock    Int @default(0)
     minStock Int @default(0)

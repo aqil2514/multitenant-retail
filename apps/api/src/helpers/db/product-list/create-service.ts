@@ -11,11 +11,9 @@ export async function createNewProductList(
   image: Express.Multer.File,
   payload: ProductListDto,
 ) {
-  const { unit, ...rest } = payload;
   return await prisma.product.create({
     data: {
-      ...rest,
-      unitId: unit,
+      ...payload,
       storeId,
       image: image ? `http://localhost:3001/uploads/${image.filename}` : null,
       createdById,
@@ -44,12 +42,16 @@ export async function writeCreateProductList(
       'Senin, 29 Desember 2025, 09:21',
     ),
     'Nama Produk': product.name,
+    'Tipe Produk': product.type === 'DIGITAL' ? 'Digital' : 'Fisik',
     Satuan: product.unit?.name ?? '-',
     SKU: product?.sku ?? '-',
     Kategori: product.category?.name ?? '-',
-    'Stok Awal': product.stock,
-    'Stok Minimal': product.minStock,
+    'Harga Modal': product.baseCostPrice ? `Rp ${product.baseCostPrice}` : '-',
+    'Harga Jual': `Rp ${product.baseSellingPrice}`,
+    'Stok Awal': product.type === 'DIGITAL' ? '-' : product.stock,
+    'Stok Minimal': product.type === 'DIGITAL' ? '-' : product.minStock,
   };
+
   await createLog({
     prisma,
     storeId,

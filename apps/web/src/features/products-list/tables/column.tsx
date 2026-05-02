@@ -3,6 +3,7 @@ import { useQueryState } from "@/_shared/hooks/use-query-state";
 import { Edit, Trash, AlertTriangle } from "lucide-react";
 import { ProductListFetchRes } from "../interfaces/pl.interface";
 import { Badge } from "@/components/ui/badge";
+import { formatRupiah } from "@/_shared/utils/format-rupiah";
 
 export function useProductListColumn() {
   const { update } = useQueryState();
@@ -18,6 +19,18 @@ export function useProductListColumn() {
         header: "Nama Produk",
       },
       {
+        accessorKey: "type",
+        header: "Tipe",
+        cell: ({ row }) => (
+          <Badge
+            variant={row.original.type === "DIGITAL" ? "secondary" : "outline"}
+            className="font-normal"
+          >
+            {row.original.type === "DIGITAL" ? "Digital" : "Fisik"}
+          </Badge>
+        ),
+      },
+      {
         accessorKey: "category.name",
         header: "Kategori",
         cell: ({ row }) => (
@@ -25,6 +38,16 @@ export function useProductListColumn() {
             {row.original.category?.name ?? "Tanpa Kategori"}
           </Badge>
         ),
+      },
+      {
+        accessorKey: "baseCostPrice",
+        header: "Harga Modal",
+        cell: ({ row }) => formatRupiah(row.original.baseCostPrice),
+      },
+      {
+        accessorKey: "baseSellingPrice",
+        header: "Harga Jual",
+        cell: ({ row }) => formatRupiah(row.original.baseSellingPrice),
       },
       {
         accessorKey: "stock",
@@ -37,7 +60,7 @@ export function useProductListColumn() {
                 className={`flex items-center gap-1.5 font-medium ${isLowStock ? "text-destructive" : "text-foreground"}`}
               >
                 {isLowStock && <AlertTriangle className="h-3.5 w-3.5" />}
-                {row.original.stock} {row.original.unit.name}
+                {row.original.stock} {row.original.unit?.name}
               </div>
               <span className="text-[10px] text-muted-foreground uppercase tracking-wider">
                 Min: {row.original.minStock}

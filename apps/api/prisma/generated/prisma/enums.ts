@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const ProductType = {
+  PHYSICAL: 'PHYSICAL',
+  DIGITAL: 'DIGITAL'
+} as const
+
+export type ProductType = (typeof ProductType)[keyof typeof ProductType]
+
+
 export const StockLogType = {
   SALE: 'SALE',
   PURCHASE: 'PURCHASE',
@@ -19,3 +27,11 @@ export const StockLogType = {
 } as const
 
 export type StockLogType = (typeof StockLogType)[keyof typeof StockLogType]
+
+
+export const UserRole = {
+  USER: 'USER',
+  ADMIN: 'ADMIN'
+} as const
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]

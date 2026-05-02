@@ -1,10 +1,21 @@
-import { IsString, IsOptional, IsNumber, IsNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsNumber,
+  IsNotEmpty,
+  IsEnum,
+} from 'class-validator';
 import { Type } from 'class-transformer';
+import { ProductType } from 'prisma/generated/prisma/enums';
 
 export class ProductListDto {
   @IsString({ message: 'Nama produk wajib diisi' })
   @IsNotEmpty()
   name: string;
+
+  @IsEnum(ProductType)
+  @IsOptional()
+  type: ProductType = ProductType.PHYSICAL;
 
   @IsString()
   @IsOptional()
@@ -16,6 +27,16 @@ export class ProductListDto {
 
   @IsOptional()
   image?: any | null;
+
+  @IsNumber()
+  @IsNotEmpty({ message: 'Harga jual wajib diisi' })
+  @Type(() => Number)
+  baseSellingPrice: number;
+
+  @IsNumber()
+  @IsOptional()
+  @Type(() => Number)
+  baseCostPrice?: number | null;
 
   @IsNumber()
   @IsOptional()
@@ -33,5 +54,5 @@ export class ProductListDto {
 
   @IsString()
   @IsOptional()
-  unit: string = 'pcs';
+  unitId?: string | null;
 }

@@ -1,9 +1,9 @@
+import { Prisma } from 'prisma/generated/prisma/client';
 import { ProductListDto } from 'src/app/products/products-list/pl.dto';
 import { PrismaService } from 'src/services/prisma/prisma.service';
+import { formatDate } from 'src/utils/format-date';
 import { createLog, LogEntityList } from '../activity-log/create-log';
 import { detectChanges } from 'src/utils/detect-change';
-import { Prisma } from 'prisma/generated/prisma/client';
-import { formatDate } from 'src/utils/format-date';
 
 export async function editProductList(
   prisma: PrismaService,
@@ -29,13 +29,13 @@ export async function editProductList(
       sku: body.sku,
       description: body.description,
       image,
-
-      stock: body.stock,
-      minStock: body.minStock,
-
+      type: body.type,
+      baseCostPrice: body.baseCostPrice,
+      baseSellingPrice: body.baseSellingPrice,
+      stock: body.type === 'DIGITAL' ? 0 : body.stock,
+      minStock: body.type === 'DIGITAL' ? 0 : body.minStock,
       categoryId: body.categoryId,
-      unitId: body.unit,
-
+      unitId: body.unitId,
       updatedAt: new Date().toISOString(),
       updatedById: userId,
     },
@@ -83,6 +83,9 @@ export async function writeEditProductList(
       categoryId: 'Kategori',
       description: 'Deskripsi Produk',
       name: 'Nama Produk',
+      type: 'Tipe Produk',
+      baseCostPrice: 'Harga Modal',
+      baseSellingPrice: 'Harga Jual',
       minStock: 'Minimal Stok',
       stock: 'Stok',
       unitId: 'Unit Satuan',
@@ -95,7 +98,6 @@ export async function writeEditProductList(
           where: { id: value as string },
           select: { name: true },
         });
-
         return category?.name ?? 'Tidak diketahui';
       },
       unitId: async (value) => {
@@ -104,8 +106,18 @@ export async function writeEditProductList(
           where: { id: value as string },
           select: { name: true },
         });
-
         return unit?.name ?? 'Tidak diketahui';
+      },
+      type: async (value) => {
+        return value === 'DIGITAL' ? 'Digital' : 'Fisik';
+      },
+      baseCostPrice: async (value) => {
+        if (!value) return '-';
+        return `Rp ${(value as Prisma.Decimal).toString()}`;
+      },
+      baseSellingPrice: async (value) => {
+        if (!value) return '-';
+        return `Rp ${(value as Prisma.Decimal).toString()}`;
       },
     },
   });
@@ -113,7 +125,7 @@ export async function writeEditProductList(
   if (!hasChanges) return;
 
   const details = {
-    'Dibuat Pada': formatDate(new Date(), 'Senin, 29 Desember 2025, 09:21'),
+    'Diperbarui Pada': formatDate(new Date(), 'Senin, 29 Desember 2025, 09:21'),
     ...changes,
   };
 

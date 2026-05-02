@@ -23,6 +23,9 @@ export async function getProductListForTable(
       name: true,
       sku: true,
       image: true,
+      type: true,
+      baseCostPrice: true,
+      baseSellingPrice: true,
       stock: true,
       minStock: true,
       category: { select: { name: true } },
@@ -89,29 +92,25 @@ export async function getProductListForEdit(
   storeId: string,
   productId: string,
 ) {
-  const dbData = await prisma.product.findFirst({
+  return await prisma.product.findFirst({
     where: {
       storeId,
       id: productId,
     },
     select: {
       name: true,
+      type: true,
       categoryId: true,
       description: true,
       image: true,
+      baseCostPrice: true,
+      baseSellingPrice: true,
       minStock: true,
       sku: true,
       stock: true,
       unitId: true,
     },
   });
-
-  const data = {
-    ...dbData,
-    unit: dbData?.unitId,
-  };
-
-  return data;
 }
 
 export async function getProductListById(

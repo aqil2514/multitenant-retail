@@ -11,6 +11,9 @@ export interface ProductListFetchRes {
   name: string;
   sku: string | null;
   image: string | null;
+  type: "PHYSICAL" | "DIGITAL";
+  baseCostPrice: string | null;
+  baseSellingPrice: string;
   stock: number;
   minStock: number;
   updatedAt: Date;
@@ -19,7 +22,7 @@ export interface ProductListFetchRes {
   } | null;
   unit: {
     name: string;
-  };
+  } | null;
 }
 
 export type ProductListTable = ResponseDataWithMeta<ProductListFetchRes[]>;

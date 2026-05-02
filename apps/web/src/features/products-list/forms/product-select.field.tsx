@@ -8,7 +8,7 @@ import { LabelValue } from "@/@types/general";
 
 interface Props {
   form: UseFormReturn<ProductListInput, unknown, ProductListOutput>;
-  name: "unit" | "categoryId";
+  name: "unitId" | "categoryId";
 }
 
 export function ProductSelectField({ form, name }: Props) {
@@ -20,12 +20,12 @@ export function ProductSelectField({ form, name }: Props) {
 
   const mappedOptions: Record<Props["name"], LabelValue[]> = {
     categoryId: data?.productCategories ?? [],
-    unit: data?.productUnits ?? [],
+    unitId: data?.productUnits ?? [],
   };
 
   const mappedLabel: Record<Props["name"], string> = {
     categoryId: "Kategori Produk",
-    unit: "Unit Produk",
+    unitId: "Unit Produk",
   };
 
   return (

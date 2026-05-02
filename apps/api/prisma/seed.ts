@@ -14,6 +14,7 @@ async function main() {
       email: 'system@mulitenant-retail.com',
       name: 'System',
       id: SYSTEM_USER_ID,
+      role: 'ADMIN',
     },
     update: {},
     where: {
