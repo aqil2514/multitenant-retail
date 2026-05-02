@@ -96,7 +96,9 @@ export class StoreSettingsService {
           return false;
         }
 
-        return currentUnit.name !== unit.name || currentUnit.value !== unit.value;
+        return (
+          currentUnit.name !== unit.name || currentUnit.value !== unit.value
+        );
       });
       const toCreate = payload.unit.filter((u) => !u.id);
 
