@@ -45,11 +45,15 @@ export async function deleteProductUnitConflict(
   storeId: string,
   availableProduct: UnitDto[],
 ) {
+  const availableUnitIds = availableProduct
+    .map((unit) => unit.id)
+    .filter((id): id is string => Boolean(id));
+
   await tx.productUnit.deleteMany({
     where: {
       storeId,
       id: {
-        notIn: availableProduct.map((unit) => unit.id),
+        notIn: availableUnitIds,
       },
     },
   });
@@ -61,6 +65,10 @@ export async function updateProductUnitConflict(
   toUpdate: UnitDto[],
 ) {
   for (const item of toUpdate) {
+    if (!item.id) {
+      continue;
+    }
+
     await tx.productUnit.update({
       where: {
         storeId,
@@ -91,7 +99,6 @@ export async function createProductUnitConflict(
   }
 }
 
-// TODO: Di sini log belum rapih
 export async function writeConflictResolutionLog(
   tx: Prisma.TransactionClient,
   storeId: string,
@@ -100,14 +107,69 @@ export async function writeConflictResolutionLog(
 ) {
   const deleted = payload.replacements.filter((r) => r.action === 'delete');
   const replaced = payload.replacements.filter((r) => r.action === 'replace');
+  const productIds = payload.replacements.map((r) => r.productId);
+  const nextUnitIds = replaced
+    .map((r) => r.unitId)
+    .filter((unitId): unitId is string => Boolean(unitId));
+
+  const [products, nextUnits] = await Promise.all([
+    tx.product.findMany({
+      where: {
+        storeId,
+        id: { in: productIds },
+      },
+      select: {
+        id: true,
+        name: true,
+        unit: {
+          select: {
+            id: true,
+            name: true,
+            value: true,
+          },
+        },
+      },
+    }),
+    tx.productUnit.findMany({
+      where: {
+        storeId,
+        id: { in: nextUnitIds },
+      },
+      select: {
+        id: true,
+        name: true,
+        value: true,
+      },
+    }),
+  ]);
+
+  const productMap = new Map(products.map((product) => [product.id, product]));
+  const nextUnitMap = new Map(nextUnits.map((unit) => [unit.id, unit]));
+  const formatUnitLabel = (unit?: { name: string; value: string } | null) =>
+    unit ? `${unit.name} (${unit.value})` : '-';
 
   const details = {
     'Diperbarui Pada': formatDate(new Date(), 'Senin, 29 Desember 2025, 09:21'),
     'Produk Dihapus':
-      deleted.length > 0 ? deleted.map((r) => r.productId).join(', ') : '-',
+      deleted.length > 0
+        ? deleted
+            .map(
+              (item) => productMap.get(item.productId)?.name ?? item.productId,
+            )
+            .join(', ')
+        : '-',
     'Produk Dipindah Satuan':
       replaced.length > 0
-        ? replaced.map((r) => `${r.productId} → ${r.unitId}`).join(', ')
+        ? replaced
+            .map((item) => {
+              const product = productMap.get(item.productId);
+              const nextUnit = item.unitId
+                ? nextUnitMap.get(item.unitId)
+                : undefined;
+
+              return `${product?.name ?? item.productId}: ${formatUnitLabel(product?.unit)} → ${formatUnitLabel(nextUnit)}`;
+            })
+            .join(', ')
         : '-',
     'Total Produk Dihapus': deleted.length,
     'Total Produk Dipindah Satuan': replaced.length,

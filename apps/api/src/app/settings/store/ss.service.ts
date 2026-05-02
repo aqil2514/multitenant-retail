@@ -80,11 +80,24 @@ export class StoreSettingsService {
     await this.prisma.$transaction(async (tx) => {
       const existing = await getAllProductUnit(tx, storeId);
       const existingIds = existing.map((u) => u.id);
+      const existingMap = new Map(existing.map((unit) => [unit.id, unit]));
       const incomingIds = payload.unit.filter((u) => u.id).map((u) => u.id);
       const deletedUnits = existing.filter((u) => !incomingIds.includes(u.id));
 
       const toDelete = existingIds.filter((id) => !incomingIds.includes(id));
-      const toUpdate = payload.unit.filter((u) => u.id);
+      const toUpdate = payload.unit.filter((unit) => {
+        if (!unit.id) {
+          return false;
+        }
+
+        const currentUnit = existingMap.get(unit.id);
+
+        if (!currentUnit) {
+          return false;
+        }
+
+        return currentUnit.name !== unit.name || currentUnit.value !== unit.value;
+      });
       const toCreate = payload.unit.filter((u) => !u.id);
 
       const affectedProducts = await getAffectedProduct(tx, storeId, toDelete);
