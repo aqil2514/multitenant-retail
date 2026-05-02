@@ -1,13 +1,10 @@
+import { ProductUnits } from "./ss-product-units";
+
 export interface StoreIdentity {
   address: string;
   name: string;
   phone: string;
-}
-
-export interface ProductUnits {
-  id: string;
-  value: string;
-  name: string;
+  slug: string;
 }
 
 export interface StoreSettingResponse {

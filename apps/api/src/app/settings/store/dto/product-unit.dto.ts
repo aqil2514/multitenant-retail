@@ -1,10 +1,15 @@
-import { IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsOptional,
+  IsString,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator';
 
-export class ProductUnitDto {
-  @IsString()
-  section: 'product-unit';
-
-  @IsString()
+export class UnitDto {
+  @IsUUID()
+  @IsOptional()
   id: string;
 
   @IsString()
@@ -12,4 +17,11 @@ export class ProductUnitDto {
 
   @IsString()
   value: string;
+}
+
+export class ProductUnitDto {
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => UnitDto)
+  unit: UnitDto[];
 }

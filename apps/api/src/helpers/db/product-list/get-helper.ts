@@ -29,9 +29,7 @@ export async function getProductListForTable(
       unit: { select: { name: true } },
       updatedAt: true,
     },
-    where: {
-      deletedAt: null,
-    },
+    where: whereCondition,
     orderBy: { updatedAt: 'desc' },
   });
 

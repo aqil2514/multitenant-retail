@@ -2,9 +2,6 @@ import { IsOptional, IsString } from 'class-validator';
 
 export class IdentityDto {
   @IsString()
-  section: 'identity';
-
-  @IsString()
   name: string;
 
   @IsString()

@@ -2,13 +2,13 @@ import { BaseForm, FormFieldPhone, FormFieldTextarea } from "@/_shared/forms";
 import {
   identitySchema,
   IdentitySchemaInput,
-  IdentitySchemaOutput,
 } from "../../schemas/identity.schema";
 import { useFormEditSubmit } from "@/_shared/hooks/use-form-edit-submit";
 import { webUrl } from "@/constants/urls";
 import { StoreNameField } from "./store-name-field";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { useStoreSettings } from "../../ss.context";
 
 interface Props {
   isEditing: boolean;
@@ -21,34 +21,28 @@ export function StoreSettingForm({
   setIsEditing,
   defaultValues,
 }: Props) {
+  const { refetch } = useStoreSettings();
   const router = useRouter();
 
   const { submit } = useFormEditSubmit<{
     success: boolean;
     newSlugUrl: string | null;
   }>({
-    endpoint: "settings/store",
+    endpoint: "settings/store/identity",
     onSuccess(data) {
       if (data.newSlugUrl) {
         router.replace(`${webUrl}/${data.newSlugUrl}/settings/store`);
       }
+      refetch();
       setIsEditing(false);
     },
   });
-
-  const submitHandler = (values: IdentitySchemaOutput) => {
-    const newValues = {
-      ...values,
-      section: "identity",
-    };
-    submit(newValues);
-  };
 
   return (
     <BaseForm
       defaultValues={defaultValues}
       schema={identitySchema}
-      onSubmit={submitHandler}
+      onSubmit={submit}
       disabled={!isEditing}
     >
       {(form) => (

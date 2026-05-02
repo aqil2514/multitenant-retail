@@ -8,7 +8,10 @@ export const api = axios.create({
 });
 
 let isRefreshing = false;
-let failedQueue: { resolve: (value?: unknown) => void; reject: (reason?: unknown) => void }[] = [];
+let failedQueue: {
+  resolve: (value?: unknown) => void;
+  reject: (reason?: unknown) => void;
+}[] = [];
 
 const processQueue = (error: any) => {
   failedQueue.forEach((prom) => {
@@ -49,9 +52,7 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      const res = await api.post("/auth/refresh");
-
-      console.log(res)
+      await api.post("/auth/refresh");
 
       processQueue(null);
       return api(originalRequest);

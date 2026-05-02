@@ -18,6 +18,7 @@ export async function getStoreIdentity(prisma: PrismaService, storeId: string) {
       address: true,
       name: true,
       phone: true,
+      slug: true,
     },
   });
 }

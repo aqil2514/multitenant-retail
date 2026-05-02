@@ -14,8 +14,8 @@ model Product {
     categoryId String?          @db.Uuid
     category   ProductCategory? @relation(fields: [categoryId], references: [id])
 
-    unitId String      @db.Uuid
-    unit   ProductUnit @relation(fields: [unitId], references: [id])
+    unitId String?      @db.Uuid
+    unit   ProductUnit? @relation(fields: [unitId], references: [id])
 
     createdAt DateTime   @default(now()) @db.Timestamptz()
     updatedAt DateTime   @updatedAt @db.Timestamptz()
@@ -68,8 +68,8 @@ model ProductUnit {
     name  String // "Kilogram", "Lusin", dll
     value String // "kg", "lusin", dll — dipakai di kolom unit product
 
-    createdAt DateTime @default(now()) @db.Timestamptz()
-    updatedAt DateTime @updatedAt @db.Timestamptz()
+    createdAt DateTime  @default(now()) @db.Timestamptz()
+    updatedAt DateTime  @updatedAt @db.Timestamptz()
     deleteAt  DateTime? @db.Timestamptz()
 
     products Product[]

@@ -24,6 +24,7 @@ export function SectionIdentity() {
       name: data.storeIdentity.name,
       phone: data.storeIdentity.phone,
       address: data.storeIdentity.address,
+      slug: data.storeIdentity.slug
     };
   }, [data]);
 

@@ -329,9 +329,9 @@ export type ProductUnitUncheckedUpdateManyInput = {
   deleteAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-export type ProductUnitScalarRelationFilter = {
-  is?: Prisma.ProductUnitWhereInput
-  isNot?: Prisma.ProductUnitWhereInput
+export type ProductUnitNullableScalarRelationFilter = {
+  is?: Prisma.ProductUnitWhereInput | null
+  isNot?: Prisma.ProductUnitWhereInput | null
 }
 
 export type ProductUnitStoreIdValueCompoundUniqueInput = {
@@ -385,10 +385,12 @@ export type ProductUnitCreateNestedOneWithoutProductsInput = {
   connect?: Prisma.ProductUnitWhereUniqueInput
 }
 
-export type ProductUnitUpdateOneRequiredWithoutProductsNestedInput = {
+export type ProductUnitUpdateOneWithoutProductsNestedInput = {
   create?: Prisma.XOR<Prisma.ProductUnitCreateWithoutProductsInput, Prisma.ProductUnitUncheckedCreateWithoutProductsInput>
   connectOrCreate?: Prisma.ProductUnitCreateOrConnectWithoutProductsInput
   upsert?: Prisma.ProductUnitUpsertWithoutProductsInput
+  disconnect?: Prisma.ProductUnitWhereInput | boolean
+  delete?: Prisma.ProductUnitWhereInput | boolean
   connect?: Prisma.ProductUnitWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUnitUpdateToOneWithWhereWithoutProductsInput, Prisma.ProductUnitUpdateWithoutProductsInput>, Prisma.ProductUnitUncheckedUpdateWithoutProductsInput>
 }
