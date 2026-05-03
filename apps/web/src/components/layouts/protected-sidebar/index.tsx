@@ -131,18 +131,29 @@ export function ProtectedSidebar() {
                         {item.children?.map((child) => {
                           const isSubActive =
                             pathname === `/${param.storeSlug}${child.href}`;
+
                           return (
                             <SidebarMenuSubItem key={child.id}>
                               <SidebarMenuSubButton
                                 asChild
                                 isActive={isSubActive}
                               >
-                                <Link href={`/${param.storeSlug}${child.href}`}>
+                                <Link
+                                  href={`/${param.storeSlug}${child.href}`}
+                                  className="flex items-center gap-3" // Pastikan ada gap untuk ikon
+                                >
+                                  {/* Render icon child di sini */}
+                                  {child.icon && (
+                                    <child.icon
+                                      className={`w-4 h-4 ${isSubActive ? "opacity-100" : "opacity-70"}`}
+                                    />
+                                  )}
+
                                   <span
                                     className={
                                       isSubActive
                                         ? "font-bold text-slate-500"
-                                        : ""
+                                        : "font-medium"
                                     }
                                   >
                                     {getSidebarLabel(child.labelKey)}

@@ -8,6 +8,10 @@ import {
   Box,
   Layers,
   History,
+  Wallet,
+  ListTree,
+  NotebookText,
+  BookOpen,
 } from "lucide-react";
 
 export interface SidebarMenuItem {
@@ -20,10 +24,24 @@ export interface SidebarMenuItem {
 
 export const SIDEBAR_MENU_ITEMS: SidebarMenuItem[] = [
   {
-    id: "dashboard",
-    labelKey: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
+    id: "general",
+    labelKey: "General",
+    href: "/general",
+    icon: Layers,
+    children: [
+      {
+        id: "dashboard",
+        labelKey: "Dashboard",
+        href: "/dashboard",
+        icon: LayoutDashboard,
+      },
+      {
+        id: "audit-logs",
+        labelKey: "Audit Log",
+        href: "/general/audit-logs",
+        icon: History,
+      },
+    ],
   },
   {
     id: "products",
@@ -35,27 +53,40 @@ export const SIDEBAR_MENU_ITEMS: SidebarMenuItem[] = [
         id: "product-list",
         labelKey: "List Produk",
         href: "/products/list",
-        icon: UserPlus, // Catatan: Mungkin lebih cocok icon Package atau List
+        icon: UserPlus,
       },
       {
         id: "product-category",
         labelKey: "Kategori Produk",
         href: "/products/category",
-        icon: UserCheck, // Catatan: Mungkin lebih cocok icon Tags
+        icon: UserCheck,
       },
     ],
   },
+
   {
-    id: "general",
-    labelKey: "General",
-    href: "/general",
-    icon: Layers, // Menggunakan icon Layers sebagai penanda grup general
+    id: "finance",
+    labelKey: "Keuangan",
+    href: "/finance",
+    icon: Wallet,
     children: [
       {
-        id: "audit-logs",
-        labelKey: "Audit Log",
-        href: "/general/audit-logs",
-        icon: History, // Icon jam berputar, sangat cocok untuk history/audit
+        id: "chart-of-accounts",
+        labelKey: "Daftar Akun",
+        href: "/finance/accounts",
+        icon: ListTree,
+      },
+      {
+        id: "journal-entries",
+        labelKey: "Jurnal Umum",
+        href: "/finance/journals",
+        icon: NotebookText,
+      },
+      {
+        id: "ledger",
+        labelKey: "Buku Besar",
+        href: "/finance/ledger",
+        icon: BookOpen,
       },
     ],
   },

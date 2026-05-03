@@ -10,6 +10,7 @@ import { ProductModule } from './products/products.module';
 import { UploadModule } from './upload/upload.module';
 import { GeneralModule } from './general/general.module';
 import { SettingsModule } from './settings/settings.module';
+import { FinanceModule } from './finance/finance.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { SettingsModule } from './settings/settings.module';
     GeneralModule,
     ProductModule,
     SettingsModule,
+    FinanceModule,
 
     AuthModule,
     OnBoardingModule,
