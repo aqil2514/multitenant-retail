@@ -5,7 +5,8 @@ type EntityLabel =
   | "ProductUnit"
   | "Product"
   | "Authentication"
-  | "Account";
+  | "Account"
+  | "JournalEntry";
 
 export const modulLables: Record<EntityLabel, string> = {
   StoreUser: "Pegawai Toko",
@@ -16,4 +17,5 @@ export const modulLables: Record<EntityLabel, string> = {
   Authentication: "Autentikasi",
 
   Account: "Akun",
+  JournalEntry: "Jurnal Umum",
 };
