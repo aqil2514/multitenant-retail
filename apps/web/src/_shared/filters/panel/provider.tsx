@@ -1,5 +1,4 @@
-import { FilterState } from "../filter.interface";
-import { FilterConfig } from "./types.filter-panel";
+/* eslint-disable react-hooks/set-state-in-effect */
 import React, {
   createContext,
   Dispatch,
@@ -9,19 +8,19 @@ import React, {
   useEffectEvent,
   useState,
 } from "react";
+import { FilterState } from "../filter.interface";
+import { FilterConfig } from "../filter.config";
 
 interface FilterPanelContextType {
   config: FilterConfig[];
-  initialValue: FilterState[];
-  onApplyFilter: (state: FilterState[]) => void;
-
   snapshot: FilterState[];
   setSnapshot: Dispatch<SetStateAction<FilterState[]>>;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  onApplyFilter: (state: FilterState[]) => void;
 }
 
-const FilterContext = createContext<FilterPanelContextType>(
+const FilterPanelContext = createContext<FilterPanelContextType>(
   {} as FilterPanelContextType,
 );
 
@@ -46,26 +45,16 @@ export function FilterPanelProvider({
   });
 
   useEffect(() => {
-    if (open) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      syncInit();
-    }
+    if (open) syncInit();
   }, [open]);
 
-  const values: FilterPanelContextType = {
-    config,
-    initialValue,
-    onApplyFilter,
-
-    open,
-    setOpen,
-    setSnapshot,
-    snapshot,
-  };
-
   return (
-    <FilterContext.Provider value={values}>{children}</FilterContext.Provider>
+    <FilterPanelContext.Provider
+      value={{ config, snapshot, setSnapshot, open, setOpen, onApplyFilter }}
+    >
+      {children}
+    </FilterPanelContext.Provider>
   );
 }
 
-export const useFilterPanel = () => useContext(FilterContext);
+export const useFilterPanel = () => useContext(FilterPanelContext);

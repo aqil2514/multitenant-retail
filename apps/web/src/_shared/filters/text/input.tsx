@@ -1,20 +1,16 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 
 export interface FilterTextInputProps {
   value: string;
   onValueChange: (value: string) => void;
-
-  onEnterEvent?: (value: string) => void;
-
+  onEnterEvent?: () => void;
   placeholder?: string;
   disabled?: boolean;
-
-  debounceMs?: number;
   clearable?: boolean;
   onClear?: () => void;
-
   autoFocus?: boolean;
   maxLength?: number;
 }
@@ -28,28 +24,19 @@ export function FilterTextInput({
   disabled,
   maxLength,
   onClear,
-  placeholder = "masukkan nilai",
+  placeholder = "Masukkan nilai",
 }: FilterTextInputProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-
-    onValueChange(target.value);
+    onValueChange(e.target.value);
   };
 
-  const clearHandler = () => {
-    onClear?.();
-  };
-
-  const enterEventHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== "Enter") return;
-    if (!onEnterEvent) return;
-
-    const target = e.target as HTMLInputElement;
-    onEnterEvent(target.value);
+    onEnterEvent?.();
   };
 
   return (
-    <div className="flex gap-1 items-center ">
+    <div className="flex gap-1 items-center">
       <Input
         value={value}
         autoFocus={autoFocus}
@@ -57,17 +44,12 @@ export function FilterTextInput({
         className="w-full"
         placeholder={placeholder}
         onChange={handleChange}
-        onKeyDown={enterEventHandler}
+        onKeyDown={handleKeyDown}
         maxLength={maxLength}
       />
       {clearable && (
-        <Button
-          type="button"
-          variant="outline"
-          size="icon"
-          onClick={clearHandler}
-        >
-          X
+        <Button type="button" variant="outline" size="icon" onClick={onClear}>
+          <X className="w-4 h-4" />
         </Button>
       )}
     </div>

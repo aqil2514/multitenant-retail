@@ -5,34 +5,46 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { FilterPanelProvider, useFilterPanel } from "./provider.filter-panel";
-import { FilterPanelContent } from "./content.filter-panel";
-import { FilterPanelProps } from "./types.filter-panel";
-import { FilterPanelFooter } from "./footer.filter-panel";
+import { FilterState } from "../filter.interface";
+import { FilterConfig } from "../filter.config";
+import { FilterPanelContent } from "./content";
+import { FilterPanelFooter } from "./footer";
+import { FilterPanelProvider, useFilterPanel } from "./provider";
+
+interface FilterPanelProps {
+  config: FilterConfig[];
+  initialValue: FilterState[];
+  onApplyFilter: (state: FilterState[]) => void;
+}
 
 export function FilterPanel({
   config,
   initialValue,
   onApplyFilter,
 }: FilterPanelProps) {
-  if(config.length < 1) throw new Error("Konfigurasi filter minimal 1")
+  if (config.length < 1) {
+    console.warn("[FilterPanel] config minimal 1 item.");
+    return null;
+  }
+
   return (
     <FilterPanelProvider
       config={config}
       initialValue={initialValue}
       onApplyFilter={onApplyFilter}
     >
-      <InnerTemplate />
+      <FilterPanelInner />
     </FilterPanelProvider>
   );
 }
 
-const InnerTemplate = () => {
+function FilterPanelInner() {
   const { open, setOpen, snapshot } = useFilterPanel();
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant={"outline"}>Filter</Button>
+        <Button variant="outline">Filter</Button>
       </PopoverTrigger>
       <PopoverContent className="space-y-4 w-xl">
         <p className="font-semibold text-lg">Filter Data</p>
@@ -42,11 +54,9 @@ const InnerTemplate = () => {
             : `Terdapat ${snapshot.length} filter`}
         </p>
         <Separator />
-
         <FilterPanelContent />
-
         <FilterPanelFooter />
       </PopoverContent>
     </Popover>
   );
-};
+}
