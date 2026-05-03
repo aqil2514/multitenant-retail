@@ -8,6 +8,8 @@ export enum LogEntityList {
   PRODUCT_UNIT = 'ProductUnit',
   PRODUCT = 'Product',
   AUTHENTICATION = 'Authentication',
+
+  ACCOUNT = 'Account',
 }
 
 export interface CreateLogConfig {

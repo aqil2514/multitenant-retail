@@ -6,8 +6,9 @@ import {
   createStoreUserInit,
   UpdateNullLog,
 } from 'src/helpers/onboarding/onboarding.helper';
-import { createProductDevInit } from 'src/helpers/test-dev/onboarding.dev';
+import { createProductDevInit } from 'src/helpers/onboarding/onboarding-product.helper';
 import { PrismaService } from 'src/services/prisma/prisma.service';
+import { createAccountInit } from 'src/helpers/onboarding/onboarding-account.helper';
 
 @Injectable()
 export class OnboardingListener {
@@ -24,6 +25,7 @@ export class OnboardingListener {
       createProductCategoryInit(storeId, this.logger, this.prisma, userId),
       createProductUnitInit(storeId, this.logger, this.prisma),
       createStoreUserInit(storeId, userId, this.logger, this.prisma),
+      createAccountInit(this.prisma, storeId, userId, this.logger),
     ]);
 
     await createProductDevInit(storeId, this.logger, this.prisma);

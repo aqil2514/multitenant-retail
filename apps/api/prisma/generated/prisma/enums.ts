@@ -9,6 +9,25 @@
 * 🟢 You can import this file directly.
 */
 
+export const AccountCategory = {
+  ASSET: 'ASSET',
+  LIABILITY: 'LIABILITY',
+  EQUITY: 'EQUITY',
+  REVENUE: 'REVENUE',
+  EXPENSE: 'EXPENSE'
+} as const
+
+export type AccountCategory = (typeof AccountCategory)[keyof typeof AccountCategory]
+
+
+export const NormalBalance = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT'
+} as const
+
+export type NormalBalance = (typeof NormalBalance)[keyof typeof NormalBalance]
+
+
 export const ProductType = {
   PHYSICAL: 'PHYSICAL',
   DIGITAL: 'DIGITAL'

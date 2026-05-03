@@ -20,4 +20,8 @@ model Store {
     storeUsers StoreUser[]
     productUnits ProductUnit[]
     activityLogs ActivityLog[]
+
+    // Accounts
+    accounts Account[]
+    journalEntries JournalEntry[]
 }

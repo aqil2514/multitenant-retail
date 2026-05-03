@@ -1,0 +1,81 @@
+enum AccountCategory {
+    ASSET
+    LIABILITY
+    EQUITY
+    REVENUE
+    EXPENSE
+}
+
+enum NormalBalance {
+    DEBIT
+    CREDIT
+}
+
+model Account {
+    id      String @id @default(uuid()) @db.Uuid
+    storeId String @db.Uuid
+    store   Store  @relation(fields: [storeId], references: [id])
+
+    // Kode akun seperti '101', '101.01' untuk identitas unik per store
+    code String
+    name String
+
+    category      AccountCategory
+    normalBalance NormalBalance
+
+    // Flag untuk akun sistem yang tidak boleh dihapus (Kas, Persediaan, HPP)
+    isSystem Boolean @default(false)
+
+    // Flag apakah akun ini hanya sebagai grup (Header) atau bisa diposting transaksi
+    isHeader Boolean @default(false)
+
+    // Self-relation untuk hirarki tak terbatas
+    parentId String?   @db.Uuid
+    parent   Account?  @relation("AccountHierarchy", fields: [parentId], references: [id])
+    children Account[] @relation("AccountHierarchy")
+
+    createdAt    DateTime      @default(now()) @db.Timestamptz()
+    updatedAt    DateTime      @updatedAt @db.Timestamptz()
+    deletedAt    DateTime?     @db.Timestamptz()
+    journalItems JournalItem[]
+
+    // Constraints: Kode akun harus unik di dalam satu toko
+    @@unique([storeId, code])
+    @@map("accounts")
+}
+
+model JournalEntry {
+    id      String @id @default(uuid()) @db.Uuid
+    storeId String @db.Uuid
+    store   Store  @relation(fields: [storeId], references: [id])
+
+    date        DateTime @default(now()) @db.Timestamptz()
+    description String?  @db.Text
+    reference   String? // Untuk menyimpan No. Nota, No. PO, atau ID Penjualan
+
+    // Relasi ke detail debit-kredit
+    items JournalItem[]
+
+    createdAt DateTime @default(now()) @db.Timestamptz()
+    updatedAt DateTime @updatedAt @db.Timestamptz()
+
+    @@map("journal_entries")
+}
+
+model JournalItem {
+    id             String       @id @default(uuid()) @db.Uuid
+    journalEntryId String       @db.Uuid
+    journalEntry   JournalEntry @relation(fields: [journalEntryId], references: [id], onDelete: Cascade)
+
+    accountId String  @db.Uuid
+    account   Account @relation(fields: [accountId], references: [id])
+
+    // Nilai uang menggunakan Decimal untuk akurasi finansial
+    debit  Decimal @default(0) @db.Decimal(20, 2)
+    credit Decimal @default(0) @db.Decimal(20, 2)
+
+    // Catatan tambahan jika item ini butuh keterangan spesifik
+    note String? @db.Text
+
+    @@map("journal_items")
+}

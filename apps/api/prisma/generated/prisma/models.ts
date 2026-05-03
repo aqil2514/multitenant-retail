@@ -8,6 +8,9 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Account.js'
+export type * from './models/JournalEntry.js'
+export type * from './models/JournalItem.js'
 export type * from './models/ActivityLog.js'
 export type * from './models/Product.js'
 export type * from './models/ProductCategory.js'

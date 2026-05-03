@@ -62,7 +62,10 @@ const baseColumn: ColumnDef<AuditLogTable>[] = [
   {
     accessorKey: "entity",
     header: "Modul",
-    cell: ({ row }) => modulLables[row.original.entity],
+    cell: ({ row }) => {
+      const entity = row.original.entity as keyof typeof modulLables;
+      return modulLables[entity];
+    },
   },
 ];
 
