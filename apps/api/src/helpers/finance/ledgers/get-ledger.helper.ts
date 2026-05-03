@@ -3,6 +3,7 @@ import { ParsedFilter } from 'src/common/dto/filter.dto';
 import { FinanceLedgerFilterDto } from 'src/app/finance/ledger/fl.dto';
 import { Prisma } from 'prisma/generated/prisma/client';
 import { fromZonedTime } from 'date-fns-tz';
+import { applyDateFilter, applyTextFilter } from 'src/common/filters';
 
 export async function getLedgerHelper(
   prisma: PrismaService,
@@ -33,6 +34,8 @@ function buildLedgerWhere(
     deletedAt: null,
   };
 
+  console.log(query);
+
   if (query.date)
     Object.assign(where, applyDateFilter('date', query.date, timezone));
   if (query.description)
@@ -41,85 +44,4 @@ function buildLedgerWhere(
     Object.assign(where, applyTextFilter('reference', query.reference));
 
   return where;
-}
-
-function toUtcRange(dateStr: string, timezone: string) {
-  const from = fromZonedTime(`${dateStr}T00:00:00`, timezone);
-  const to = fromZonedTime(`${dateStr}T23:59:59.999`, timezone);
-  return { from, to };
-}
-
-function applyTextFilter(
-  field: string,
-  filter: ParsedFilter,
-): Prisma.JournalEntryWhereInput {
-  const { operator, value } = filter;
-
-  switch (operator) {
-    case 'ilike':
-      return { [field]: { contains: value, mode: 'insensitive' } };
-    case 'not_ilike':
-      return { [field]: { not: { contains: value, mode: 'insensitive' } } };
-    case 'is_null':
-      return { [field]: null };
-    case 'is_not_null':
-      return { [field]: { not: null } };
-    default:
-      return {};
-  }
-}
-
-function applyDateFilter(
-  field: string,
-  filter: ParsedFilter,
-  timezone: string,
-): Prisma.JournalEntryWhereInput {
-  const { operator, value } = filter;
-
-  switch (operator) {
-    case 'eq': {
-      const { from, to } = toUtcRange(value, timezone);
-      return { [field]: { gte: from, lte: to } };
-    }
-    case 'neq': {
-      const { from, to } = toUtcRange(value, timezone);
-      return { OR: [{ [field]: { lt: from } }, { [field]: { gt: to } }] };
-    }
-    case 'gt':
-      return {
-        [field]: { gt: fromZonedTime(`${value}T23:59:59.999`, timezone) },
-      };
-    case 'gte':
-      return { [field]: { gte: fromZonedTime(`${value}T00:00:00`, timezone) } };
-    case 'lt':
-      return { [field]: { lt: fromZonedTime(`${value}T00:00:00`, timezone) } };
-    case 'lte':
-      return {
-        [field]: { lte: fromZonedTime(`${value}T23:59:59.999`, timezone) },
-      };
-    case 'is_null':
-      return { [field]: null };
-    case 'is_not_null':
-      return { [field]: { not: null } };
-    case 'between': {
-      const [from, to] = value.split('~');
-      return {
-        [field]: {
-          gte: fromZonedTime(`${from}T00:00:00`, timezone),
-          lte: fromZonedTime(`${to}T23:59:59.999`, timezone),
-        },
-      };
-    }
-    case 'not_between': {
-      const [from, to] = value.split('~');
-      return {
-        OR: [
-          { [field]: { lt: fromZonedTime(`${from}T00:00:00`, timezone) } },
-          { [field]: { gt: fromZonedTime(`${to}T23:59:59.999`, timezone) } },
-        ],
-      };
-    }
-    default:
-      return {};
-  }
 }
