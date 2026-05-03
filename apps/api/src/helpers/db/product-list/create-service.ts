@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { ProductListDto } from 'src/app/products/products-list/pl.dto';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { createLog, LogEntityList } from '../activity-log/create-log';
