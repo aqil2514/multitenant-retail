@@ -46,15 +46,36 @@ export async function createNewFinanceAccount(
   storeId: string,
   payload: FinanceAccountDto,
 ) {
+  // 1. Cek apakah ada akun dengan kode yang sama yang pernah di-soft-delete
+  const existingDeletedAccount = await tx.account.findFirst({
+    where: {
+      storeId,
+      code: payload.code,
+      deletedAt: { not: null },
+    },
+  });
+
+  if (existingDeletedAccount) {
+    // 2. Jika ada, lakukan update (restore) alih-alih create
+    return await tx.account.update({
+      where: { id: existingDeletedAccount.id },
+      data: {
+        ...payload,
+        deletedAt: null, // Reset status hapus
+        isSystem: false,
+      },
+      include: { parent: true },
+    });
+  }
+
+  // 3. Jika benar-benar baru, jalankan create seperti biasa
   return await tx.account.create({
     data: {
       ...payload,
       storeId,
       isSystem: false,
     },
-    include: {
-      parent: true,
-    },
+    include: { parent: true },
   });
 }
 
