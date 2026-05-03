@@ -16,8 +16,24 @@ export type NumberSingleOperator =
 export type NumberRangeOperator = "between" | "not_between";
 export type NumberOperator = NumberSingleOperator | NumberRangeOperator;
 
+export type DateSingleOperator =
+  | "eq"
+  | "neq"
+  | "gt"
+  | "gte"
+  | "lt"
+  | "lte"
+  | "is_null"
+  | "is_not_null";
+export type DateRangeOperator = "between" | "not_between";
+export type DateOperator = DateSingleOperator | DateRangeOperator;
+
 // Union utama — akan bertambah seiring tipe filter baru ditambahkan
-export type FilterOperator = TextOperator | SelectOperator | NumberOperator;
+export type FilterOperator =
+  | TextOperator
+  | SelectOperator
+  | NumberOperator
+  | DateOperator;
 
 // ============================================================
 // State
@@ -50,11 +66,25 @@ export interface NumberFilterState {
   mode: "single" | "range";
 }
 
+export interface DateValue {
+  from: string | null; // ISO string: "2026-05-03"
+  to: string | null;
+}
+
+export interface DateFilterState {
+  type: "date";
+  key: string;
+  operator: DateOperator;
+  value: DateValue;
+  mode: "single" | "range";
+}
+
 // Union utama — akan bertambah seiring tipe filter baru ditambahkan
 export type FilterState =
   | TextFilterState
   | SelectFilterState
-  | NumberFilterState;
+  | NumberFilterState
+  | DateFilterState;
 
 // ============================================================
 // Config
@@ -93,6 +123,14 @@ export const DEFAULT_NUMBER_FILTER: NumberFilterState = {
   type: "number",
   key: "",
   operator: "gt",
+  value: { from: null, to: null },
+  mode: "single",
+};
+
+export const DEFAULT_DATE_FILTER: DateFilterState = {
+  type: "date",
+  key: "",
+  operator: "eq",
   value: { from: null, to: null },
   mode: "single",
 };

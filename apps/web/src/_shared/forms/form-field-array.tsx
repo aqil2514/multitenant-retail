@@ -34,6 +34,7 @@ interface ColumnDef<
   key: Extract<keyof TItem, string>;
   label: string;
   placeholder?: string;
+  width?: string;
   render?: (props: {
     field: ControllerRenderProps<T, never>;
     fieldState: ControllerFieldState;
@@ -41,6 +42,8 @@ interface ColumnDef<
     disabled: boolean;
   }) => React.ReactElement;
 }
+
+const DEFAULT_COLUMN_WIDTH = "minmax(0,1fr)";
 
 export interface FormFieldArrayProps<
   T extends FieldValues,
@@ -83,7 +86,9 @@ export function FormFieldArray<
 
   const gridColsStyle: React.CSSProperties = {
     display: "grid",
-    gridTemplateColumns: `${columns.map(() => "1fr").join(" ")} auto`,
+    gridTemplateColumns: `${columns
+      .map((column) => column.width ?? DEFAULT_COLUMN_WIDTH)
+      .join(" ")} auto`,
     gap: "0.5rem",
   };
 

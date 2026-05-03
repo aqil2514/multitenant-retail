@@ -20,8 +20,11 @@ export function AccountSelectField({
       onValueChange={onChange}
       disabled={disabled || isLoading}
     >
-      <SelectTrigger>
-        <SelectValue placeholder={isLoading ? "Memuat akun..." : "Pilih akun"} />
+      <SelectTrigger className="w-full min-w-0">
+        <SelectValue
+          className="truncate"
+          placeholder={isLoading ? "Memuat akun..." : "Pilih akun"}
+        />
       </SelectTrigger>
       <SelectContent>
         {(data ?? []).map((account) => (

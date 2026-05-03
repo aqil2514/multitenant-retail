@@ -29,6 +29,11 @@ export function ProductListFilter() {
           key: "price",
           label: "Harga Modal",
         },
+        {
+          type: "date",
+          key: "updated_at",
+          label: "Terakhir Update",
+        },
       ]}
       initialValue={[]}
       onApplyFilter={(filters) => console.log(filters)}

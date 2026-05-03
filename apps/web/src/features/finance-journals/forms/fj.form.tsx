@@ -60,6 +60,7 @@ function JournalEntryFormFields({
             {
               key: "accountId",
               label: "Akun",
+              width: "minmax(0,2fr)",
               render: ({ field, disabled }) => (
                 <AccountSelectField
                   value={String(field.value ?? "")}
@@ -71,6 +72,7 @@ function JournalEntryFormFields({
             {
               key: "debit",
               label: "Debit",
+              width: "minmax(0,1.1fr)",
               render: ({ field, disabled }) => (
                 <div>
                   <FormFieldCurrency
@@ -86,6 +88,7 @@ function JournalEntryFormFields({
             {
               key: "credit",
               label: "Kredit",
+              width: "minmax(0,1.1fr)",
               render: ({ field, disabled }) => (
                 <div>
                   <FormFieldCurrency
@@ -101,6 +104,7 @@ function JournalEntryFormFields({
             {
               key: "note",
               label: "Catatan Baris",
+              width: "minmax(0,1.35fr)",
               placeholder: "Opsional",
             },
           ]}

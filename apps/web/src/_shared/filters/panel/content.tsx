@@ -4,6 +4,7 @@ import { FilterSelect } from "../select";
 import { FilterNumber } from "../number";
 import { buildDefaultState } from "../filter.utils";
 import { useFilterPanel } from "./provider";
+import { FilterDate } from "../date";
 
 export function FilterPanelContent() {
   const { config, snapshot, setSnapshot, onApplyFilter, setOpen } =
@@ -78,6 +79,18 @@ export function FilterPanelContent() {
         if (snap.type === "number") {
           return (
             <FilterNumber
+              key={i}
+              state={snap}
+              keyOptions={keyOptions}
+              onChange={(state) => handleChange(i, state)}
+              onRemove={() => handleRemove(i)}
+            />
+          );
+        }
+
+        if (snap.type === "date") {
+          return (
+            <FilterDate
               key={i}
               state={snap}
               keyOptions={keyOptions}

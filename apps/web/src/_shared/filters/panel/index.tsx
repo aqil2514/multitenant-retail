@@ -46,7 +46,7 @@ function FilterPanelInner() {
       <PopoverTrigger asChild>
         <Button variant="outline">Filter</Button>
       </PopoverTrigger>
-      <PopoverContent className="space-y-4 w-xl">
+      <PopoverContent className="space-y-4 w-3xl">
         <p className="font-semibold text-lg">Filter Data</p>
         <p className="text-muted-foreground text-xs font-semibold">
           {snapshot.length === 0

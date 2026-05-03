@@ -20,8 +20,15 @@ export interface NumberFilterConfig {
   label: string;
 }
 
+export interface DateFilterConfig {
+  type: "date";
+  key: string;
+  label: string;
+}
+
 // Union utama — akan bertambah seiring tipe filter baru ditambahkan
 export type FilterConfig =
   | TextFilterConfig
   | SelectFilterConfig
-  | NumberFilterConfig;
+  | NumberFilterConfig
+  | DateFilterConfig;
