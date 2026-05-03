@@ -11,30 +11,56 @@ import { Plus, X } from "lucide-react";
 import {
   ArrayPath,
   Controller,
+  Control,
+  ControllerFieldState,
+  ControllerRenderProps,
+  FieldArray,
   FieldValues,
+  UseFormReturn,
   useFieldArray,
 } from "react-hook-form";
-import { BasicFormFieldProps } from "./form.interface";
 import React from "react";
 
-interface ColumnDef {
-  key: string;
+type ArrayItem<T extends FieldValues, TName extends ArrayPath<T>> = FieldArray<
+  T,
+  TName
+>;
+
+interface ColumnDef<
+  T extends FieldValues,
+  TName extends ArrayPath<T>,
+  TItem extends ArrayItem<T, TName> = ArrayItem<T, TName>,
+> {
+  key: Extract<keyof TItem, string>;
   label: string;
   placeholder?: string;
+  render?: (props: {
+    field: ControllerRenderProps<T, never>;
+    fieldState: ControllerFieldState;
+    index: number;
+    disabled: boolean;
+  }) => React.ReactElement;
 }
 
-export type FormFieldArrayProps<
+export interface FormFieldArrayProps<
   T extends FieldValues,
+  TName extends ArrayPath<T>,
   TTransformedValues extends FieldValues = T,
-> = Omit<BasicFormFieldProps<T, TTransformedValues>, "name"> & {
-  name: ArrayPath<T>;
-  columns: ColumnDef[];
-  defaultItem: Record<string, string>;
+> {
+  form: UseFormReturn<T, unknown, TTransformedValues>;
+  name: TName;
+  label: string;
+  placeholder?: string;
+  className?: string;
+  disabled?: boolean;
+  columns: ColumnDef<T, TName>[];
+  defaultItem: ArrayItem<T, TName>;
   addLabel?: string;
-};
+}
 
 export function FormFieldArray<
   T extends FieldValues,
+  TName extends ArrayPath<T>,
   TTransformedValues extends FieldValues = T,
 >({
   form,
@@ -45,14 +71,15 @@ export function FormFieldArray<
   columns,
   defaultItem,
   addLabel = "Tambah",
-}: FormFieldArrayProps<T, TTransformedValues>) {
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: name as never,
+}: FormFieldArrayProps<T, TName, TTransformedValues>) {
+  const { fields, append, remove } = useFieldArray<T, TName>({
+    control: form.control as unknown as Control<T>,
+    name,
   });
 
   const isSubmitting = form.formState.isSubmitting;
-  const isDisabled = isSubmitting || disabled;
+  const isDisabled = isSubmitting || !!disabled;
+  const fieldError = form.formState.errors[name as keyof typeof form.formState.errors];
 
   const gridColsStyle: React.CSSProperties = {
     display: "grid",
@@ -88,15 +115,26 @@ export function FormFieldArray<
                   key={col.key}
                   control={form.control}
                   name={`${name}.${index}.${col.key}` as never}
-                  render={({ field: f, fieldState }) => (
-                    <Input
-                      {...f}
-                      value={f.value ?? ""}
-                      placeholder={col.placeholder}
-                      disabled={isDisabled}
-                      data-invalid={fieldState.invalid}
-                    />
-                  )}
+                  render={({ field: f, fieldState }) => {
+                    if (col.render) {
+                      return col.render({
+                        field: f,
+                        fieldState,
+                        index,
+                        disabled: isDisabled,
+                      });
+                    }
+
+                    return (
+                      <Input
+                        {...f}
+                        value={f.value ?? ""}
+                        placeholder={col.placeholder}
+                        disabled={isDisabled}
+                        data-invalid={fieldState.invalid}
+                      />
+                    );
+                  }}
                 />
               ))}
               <Button
@@ -113,16 +151,14 @@ export function FormFieldArray<
             </div>
           ))}
 
-          {form.formState.errors[name] && (
-            <FieldError errors={[form.formState.errors[name] as never]} />
-          )}
+          {fieldError && <FieldError errors={[fieldError as never]} />}
 
           {!isDisabled && (
             <Button
               type="button"
               variant="outline"
               size="sm"
-              onClick={() => append(defaultItem as never)}
+              onClick={() => append(defaultItem)}
               className="gap-1.5"
             >
               <Plus size={14} />

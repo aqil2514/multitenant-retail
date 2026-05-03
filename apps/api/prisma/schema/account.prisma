@@ -56,8 +56,9 @@ model JournalEntry {
     // Relasi ke detail debit-kredit
     items JournalItem[]
 
-    createdAt DateTime @default(now()) @db.Timestamptz()
-    updatedAt DateTime @updatedAt @db.Timestamptz()
+    createdAt DateTime  @default(now()) @db.Timestamptz()
+    updatedAt DateTime  @updatedAt @db.Timestamptz()
+    deletedAt DateTime? @db.Timestamptz()
 
     @@map("journal_entries")
 }
@@ -76,6 +77,8 @@ model JournalItem {
 
     // Catatan tambahan jika item ini butuh keterangan spesifik
     note String? @db.Text
+
+    deletedAt DateTime? @db.Timestamptz()
 
     @@map("journal_items")
 }

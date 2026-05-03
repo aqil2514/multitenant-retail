@@ -1,6 +1,5 @@
 import { createResourceContext } from "@/context/create-resource-context";
-
-export type FinanceJournalsResponse = unknown;
+import { FinanceJournalsResponse } from "./interfaces/fj.interface";
 
 export const {
   Provider: FinanceJournalsProvider,

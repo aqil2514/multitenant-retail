@@ -106,7 +106,8 @@ export const JournalEntryScalarFieldEnum = {
   description: 'description',
   reference: 'reference',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type JournalEntryScalarFieldEnum = (typeof JournalEntryScalarFieldEnum)[keyof typeof JournalEntryScalarFieldEnum]
@@ -118,7 +119,8 @@ export const JournalItemScalarFieldEnum = {
   accountId: 'accountId',
   debit: 'debit',
   credit: 'credit',
-  note: 'note'
+  note: 'note',
+  deletedAt: 'deletedAt'
 } as const
 
 export type JournalItemScalarFieldEnum = (typeof JournalItemScalarFieldEnum)[keyof typeof JournalItemScalarFieldEnum]

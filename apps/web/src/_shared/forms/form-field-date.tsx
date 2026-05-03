@@ -17,6 +17,18 @@ import { id } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { Controller, FieldValues } from "react-hook-form";
 import { BasicFormFieldProps } from "./form.interface";
+import z from "zod";
+
+export const journalDateSchema = z.preprocess(
+  (value) => {
+    if (value instanceof Date) return value;
+    if (typeof value !== "string" || !value) return value;
+
+    const parsed = parse(value, "yyyy-MM-dd", new Date());
+    return isValid(parsed) ? parsed : value;
+  },
+  z.date({ error: "Tanggal wajib diisi" }),
+);
 
 export interface FormFieldDateProps<
   T extends FieldValues,
@@ -43,7 +55,7 @@ export function FormFieldDate<
   fromYear = 1900,
   toYear = new Date().getFullYear() + 5,
   className,
-  disabled
+  disabled,
 }: FormFieldDateProps<T, TTransformedValues>) {
   const isSubmitting = form.formState.isSubmitting;
 

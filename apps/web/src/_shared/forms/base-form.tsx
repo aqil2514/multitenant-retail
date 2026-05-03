@@ -7,7 +7,7 @@ import {
 } from "react-hook-form";
 import { ZodType } from "zod";
 import { Button } from "@/components/ui/button";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { toast } from "react-toastify";
 
 export interface BaseFormProps<
@@ -39,6 +39,10 @@ export function BaseForm<
     resolver: zodResolver(schema),
     defaultValues,
   });
+
+  useEffect(() => {
+    form.reset(defaultValues);
+  }, [defaultValues, form]);
 
   const isSubmitting = form.formState.isSubmitting;
   const defaultSubmitLabel = submitLabel ?? "Kirim";
