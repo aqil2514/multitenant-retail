@@ -11,6 +11,8 @@ export enum LogEntityList {
 
   ACCOUNT = 'Account',
   JOURNAL_ENTRY = 'JournalEntry',
+
+  SUPPLIER = 'Supplier',
 }
 
 export interface CreateLogConfig {

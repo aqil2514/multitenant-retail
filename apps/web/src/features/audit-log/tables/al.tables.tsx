@@ -1,6 +1,6 @@
 import { DataTable } from "@/_shared/tables/data-table/data-table";
 import { useAuditLog } from "../al.context";
-import { useAuditLogColumns } from "./columns";
+import { useAuditLogColumns } from "./al.columns";
 import { useTablePagination } from "@/_shared/hooks/use-table-pagination";
 
 export function AuditLogTable() {

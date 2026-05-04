@@ -3,6 +3,8 @@
 import MainContainer from "@/_shared/containers/main-container";
 import { PageHeader } from "@/_shared/molecules/page-header";
 import { PurchaseSuppliersProvider } from "./ps.context";
+import { PurchaseSuppliersController } from "./controller/ps.controller";
+import { SupplierAddDialog } from "./dialogs/ps.add";
 
 interface Props {
   storeSlug: string;
@@ -18,8 +20,16 @@ export function PurchaseSuppliersTemplate({ storeSlug }: Props) {
 
 const InnerTemplate = () => {
   return (
-    <MainContainer>
-      <PageHeader title="Supplier" description="Manage supplier anda di sini" />
-    </MainContainer>
+    <>
+      <MainContainer>
+        <PageHeader
+          title="Supplier"
+          description="Manage supplier anda di sini"
+        />
+        <PurchaseSuppliersController />
+      </MainContainer>
+
+      <SupplierAddDialog />
+    </>
   );
 };

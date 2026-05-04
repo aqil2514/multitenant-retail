@@ -2,9 +2,9 @@
 import MainContainer from "@/_shared/containers/main-container";
 import { AuditLogProvider } from "./al.context";
 import { PageHeader } from "@/_shared/molecules/page-header";
-import { AuditLogTable } from "./tables";
+import { AuditLogTable } from "./tables/al.tables";
 import { AuditLogDetailDialog } from "./dialogs/al.detail";
-import { AuditLogController } from "./controllers";
+import { AuditLogController } from "./controllers/al.controllers";
 
 interface Props {
   storeSlug: string;
