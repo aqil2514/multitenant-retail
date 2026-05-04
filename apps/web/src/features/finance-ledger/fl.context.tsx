@@ -1,12 +1,11 @@
 import { createResourceContext } from "@/context/create-resource-context";
-
-export type FinanceLedgerResponse = unknown;
+import { JournalResponse } from "./interfaces/fl.interface";
 
 export const { Provider: FinanceLedgerProvider, useData: useFinanceLedger } =
-  createResourceContext<FinanceLedgerResponse, { storeSlug: string }>(
+  createResourceContext<JournalResponse, { storeSlug: string }>(
     ({ storeSlug }) => [`${storeSlug}-finance-ledgers`],
     ({ storeSlug }) => `${storeSlug}/finance/ledgers`,
     {
-      activeParams: ["date", "description", "reference"],
+      activeParams: ["date", "account"],
     },
   );

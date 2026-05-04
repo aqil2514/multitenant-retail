@@ -62,7 +62,7 @@ export function useResource<T>({
   }, [url, filteredParams]);
 
   const resolvedQueryKey = useMemo(
-    () => queryKey ?? [url, filteredParams],
+    () => (queryKey ? [...queryKey, filteredParams] : [url, filteredParams]),
     [url, queryKey, filteredParams],
   );
 

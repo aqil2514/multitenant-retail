@@ -7,10 +7,6 @@ export class FinanceLedgerFilterDto {
   date?: ParsedFilter;
 
   @IsOptional()
-  @transformFilter('description')
-  description?: ParsedFilter;
-
-  @IsOptional()
-  @transformFilter('reference')
-  reference?: ParsedFilter;
+  @transformFilter('account')
+  account?: ParsedFilter;
 }

@@ -1,9 +1,7 @@
 import { PrismaService } from 'src/services/prisma/prisma.service';
-import { ParsedFilter } from 'src/common/dto/filter.dto';
 import { FinanceLedgerFilterDto } from 'src/app/finance/ledger/fl.dto';
-import { Prisma } from 'prisma/generated/prisma/client';
 import { fromZonedTime } from 'date-fns-tz';
-import { applyDateFilter, applyTextFilter } from 'src/common/filters';
+import { Prisma } from 'prisma/generated/prisma/client';
 
 export async function getLedgerHelper(
   prisma: PrismaService,
@@ -11,37 +9,111 @@ export async function getLedgerHelper(
   query: FinanceLedgerFilterDto,
   timezone: string,
 ) {
-  const where = buildLedgerWhere(storeId, query, timezone);
+  let from: Date | undefined = undefined;
+  let to: Date | undefined = undefined;
+
+  if (query.date?.value) {
+    const [fromStr, toStr] = query.date.value.split('~');
+    from = fromZonedTime(new Date(fromStr), timezone);
+    to = fromZonedTime(new Date(toStr), timezone);
+  }
+
+  const baseItemWhere: Prisma.JournalItemWhereInput = {
+    deletedAt: null,
+    ...(query.account?.value && { accountId: query.account.value }),
+  };
+
   return prisma.journalEntry.findMany({
-    where,
+    where: {
+      storeId,
+      deletedAt: null,
+      ...(from && to && { date: { gte: from, lte: to } }),
+      ...(query.account?.value && {
+        items: { some: baseItemWhere },
+      }),
+    },
     include: {
       items: {
-        where: { deletedAt: null },
+        where: baseItemWhere,
         include: { account: true },
       },
     },
-    orderBy: { date: 'desc' },
+    orderBy: { date: 'asc' },
   });
 }
 
-function buildLedgerWhere(
+export async function getLedgerSummaryHelper(
+  prisma: PrismaService,
   storeId: string,
   query: FinanceLedgerFilterDto,
   timezone: string,
-): Prisma.JournalEntryWhereInput {
-  const where: Prisma.JournalEntryWhereInput = {
-    storeId,
+) {
+  let from: Date | undefined = undefined;
+  let to: Date | undefined = undefined;
+
+  if (query.date?.value) {
+    const [fromStr, toStr] = query.date.value.split('~');
+    from = fromZonedTime(new Date(fromStr), timezone);
+    to = fromZonedTime(new Date(toStr), timezone);
+  }
+
+  const baseItemWhere: Prisma.JournalItemWhereInput = {
     deletedAt: null,
+    ...(query.account?.value && { accountId: query.account.value }),
   };
 
-  console.log(query);
+  const [openingBalance, periodAggregate] = await Promise.all([
+    prisma.journalItem.aggregate({
+      where: {
+        ...baseItemWhere,
+        journalEntry: {
+          storeId,
+          deletedAt: null,
+          ...(from && { date: { lt: from } }),
+        },
+      },
+      _sum: { debit: true, credit: true },
+    }),
 
-  if (query.date)
-    Object.assign(where, applyDateFilter('date', query.date, timezone));
-  if (query.description)
-    Object.assign(where, applyTextFilter('description', query.description));
-  if (query.reference)
-    Object.assign(where, applyTextFilter('reference', query.reference));
+    prisma.journalItem.aggregate({
+      where: {
+        ...baseItemWhere,
+        journalEntry: {
+          storeId,
+          deletedAt: null,
+          ...(from && to && { date: { gte: from, lte: to } }),
+        },
+      },
+      _sum: { debit: true, credit: true },
+    }),
+  ]);
 
-  return where;
+  const openingDebit = Number(openingBalance._sum.debit ?? 0);
+  const openingCredit = Number(openingBalance._sum.credit ?? 0);
+  const openingBalanceValue = openingDebit - openingCredit;
+
+  const totalDebit = Number(periodAggregate._sum.debit ?? 0);
+  const totalCredit = Number(periodAggregate._sum.credit ?? 0);
+  const closingBalance = openingBalanceValue + totalDebit - totalCredit;
+
+  return {
+    openingBalance: openingBalanceValue,
+    totalDebit,
+    totalCredit,
+    closingBalance,
+  };
+}
+
+export async function getAccountStore(prisma: PrismaService, storeId: string) {
+  return await prisma.account.findMany({
+    where: {
+      storeId,
+      deletedAt: null,
+    },
+    select: {
+      code: true,
+      name: true,
+      id: true,
+    },
+  });
 }

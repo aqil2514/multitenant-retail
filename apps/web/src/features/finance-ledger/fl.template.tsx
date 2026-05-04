@@ -4,6 +4,7 @@ import MainContainer from "@/_shared/containers/main-container";
 import { PageHeader } from "@/_shared/molecules/page-header";
 import { FinanceLedgerProvider } from "./fl.context";
 import { FinanceLedgerController } from "./controller";
+import { FinanceLedgerSummary } from "./summary/fl.summary";
 
 interface Props {
   storeSlug: string;
@@ -25,6 +26,7 @@ const InnerTemplate = () => {
         description="Manage buku besar anda di sini"
       />
       <FinanceLedgerController />
+      <FinanceLedgerSummary  />
     </MainContainer>
   );
 };
