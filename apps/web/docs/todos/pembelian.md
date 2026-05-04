@@ -2,7 +2,7 @@
 
 ## Supplier
 - [ ] List Supplier
-- [ ] Tambah Supplier
+- [X] Tambah Supplier
 - [ ] Edit Supplier
 - [ ] Hapus Supplier
 

@@ -2,16 +2,16 @@
 
 ## ✅ Selesai
 
-- [x] Autentikasi (Login)
-- [x] Proteksi akses (Protected layout)
-- [x] Onboarding Toko
-- [x] Audit Log
-- [x] Pengaturan Toko
-- [x] Daftar Akun (Chart of Accounts)
-- [x] Jurnal Umum
-- [x] Buku Besar
-- [x] List Produk
-- [x] Kategori Produk
+- [X] Autentikasi (Login)
+- [X] Proteksi akses (Protected layout)
+- [X] Onboarding Toko
+- [X] Audit Log
+- [X] Pengaturan Toko
+- [X] Daftar Akun (Chart of Accounts)
+- [X] Jurnal Umum
+- [X] Buku Besar
+- [X] List Produk
+- [X] Kategori Produk
 
 ## 🔧 Perlu Diselesaikan
 
