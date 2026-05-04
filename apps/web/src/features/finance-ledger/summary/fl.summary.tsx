@@ -1,11 +1,6 @@
+import { formatRupiah } from "@/_shared/utils/format-rupiah";
 import { useFinanceLedger } from "../fl.context";
 
-const formatRupiah = (value: number) =>
-  new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    maximumFractionDigits: 0,
-  }).format(value);
 
 export function FinanceLedgerSummary() {
   const { data } = useFinanceLedger();

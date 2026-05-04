@@ -1,21 +1,21 @@
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { FinanceLedgerFilterDto } from 'src/app/finance/ledger/fl.dto';
-import { fromZonedTime } from 'date-fns-tz';
 import { Prisma } from 'prisma/generated/prisma/client';
 
 export async function getLedgerHelper(
   prisma: PrismaService,
   storeId: string,
   query: FinanceLedgerFilterDto,
-  timezone: string,
 ) {
+  if (!query.account || !query.date) return null;
+
   let from: Date | undefined = undefined;
   let to: Date | undefined = undefined;
 
   if (query.date?.value) {
     const [fromStr, toStr] = query.date.value.split('~');
-    from = fromZonedTime(new Date(fromStr), timezone);
-    to = fromZonedTime(new Date(toStr), timezone);
+    from = new Date(fromStr);
+    to = new Date(toStr);
   }
 
   const baseItemWhere: Prisma.JournalItemWhereInput = {
@@ -46,15 +46,16 @@ export async function getLedgerSummaryHelper(
   prisma: PrismaService,
   storeId: string,
   query: FinanceLedgerFilterDto,
-  timezone: string,
 ) {
+  if (!query.date || !query.account) return null;
+
   let from: Date | undefined = undefined;
   let to: Date | undefined = undefined;
 
   if (query.date?.value) {
     const [fromStr, toStr] = query.date.value.split('~');
-    from = fromZonedTime(new Date(fromStr), timezone);
-    to = fromZonedTime(new Date(toStr), timezone);
+    from = new Date(fromStr);
+    to = new Date(toStr);
   }
 
   const baseItemWhere: Prisma.JournalItemWhereInput = {

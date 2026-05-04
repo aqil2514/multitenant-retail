@@ -261,17 +261,15 @@ export function PeriodPicker({
   disabled,
 }: PeriodPickerProps) {
   const today = startOfToday();
-  const defaultPreset = presetGroups.monthly[0];
-  const defaultRange = defaultPreset.getRange(today, allTimeFrom);
   const isControlled = value !== undefined;
 
   const [internalDate, setInternalDate] = React.useState<DateRange | undefined>(
-    defaultRange,
+    undefined, // ✅ kosong dulu
   );
   const [activeGroup, setActiveGroup] =
     React.useState<PresetGroupKey>("monthly");
   const [activePresetId, setActivePresetId] = React.useState<PresetId | null>(
-    defaultPreset.id,
+    null, // ✅ tidak ada preset aktif di awal
   );
 
   const date = isControlled ? value : internalDate;
@@ -279,9 +277,9 @@ export function PeriodPicker({
   const activePreset = React.useMemo(
     () =>
       activePresetId
-        ? Object.values(presetGroups)
+        ? (Object.values(presetGroups)
             .flat()
-            .find((preset) => preset.id === activePresetId) ?? null
+            .find((preset) => preset.id === activePresetId) ?? null)
         : null,
     [activePresetId],
   );
@@ -306,7 +304,11 @@ export function PeriodPicker({
   const shiftRange = React.useCallback(
     (direction: 1 | -1) => {
       if (!activePreset || !date?.from) return;
-      const anchor = shiftDateByUnit(date.from, activePreset.stepUnit, direction);
+      const anchor = shiftDateByUnit(
+        date.from,
+        activePreset.stepUnit,
+        direction,
+      );
       handleSelect(activePreset.getRange(anchor, allTimeFrom));
     },
     [activePreset, allTimeFrom, date, handleSelect],
@@ -317,7 +319,10 @@ export function PeriodPicker({
       handleSelect(range);
       if (
         activePreset &&
-        isSameRange(range, activePreset.getRange(range?.from ?? today, allTimeFrom))
+        isSameRange(
+          range,
+          activePreset.getRange(range?.from ?? today, allTimeFrom),
+        )
       ) {
         return;
       }
@@ -388,9 +393,13 @@ export function PeriodPicker({
                     <TabsContent key={key} value={key} className="mt-0">
                       <div className="space-y-1">
                         {presets.map((preset) => {
-                          const presetRange = preset.getRange(today, allTimeFrom);
+                          const presetRange = preset.getRange(
+                            today,
+                            allTimeFrom,
+                          );
                           const isActive =
-                            activePresetId === preset.id || isSameRange(date, presetRange);
+                            activePresetId === preset.id ||
+                            isSameRange(date, presetRange);
 
                           return (
                             <Button

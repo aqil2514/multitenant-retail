@@ -5,6 +5,7 @@ import { PageHeader } from "@/_shared/molecules/page-header";
 import { FinanceLedgerProvider } from "./fl.context";
 import { FinanceLedgerController } from "./controller";
 import { FinanceLedgerSummary } from "./summary/fl.summary";
+import { FinanceLedgerTable } from "./tables/fl.table";
 
 interface Props {
   storeSlug: string;
@@ -27,6 +28,7 @@ const InnerTemplate = () => {
       />
       <FinanceLedgerController />
       <FinanceLedgerSummary  />
+      <FinanceLedgerTable />
     </MainContainer>
   );
 };

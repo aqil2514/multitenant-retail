@@ -12,11 +12,7 @@ export class FinanceLedgersController {
   constructor(private readonly service: FinanceLedgersService) {}
 
   @Get()
-  findAll(
-    @StoreId() storeId: string,
-    @Query() query: FinanceLedgerFilterDto,
-    @Timezone() timezone: string,
-  ) {
-    return this.service.getLedger(storeId, query, timezone);
+  findAll(@StoreId() storeId: string, @Query() query: FinanceLedgerFilterDto) {
+    return this.service.getLedger(storeId, query);
   }
 }

@@ -11,15 +11,11 @@ import {
 export class FinanceLedgersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getLedger(
-    storeId: string,
-    query: FinanceLedgerFilterDto,
-    timezone: string,
-  ) {
+  async getLedger(storeId: string, query: FinanceLedgerFilterDto) {
     const [data, accounts, summary] = await Promise.all([
-      getLedgerHelper(this.prisma, storeId, query, timezone),
+      getLedgerHelper(this.prisma, storeId, query),
       getAccountStore(this.prisma, storeId),
-      getLedgerSummaryHelper(this.prisma, storeId, query, timezone),
+      getLedgerSummaryHelper(this.prisma, storeId, query),
     ]);
     return { data, accounts, summary };
   }

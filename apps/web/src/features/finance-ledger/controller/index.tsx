@@ -8,6 +8,7 @@ import {
   FilterState,
 } from "@/_shared/filters/filter.interface";
 import { DateRange } from "react-day-picker";
+import { InfoIcon } from "lucide-react";
 
 export function FinanceLedgerController() {
   const [filters, setFilters] = useState<FilterState[]>([]);
@@ -31,6 +32,8 @@ export function FinanceLedgerController() {
 
     return value;
   }, [filters]);
+
+  const isFilterEmpty = useMemo(() => filters.length === 0, [filters]);
 
   const handleAccountChange = (value: string) => {
     setFilters((prev) => [
@@ -60,22 +63,39 @@ export function FinanceLedgerController() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="font-semibold text-2xl">
-          Pencarian & Filter
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-3 gap-4">
-          <AccountFilter
-            value={accountFilterState?.toString()}
-            onValueChange={handleAccountChange}
-          />
-          <PeriodePicker value={dateFilterState} onChange={handleDateChange} />
-          <FinanceLedgerAction filters={filters} />
+    <div className="space-y-4">
+      <Card>
+        <CardHeader>
+          <CardTitle className="font-semibold text-2xl">
+            Pencarian & Filter
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-3 gap-4">
+            <AccountFilter
+              value={accountFilterState?.toString()}
+              onValueChange={handleAccountChange}
+            />
+            <PeriodePicker
+              value={dateFilterState}
+              onChange={handleDateChange}
+            />
+            <FinanceLedgerAction filters={filters} />
+          </div>
+        </CardContent>
+      </Card>
+
+      {isFilterEmpty && (
+        <div className="flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950/30 px-4 py-3 text-sm text-blue-700 dark:text-blue-400">
+          <InfoIcon className="h-4 w-4 shrink-0" />
+          <p>
+            Silakan pilih <span className="font-semibold">akun</span> dan{" "}
+            <span className="font-semibold">periode</span> terlebih dahulu, lalu
+            klik <span className="font-semibold">Tampilkan Data</span> untuk
+            melihat buku besar.
+          </p>
         </div>
-      </CardContent>
-    </Card>
+      )}
+    </div>
   );
 }
