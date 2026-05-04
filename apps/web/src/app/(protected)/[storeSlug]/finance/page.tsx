@@ -4,8 +4,8 @@ interface Props {
   params: Promise<{ storeSlug: string }>;
 }
 
-export default async function StoreIdPage({ params }: Props) {
+export default async function FinancePage({ params }: Props) {
   const { storeSlug } = await params;
 
-  return redirect(`/${storeSlug}/dashboard`);
+  return redirect(`/${storeSlug}/finance/accounts`);
 }

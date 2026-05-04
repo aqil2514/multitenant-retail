@@ -59,6 +59,7 @@ export const ModelName = {
   ProductCategory: 'ProductCategory',
   ProductUnit: 'ProductUnit',
   StockLog: 'StockLog',
+  Supplier: 'Supplier',
   Store: 'Store',
   User: 'User',
   StoreUser: 'StoreUser',
@@ -206,6 +207,26 @@ export const StockLogScalarFieldEnum = {
 } as const
 
 export type StockLogScalarFieldEnum = (typeof StockLogScalarFieldEnum)[keyof typeof StockLogScalarFieldEnum]
+
+
+export const SupplierScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  name: 'name',
+  code: 'code',
+  phone: 'phone',
+  email: 'email',
+  address: 'address',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+} as const
+
+export type SupplierScalarFieldEnum = (typeof SupplierScalarFieldEnum)[keyof typeof SupplierScalarFieldEnum]
 
 
 export const StoreScalarFieldEnum = {

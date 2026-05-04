@@ -1,0 +1,32 @@
+enum SupplierStatus {
+    ACTIVE
+    INACTIVE
+}
+
+model Supplier {
+    id      String @id @default(uuid()) @db.Uuid
+    storeId String @db.Uuid
+    store   Store  @relation(fields: [storeId], references: [id])
+
+    name    String
+    code    String? // Kode supplier internal toko
+    phone   String?
+    email   String?
+    address String?
+    status  SupplierStatus @default(ACTIVE)
+    notes   String?
+
+    createdAt DateTime  @default(now()) @db.Timestamptz()
+    updatedAt DateTime  @updatedAt @db.Timestamptz()
+    deletedAt DateTime? @db.Timestamptz()
+
+    createdById String @db.Uuid
+    createdBy   User   @relation("SupplierCreatedBy", fields: [createdById], references: [id])
+
+    updatedById String? @db.Uuid
+    updatedBy   User?   @relation("SupplierUpdatedBy", fields: [updatedById], references: [id])
+
+    @@unique([storeId, code])
+    @@index([storeId])
+    @@map("suppliers")
+}

@@ -24,4 +24,5 @@ model Store {
     // Accounts
     accounts Account[]
     journalEntries JournalEntry[]
+    suppliers Supplier[]
 }

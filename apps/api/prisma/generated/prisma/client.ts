@@ -80,6 +80,11 @@ export type ProductUnit = Prisma.ProductUnitModel
  */
 export type StockLog = Prisma.StockLogModel
 /**
+ * Model Supplier
+ * 
+ */
+export type Supplier = Prisma.SupplierModel
+/**
  * Model Store
  * 
  */

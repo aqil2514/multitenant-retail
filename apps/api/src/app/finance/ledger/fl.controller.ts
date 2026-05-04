@@ -4,7 +4,6 @@ import { StoreGuard } from 'src/guards/store.guard';
 import { StoreId } from 'src/decorator/storeId.decorator';
 import { FinanceLedgersService } from './fl.service';
 import { FinanceLedgerFilterDto } from './fl.dto';
-import { Timezone } from 'src/decorator/timezone.decorator';
 
 @UseGuards(JwtAuthGuard, StoreGuard)
 @Controller(':slug/finance/ledgers')

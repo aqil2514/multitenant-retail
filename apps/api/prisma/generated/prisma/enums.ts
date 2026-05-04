@@ -48,6 +48,14 @@ export const StockLogType = {
 export type StockLogType = (typeof StockLogType)[keyof typeof StockLogType]
 
 
+export const SupplierStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const
+
+export type SupplierStatus = (typeof SupplierStatus)[keyof typeof SupplierStatus]
+
+
 export const UserRole = {
   USER: 'USER',
   ADMIN: 'ADMIN'
