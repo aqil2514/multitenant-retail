@@ -14,6 +14,7 @@ export default function FinanceProfitLossTemplate({storeSlug}: Props){
     )
 }
 
+//TODO: Nanti ini dibikin orkestrasi untuk nampilin data cashflownya
 const InnerTemplate = ()=>{
     return(
         <>Test</>

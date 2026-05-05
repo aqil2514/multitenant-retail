@@ -1,10 +1,11 @@
 import { createResourceContext } from "@/context/create-resource-context";
-import { FinanceCashflowRespons } from "./interfaces/fc.interface";
+import { FinanceJournalsResponse } from "../finance-journals/interfaces/fj.interface";
+import { FinanceBalanceSheetResponse } from "../finance-balance-sheet/interfaces/fb.interfaces";
 
 export const { 
     Provider: FinanceCashflowsProvider,
     useData: useFinanceCashflows
-} = createResourceContext<FinanceCashflowRespons,{ storeSlug:string }>(
+} = createResourceContext<FinanceBalanceSheetResponse,{ storeSlug:string }>(
     ({storeSlug}) => [`${storeSlug}-finance-cashflows`],
     ({storeSlug}) => `${storeSlug}/finance/cashflows`,
 )

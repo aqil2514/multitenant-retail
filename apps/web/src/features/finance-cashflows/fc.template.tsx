@@ -16,6 +16,7 @@ export function FinanceCashflowTemplate({storeSlug}: Props){
     )
 }
 
+//TODO: Nanti ini dibikin orkestrasi untuk nampilin data cashflownya
 const InnerTemplate = ()=>{
     return(
         <h1>Test</h1>
