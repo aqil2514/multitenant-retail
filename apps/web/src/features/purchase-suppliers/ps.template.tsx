@@ -5,6 +5,9 @@ import { PageHeader } from "@/_shared/molecules/page-header";
 import { PurchaseSuppliersProvider } from "./ps.context";
 import { PurchaseSuppliersController } from "./controller/ps.controller";
 import { SupplierAddDialog } from "./dialogs/ps.add";
+import { PurchaseSupplierTable } from "./tables/ps.tables";
+import { SupplierEditDialog } from "./dialogs/ps.edit";
+import { SupplierDeleteDialog } from "./dialogs/ps.delete";
 
 interface Props {
   storeSlug: string;
@@ -27,9 +30,12 @@ const InnerTemplate = () => {
           description="Manage supplier anda di sini"
         />
         <PurchaseSuppliersController />
+        <PurchaseSupplierTable />
       </MainContainer>
 
       <SupplierAddDialog />
+      <SupplierEditDialog />
+      <SupplierDeleteDialog />
     </>
   );
 };

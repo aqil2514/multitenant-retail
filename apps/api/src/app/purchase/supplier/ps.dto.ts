@@ -7,6 +7,7 @@ import {
   IsEmail,
 } from 'class-validator';
 import { SupplierStatus } from 'prisma/generated/prisma/enums';
+import { ParsedFilter, transformFilter } from 'src/common/dto/filter.dto';
 
 const emptyToNull = () =>
   Transform(({ value }) => (value === '' ? null : value));
@@ -44,4 +45,18 @@ export class SupplierDto {
   @IsOptional()
   @emptyToNull()
   notes?: string | null;
+}
+
+export class PurchaseSupplierFilterDto {
+  @IsOptional()
+  @transformFilter('name')
+  name?: ParsedFilter;
+
+  @IsOptional()
+  @transformFilter('status')
+  status?: ParsedFilter;
+
+  @IsOptional()
+  @transformFilter('code')
+  code?: ParsedFilter;
 }

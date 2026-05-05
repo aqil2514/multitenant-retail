@@ -3,7 +3,7 @@
 import MainContainer from "@/_shared/containers/main-container";
 import { PageHeader } from "@/_shared/molecules/page-header";
 import { FinanceAccountsProvider } from "./fa.context";
-import { ProductListTable } from "./tables";
+import { ProductListTable } from "./tables/fa.tables";
 import { FinanceAccountsController } from "./controller";
 import { FinanceAccountsAddDialog } from "./dialogs/fa.add";
 import { FinanceAccountsEditDialog } from "./dialogs/fa.edit";
