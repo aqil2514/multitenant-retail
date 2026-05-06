@@ -18,6 +18,9 @@ import {
   PackageCheck,
   PackageMinus,
   CreditCard,
+  HandCoins,
+  Scale,
+  DollarSign,
 } from "lucide-react";
 
 export interface SidebarMenuItem {
@@ -130,6 +133,24 @@ export const SIDEBAR_MENU_ITEMS: SidebarMenuItem[] = [
         labelKey: "Buku Besar",
         href: "/finance/ledger",
         icon: BookOpen,
+      },
+      {
+        id: "cash-flow",
+        labelKey: "Arus Kas",
+        href: "/finance/cashflow",
+        icon: HandCoins,
+      },
+      {
+        id: "balance-sheet",
+        labelKey: "Neraca",
+        href: "/finance/balance",
+        icon: Scale,
+      },
+      {
+        id: "profit-and-loss",
+        labelKey: "Laba Rugi",
+        href: "/finance/profit-and-loss",
+        icon: DollarSign,
       },
     ],
   },
