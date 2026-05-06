@@ -1,7 +1,10 @@
 "use client"
 
+import MainContainer from "@/_shared/containers/main-container"
 import { FinanceAccountsProvider } from "../finance-accounts/fa.context"
 import { FinanceBalanceSheetProvider } from "./fb.context"
+import { PageHeader } from "@/_shared/molecules/page-header"
+import FinanceBalanceSheetController from "./controller"
 
 interface Props{
     storeSlug:string
@@ -20,6 +23,12 @@ export function FinanceBalanceSheetTemplate({storeSlug}: Props){
 //TODO: Nanti ini dibikin orkestrasi untuk nampilin data cashflownya
 const InnerTemplate = ()=>{
     return(
-        <h1>Test</h1>
+        <MainContainer>
+            <PageHeader
+            title="Neraca"
+            description="Lihat Neraca Keuangan anda di sini" />
+            <h1>Test</h1>
+            <FinanceBalanceSheetController />
+        </MainContainer>
     )
 }

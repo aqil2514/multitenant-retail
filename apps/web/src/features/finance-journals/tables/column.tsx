@@ -7,7 +7,7 @@ import { formatDate } from "@/_shared/utils/format-date";
 
 export function useFinanceJournalsColumn() {
   const { update } = useQueryState();
-
+  
   const columns = createActionColumn<JournalEntry>({
     columns: [
       {
